@@ -1,0 +1,81 @@
+/* Default styles */
+#add-book-form {
+    width: 80%;
+}
+
+#title,
+#author,
+#description,
+#cover_photo,
+#rating,
+#publish_date {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: 100%; /* Set width to 100% for all inputs */
+}
+
+/* Dark mode styles */
+html[data-bs-theme="dark"] #title,
+html[data-bs-theme="dark"] #author,
+html[data-bs-theme="dark"] #description,
+html[data-bs-theme="dark"] #cover_photo,
+html[data-bs-theme="dark"] #rating,
+html[data-bs-theme="dark"] #publish_date {
+    background-color: #fff;
+    color: #000;
+}
+
+#add-book-form {
+    width: 80%;
+}
+
+#book-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+/* Additional styles for rating and publish date */
+#rating-container {
+    display: flex;
+    gap: 1rem; /* Adjust the gap as needed */
+    align-items: center;
+}
+
+#rating,
+#publish_date {
+    width: 100%; /* Set width to 100% for rating and publish date inputs */
+    margin-bottom: 0; /* Remove bottom margin to avoid extra spacing */
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+#inside-rating-container{
+    width: 100%;
+}
+/* Media queries for responsiveness */
+@media screen and (max-width: 768px) {
+    #add-book-form {
+        width: 100%; /* Adjust width for smaller screens */
+    }
+}
+

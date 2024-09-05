@@ -1,0 +1,52 @@
+body {
+    background-image: url('https://wallpapers.com/images/featured/bamboo-4k-t1sy8zcglttc4f1u.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+#shadow{
+    background-color: black;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.5;
+}
+
+#centered-container {
+    background-color: #212121; /* Darker container background color */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; /* Adjusted width for responsiveness */
+    max-width: 400px; /* Maximum width for large screens */
+    border-radius: 10px;
+    padding: 20px; /* Added padding */
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75); /* Added box shadow */
+}
+
+#logo {
+    width: 100%;
+    max-width: 200px; /* Limiting logo size */
+    height: auto;
+    display: block; /* Center logo */
+    margin: 0 auto 20px auto; /* Center logo vertically and add space */
+}
+
+.form-label {
+    color: #ffffff; /* Light text color for labels */
+}
+
+.form-control {
+    background-color: #424242; /* Darker input background color */
+    color: #ffffff; /* Light text color for inputs */
+}
+
+.btn {
+    width: 50%;
+}

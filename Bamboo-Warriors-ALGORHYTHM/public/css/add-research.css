@@ -1,0 +1,67 @@
+#title,
+#author,
+#abstract,
+#introduction,
+#results,
+#conclusion {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: 100%;
+}
+
+/* Dark mode styles */
+html[data-bs-theme="dark"] #title,
+html[data-bs-theme="dark"] #author,
+html[data-bs-theme="dark"] #abstract,
+html[data-bs-theme="dark"] #introduction,
+html[data-bs-theme="dark"] #results,
+html[data-bs-theme="dark"] #conclusion {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Center and fill the entire card */
+#research-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    #title,
+    #author,
+    #abstract,
+    #introduction,
+    #results,
+    #conclusion {
+        width: calc(100% - 1rem); /* Adjust width for smaller screens */
+        margin-right: 0.5rem;
+    }
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+#add-research-form{
+    width: 80%;
+ }
+ 
