@@ -15,9 +15,8 @@ class Book extends Model
         'description',
         'rating',
         'publish_date',
-        'cover_photo',
+        'file',
     ];
 
-    // Other model methods and relationships
-
+   
 }

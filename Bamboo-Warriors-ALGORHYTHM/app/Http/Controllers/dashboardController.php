@@ -44,7 +44,7 @@ class dashboardController extends Controller
             'description' => 'required|string',
             'rating' => 'required|integer|between:1,5',
             'publish_date' => 'required|date',
-            'cover_photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'file' => 'required|file|mimes:pdf,doc,docx,epub|max:2048', // Corrected validation rule
         ]);
 
         if ($validator->fails()) {
@@ -58,17 +58,18 @@ class dashboardController extends Controller
         $book->rating = $request->input('rating');
         $book->publish_date = $request->input('publish_date');
 
-        if ($request->hasFile('cover_photo')) {
-            $file = $request->file('cover_photo');
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/images/uploaded_books', $filename);
-            $book->cover_photo = $path;
+            $path = $file->storeAs('public/files/books/', $filename);
+            $book->file = $path;
         }
 
         $book->save();
 
         return redirect()->route('book')->with('success', 'Book added successfully!');
     }
+
 
     public function updateBook(Request $request, $id)
     {
@@ -80,7 +81,7 @@ class dashboardController extends Controller
             'description' => 'required|string',
             'rating' => 'required|integer|between:1,5',
             'publish_date' => 'required|date',
-            'cover_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,epub|max:2048', // Corrected validation rule
         ]);
 
         if ($validator->fails()) {
@@ -93,21 +94,24 @@ class dashboardController extends Controller
         $book->rating = $request->input('rating');
         $book->publish_date = $request->input('publish_date');
 
-        if ($request->hasFile('cover_photo')) {
-            if (Storage::exists($book->cover_photo)) {
-                Storage::delete($book->cover_photo);
+        if ($request->hasFile('file')) { // Consistent with the 'file' field
+            // Delete old file if exists
+            if ($book->file && Storage::exists($book->file)) {
+                Storage::delete($book->file);
             }
 
-            $file = $request->file('cover_photo');
+            $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/images/uploaded_books', $filename);
-            $book->cover_photo = $path;
+            $path = $file->storeAs('public/files/books/', $filename);
+            $book->file = $path;
         }
 
         $book->save();
 
         return redirect()->route('book')->with('success', 'Book updated successfully!');
     }
+
+
 
     // Research views and actions
     public function research()
@@ -130,26 +134,29 @@ class dashboardController extends Controller
     public function uploadResearch(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            // Add validators for research forms
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
         if ($validator->fails()) {
             return redirect()->route('add-research')->withErrors($validator)->withInput();
         }
 
+        $research = new Research();
+        $research->title = $request->input('title');
+        $research->description = $request->input('description');
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/images/uploaded_researches', $filename);
-
-            $research = new Research();
-            $research->path = $path;
-            // Add input for research forms
-            $research->save();
-
-            return redirect()->route('research')->with('success', 'Research added successfully!');
+            $path = $file->storeAs('public/files/researches', $filename);
+            $research->file_path = $path;
         }
-        return redirect()->route('add-research')->with('error', 'Failed to upload research.');
+
+        $research->save();
+
+        return redirect()->route('research')->with('success', 'Research added successfully!');
     }
 
     public function updateResearch(Request $request, $id)
@@ -157,30 +164,32 @@ class dashboardController extends Controller
         $research = Research::find($id);
 
         $validator = Validator::make($request->all(), [
-            // Add validators for research forms
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
         if ($validator->fails()) {
             return redirect()->route('edit-research', $id)->withErrors($validator)->withInput();
         }
 
+        $research->title = $request->input('title');
+        $research->description = $request->input('description');
+
         if ($request->hasFile('file')) {
-            if (Storage::exists($research->path)) {
-                Storage::delete($research->path);
+            if (Storage::exists($research->file_path)) {
+                Storage::delete($research->file_path);
             }
 
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/images/uploaded_researches', $filename);
-
-            $research->path = $path;
-            // Update research details
-            $research->save();
-
-            return redirect()->route('research')->with('success', 'Research updated successfully!');
+            $path = $file->storeAs('public/files/researches', $filename);
+            $research->file_path = $path;
         }
 
-        return redirect()->route('edit-research', $id)->with('error', 'Failed to update research.');
+        $research->save();
+
+        return redirect()->route('research')->with('success', 'Research updated successfully!');
     }
 
     // Video views and actions
@@ -204,26 +213,29 @@ class dashboardController extends Controller
     public function uploadVideo(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            // Add validators for video forms
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'file' => 'required|file|mimes:mp4,mov,avi|max:10240',
         ]);
 
         if ($validator->fails()) {
             return redirect()->route('add-video')->withErrors($validator)->withInput();
         }
 
+        $video = new Video();
+        $video->title = $request->input('title');
+        $video->description = $request->input('description');
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/images/uploaded_videos', $filename);
-
-            $video = new Video();
-            $video->path = $path;
-            // Add input for video forms
-            $video->save();
-
-            return redirect()->route('video')->with('success', 'Video added successfully!');
+            $path = $file->storeAs('public/videos', $filename);
+            $video->file_path = $path;
         }
-        return redirect()->route('add-video')->with('error', 'Failed to upload video.');
+
+        $video->save();
+
+        return redirect()->route('video')->with('success', 'Video added successfully!');
     }
 
     public function updateVideo(Request $request, $id)
@@ -231,30 +243,32 @@ class dashboardController extends Controller
         $video = Video::find($id);
 
         $validator = Validator::make($request->all(), [
-            // Add validators for video forms
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'file' => 'nullable|file|mimes:mp4,mov,avi|max:10240',
         ]);
 
         if ($validator->fails()) {
             return redirect()->route('edit-video', $id)->withErrors($validator)->withInput();
         }
 
+        $video->title = $request->input('title');
+        $video->description = $request->input('description');
+
         if ($request->hasFile('file')) {
-            if (Storage::exists($video->path)) {
-                Storage::delete($video->path);
+            if (Storage::exists($video->file_path)) {
+                Storage::delete($video->file_path);
             }
 
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/images/uploaded_videos', $filename);
-
-            $video->path = $path;
-            // Update video details
-            $video->save();
-
-            return redirect()->route('video')->with('success', 'Video updated successfully!');
+            $path = $file->storeAs('public/videos', $filename);
+            $video->file_path = $path;
         }
 
-        return redirect()->route('edit-video', $id)->with('error', 'Failed to update video.');
+        $video->save();
+
+        return redirect()->route('video')->with('success', 'Video updated successfully!');
     }
 
     // Article views and actions
@@ -278,26 +292,29 @@ class dashboardController extends Controller
     public function uploadArticle(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            // Add validators for article forms
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
         if ($validator->fails()) {
             return redirect()->route('add-article')->withErrors($validator)->withInput();
         }
 
+        $article = new Article();
+        $article->title = $request->input('title');
+        $article->description = $request->input('description');
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/images/uploaded_articles', $filename);
-
-            $article = new Article();
-            $article->path = $path;
-            // Add input for article forms
-            $article->save();
-
-            return redirect()->route('article')->with('success', 'Article added successfully!');
+            $path = $file->storeAs('public/files/articles', $filename);
+            $article->file_path = $path;
         }
-        return redirect()->route('add-article')->with('error', 'Failed to upload article.');
+
+        $article->save();
+
+        return redirect()->route('article')->with('success', 'Article added successfully!');
     }
 
     public function updateArticle(Request $request, $id)
@@ -305,29 +322,31 @@ class dashboardController extends Controller
         $article = Article::find($id);
 
         $validator = Validator::make($request->all(), [
-            // Add validators for article forms
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
         if ($validator->fails()) {
             return redirect()->route('edit-article', $id)->withErrors($validator)->withInput();
         }
 
+        $article->title = $request->input('title');
+        $article->description = $request->input('description');
+
         if ($request->hasFile('file')) {
-            if (Storage::exists($article->path)) {
-                Storage::delete($article->path);
+            if (Storage::exists($article->file_path)) {
+                Storage::delete($article->file_path);
             }
 
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/images/uploaded_articles', $filename);
-
-            $article->path = $path;
-            // Update article details
-            $article->save();
-
-            return redirect()->route('article')->with('success', 'Article updated successfully!');
+            $path = $file->storeAs('public/files/articles', $filename);
+            $article->file_path = $path;
         }
 
-        return redirect()->route('edit-article', $id)->with('error', 'Failed to update article.');
+        $article->save();
+
+        return redirect()->route('article')->with('success', 'Article updated successfully!');
     }
 }

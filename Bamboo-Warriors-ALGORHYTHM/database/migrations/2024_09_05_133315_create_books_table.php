@@ -20,7 +20,8 @@ class CreateBooksTable extends Migration
             $table->text('description'); // Description of the book
             $table->integer('rating')->unsigned(); // Rating (1-5)
             $table->date('publish_date'); // Date of publication
-            $table->string('cover_photo')->nullable(); // Path to cover photo
+            $table->string('file')->nullable(); // Path to uploaded file
+            $table->enum('visibility', ['public', 'members_only'])->default('public'); // Visibility field
             $table->timestamps(); // Created and updated timestamps
         });
     }

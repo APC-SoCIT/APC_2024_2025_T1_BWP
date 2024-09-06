@@ -12,7 +12,7 @@
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
-                        <a href="{{route('dashboard')}}" class="sidebar-link">
+                        <a href="{{ route('dashboard') }}" class="sidebar-link">
                             <i class="fa-solid fa-list pe-2"></i>
                             Dashboard
                         </a>
@@ -24,10 +24,10 @@
                         </a>
                         <ul id="books" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="{{route('book')}}" class="sidebar-link">Your Book List</a>
+                                <a href="{{ route('book') }}" class="sidebar-link">Your Book List</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{route('add-book')}}" class="sidebar-link">Add Book</a>
+                                <a href="{{ route('add-book') }}" class="sidebar-link">Add Book</a>
                             </li>
                         </ul>
                     </li>
@@ -38,10 +38,10 @@
                         </a>
                         <ul id="research" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="{{route('research')}}" class="sidebar-link">Your Research Paper List</a>
+                                <a href="{{ route('research') }}" class="sidebar-link">Your Research Paper List</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{route('add-research')}}" class="sidebar-link">Add Research Paper</a>
+                                <a href="{{ route('add-research') }}" class="sidebar-link">Add Research Paper</a>
                             </li>
                         </ul>
                     </li>
@@ -52,23 +52,24 @@
                         </a>
                         <ul id="videos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="{{route('video')}}" class="sidebar-link">Your Video List</a>
+                                <a href="{{ route('video') }}" class="sidebar-link">Your Video List</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{route('add-video')}}" class="sidebar-link">Add Video</a>
+                                <a href="{{ route('add-video') }}" class="sidebar-link">Add Video</a>
                             </li>
                         </ul>
-                    </li><li class="sidebar-item">
+                    </li>
+                    <li class="sidebar-item">
                         <a href="#" class="sidebar-link collapsed" data-bs-target="#articles" data-bs-toggle="collapse"
                             aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
                             Articles
                         </a>
                         <ul id="articles" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="{{route('article')}}" class="sidebar-link">Your Article List</a>
+                                <a href="{{ route('article') }}" class="sidebar-link">Your Article List</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{route('add-article')}}" class="sidebar-link">Add Article</a>
+                                <a href="{{ route('add-article') }}" class="sidebar-link">Add Article</a>
                             </li>
                         </ul>
                     </li>
@@ -87,7 +88,7 @@
                                 <h6 class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></h6>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{route('logout')}}" class="dropdown-item">Logout</a>
+                                <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -133,8 +134,15 @@
                                     <input type="date" class="form-control" id="publish_date" name="publish_date" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cover_photo" class="form-label">Cover Photo</label>
-                                    <input type="file" class="form-control" id="cover_photo" name="cover_photo" accept="image/*" required>
+                                    <label for="file" class="form-label">File</label>
+                                    <input type="file" class="form-control" id="file" name="file" accept=".pdf,.doc,.docx,.epub" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="access_type" class="form-label">Access Type</label>
+                                    <select class="form-select" id="access_type" name="access_type" required>
+                                        <option value="public">Public</option>
+                                        <option value="members_only">Members Only</option>
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </form>

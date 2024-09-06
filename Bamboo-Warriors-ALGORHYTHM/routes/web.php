@@ -28,8 +28,8 @@ Route::post('/login', [AuthManager::class, 'loginPost'])->name('login.post');
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 
 // Route for registration
-Route::get('/registration', [AuthManager::class, 'registration'])->name('registration')->middleware('notAdmin');
-Route::post('/registration', [AuthManager::class, 'registrationPost'])->name('registration.post')->middleware('notAdmin');
+Route::get('/registration', [AuthManager::class, 'registration'])->name('registration');
+Route::post('/registration', [AuthManager::class, 'registrationPost'])->name('registration.post');
 
 // Route for dashboard
 Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('dashboard')->middleware('notAdmin');
