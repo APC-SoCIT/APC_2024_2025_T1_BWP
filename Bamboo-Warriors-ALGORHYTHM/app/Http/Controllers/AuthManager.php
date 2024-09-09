@@ -32,14 +32,18 @@ class AuthManager extends Controller
     }
     function registrationPost(Request $request){
         $request->validate([
-            'username'=>'required',
-            'password'=>'required'
+            'username' => 'required',
+            'password' => 'required',
+            'account_type' => 'required|in:member,admin', // Ensure valid account type
         ]);
 
-        $data['username'] = $request->username;
-        $data['password'] = Hash::make($request->password);
+        $data = [
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+            'account_type' => $request->account_type // Include account type
+        ];
 
-        $user = User::create($data);
+        User::create($data);
 
         return redirect()->route('login');
     }

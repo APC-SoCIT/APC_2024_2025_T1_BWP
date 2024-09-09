@@ -106,27 +106,63 @@
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                            <a href="#" data-bs-toggle="dropdown" class="flex-fill pe-md-0" id="user-link">
-                                <h6 class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></h6>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{route('logout')}}" class="dropdown-item">Logout</a>
-                            </div>
+                            @auth
+                                <a href="#" data-bs-toggle="dropdown" class="flex-fill pe-md-0" id="user-link">
+                                    <h6 class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></h6>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
+                                </div>
+                            @else
+                                <a href="{{ route('login') }}" class="flex-fill pe-md-0">
+                                    <h6 class="text-muted"><b>Login</b></h6>
+                                </a>
+                            @endauth
                         </li>
                     </ul>
                 </div>
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
-                    <!-- Table Element -->
+                    <div class="mb-3">
+                        <h4>Members-Only Content</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6 d-flex">
+                            <div class="card flex-fill border-0">
+                                <div class="d-flex align-items-start">
+                                    <div class="col-12">
+                                        <div class="p-3 m-1">
+                                            @auth
+                                                <h4>Exclusive Content for You, {{ ucfirst(auth()->user()->username) }}</h4>
+                                            @else
+                                                <h4>Welcome to the Members-Only Section</h4>
+                                            @endauth
+                                            <p class="mb-0">This section contains exclusive content only available to members. Enjoy your access!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Content Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Research Table
-                            <h6><p class="text-muted">List of all your uploaded researches.</p></h6>
+                                Latest Updates
+                                <h6><p class="text-muted">For our valued members only</p></h6>
                             </h5>
                         </div>
                         <div class="card-body container-fluid">
+                            <div class="text-container card-subtitle pic-container">
+                                <img id="members-only-pic" src="https://via.placeholder.com/150">
+                            </div>
+                            <div class="text-container card-subtitle p-5 card-description">
+                                <p><h5>Exclusive Content</h5></p>
+                                <h6 class="card-subtitle p-3 container-fluid">
+                                    <p>As a member, you have access to exclusive content that enhances your experience with our platform. Stay tuned for updates and new features!</p>
+                                </h6>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,7 +203,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/dashboard.js')}}"></script>
-    <script src="{{ asset('js/status.js')}}"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+
 </body>
 @endsection

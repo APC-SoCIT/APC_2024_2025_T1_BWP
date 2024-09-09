@@ -12,66 +12,90 @@
                 </div>
                 <ul class="sidebar-nav">
                     <li class="sidebar-item">
-                        <a href="{{route('dashboard')}}" class="sidebar-link">
+                        <a href="{{ route('dashboard') }}" class="sidebar-link">
                             <i class="fa-solid fa-list pe-2"></i>
                             Dashboard
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#researchs" data-bs-toggle="collapse"
-                            aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                            Books
-                        </a>
-                        <ul id="researchs" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    @auth
+                        <!-- Admin and Member Menu -->
+                        @if(auth()->user()->account_type === 'admin' || auth()->user()->account_type === 'member')
                             <li class="sidebar-item">
-                                <a href="{{route('book')}}" class="sidebar-link">Your Book List</a>
+                                <a href="{{ route('members-only') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-lock pe-2"></i>
+                                    Members Only
+                                </a>
+                            </li>
+                        @endif
+
+                        @if(auth()->user()->account_type === 'admin')
+                            <!-- Admin Menu -->
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#books" data-bs-toggle="collapse"
+                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                    Books
+                                </a>
+                                <ul id="books" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('book') }}" class="sidebar-link">Your Book List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-book') }}" class="sidebar-link">Add Book</a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{route('add-book')}}" class="sidebar-link">Add Book</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#research" data-bs-toggle="collapse"
-                            aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                            Research Papers
-                        </a>
-                        <ul id="research" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="{{route('research')}}" class="sidebar-link">Your Research Paper List</a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="{{route('add-research')}}" class="sidebar-link">Add Research Paper</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#videos" data-bs-toggle="collapse"
-                            aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                            Videos
-                        </a>
-                        <ul id="videos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                            <li class="sidebar-item">
-                                <a href="{{route('video')}}" class="sidebar-link">Your Video List</a>
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#research" data-bs-toggle="collapse"
+                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                    Research Papers
+                                </a>
+                                <ul id="research" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('research') }}" class="sidebar-link">Your Research Paper List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-research') }}" class="sidebar-link">Add Research Paper</a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{route('add-video')}}" class="sidebar-link">Add Video</a>
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#videos" data-bs-toggle="collapse"
+                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                    Videos
+                                </a>
+                                <ul id="videos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('video') }}" class="sidebar-link">Your Video List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-video') }}" class="sidebar-link">Add Video</a>
+                                    </li>
+                                </ul>
                             </li>
-                        </ul>
-                    </li><li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#articles" data-bs-toggle="collapse"
-                            aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                            Articles
-                        </a>
-                        <ul id="articles" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li class="sidebar-item">
-                                <a href="{{route('article')}}" class="sidebar-link">Your Article List</a>
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#articles" data-bs-toggle="collapse"
+                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                    Articles
+                                </a>
+                                <ul id="articles" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('article') }}" class="sidebar-link">Your Article List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-article') }}" class="sidebar-link">Add Article</a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="sidebar-item">
-                                <a href="{{route('add-article')}}" class="sidebar-link">Add Article</a>
-                            </li>
-                        </ul>
-                    </li>
+                        @endif
+                    @else
+                        <!-- Guest Menu -->
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#guestModal">
+                                <i class="fa-solid fa-lock pe-2"></i>
+                                Members Only
+                            </a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </aside>

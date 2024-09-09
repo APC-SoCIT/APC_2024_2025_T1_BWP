@@ -13,31 +13,15 @@ body {
     height: 100vh;
 }
 
-#shadow {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-#centered-container {
+#registration {
     background-color: rgba(33, 33, 33, 0.9); /* Slightly transparent background for better contrast */
-    position: relative;
     width: 90%;
     max-width: 400px;
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Softer shadow effect */
     text-align: center; /* Center text alignment */
-}
-
-#logo {
-    width: 150px;
-    height: auto;
-    margin-bottom: 20px;
+    margin: auto; /* Center the form horizontally */
 }
 
 .form-label {
@@ -76,40 +60,22 @@ body {
     transform: scale(1.05); /* Slight scaling effect */
 }
 
-.btn-secondary {
-    background-color: #757575; /* Grey background */
-    color: #ffffff;
+/* Styling for the login link */
+.login-link {
+    color: #4CAF50; /* Green color for the link */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold font for better visibility */
 }
 
-.btn-secondary:hover {
-    background-color: #616161; /* Darker grey on hover */
-    transform: scale(1.05); /* Slight scaling effect */
+.login-link:hover {
+    text-decoration: underline; /* Underline on hover */
 }
 
-.btn-primary {
-    background-color: #007bff; /* Blue background */
-    color: #ffffff;
+/* Ensures proper spacing between elements */
+.mb-3 {
+    margin-bottom: 20px;
 }
 
-.btn-primary:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: scale(1.05); /* Slight scaling effect */
-}
-
-.button-group {
-    display: flex;
-    justify-content: space-between; /* Distribute buttons to edges */
-    margin-top: 20px; /* Margin to separate buttons from form */
-}
-
-.button-group a {
-    display: inline-block;
-    width: calc(50% - 10px); /* Smaller width for buttons */
-    padding: 10px;
-    font-size: 0.9rem; /* Smaller font size for buttons */
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    color: #ffffff;
-    font-weight: bold;
+.mt-3 {
+    margin-top: 20px;
 }

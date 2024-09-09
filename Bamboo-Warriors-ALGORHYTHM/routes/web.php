@@ -2,62 +2,61 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
-use App\Http\Controllers\{
-    dashboardController,
-    HomeController
-};
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MembersOnlyController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::get('/', [HomeController::class, 'index'])->name('index');
+// Home routes
+Route::get('/', function() {
+    return auth()->check() ? redirect()->route('dashboard') : view('dashboard');
+})->name('home');
 Route::get('donate-form', [HomeController::class, 'index'])->name('donate.index');
 Route::post('donate-store', [HomeController::class, 'store'])->name('store.index');
 
-// Route for log-in
-Route::get('/login', [AuthManager::class, 'login'])->name('login')->middleware('admin');
+// Authentication routes
+Route::get('/login', [AuthManager::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [AuthManager::class, 'loginPost'])->name('login.post');
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 
-// Route for registration
-Route::get('/registration', [AuthManager::class, 'registration'])->name('registration');
+// Registration routes
+Route::get('/registration', [AuthManager::class, 'registration'])->name('registration')->middleware('guest');
 Route::post('/registration', [AuthManager::class, 'registrationPost'])->name('registration.post');
 
-// Route for dashboard
-Route::get('/dashboard', [dashboardController::class, 'dashboard'])->name('dashboard')->middleware('notAdmin');
+// Routes for non-authenticated and authenticated users (dashboard view)
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-// Route for book
-Route::get('/book', [dashboardController::class, 'book'])->name('book')->middleware('notAdmin');
-Route::get('/add-book', [dashboardController::class, 'addBook'])->name('add-book')->middleware('notAdmin');
-Route::get('/update-book/{id}', [dashboardController::class, 'editBook'])->name('edit-book')->middleware('notAdmin');
-Route::post('/add-book', [dashboardController::class, 'uploadBook'])->name('upload-book')->middleware('notAdmin');
-Route::put('/update-book/{id}', [dashboardController::class, 'updateBook'])->name('update-book')->middleware('notAdmin');
+// Routes for members only
+Route::middleware(['auth', 'member'])->group(function () {
+    Route::get('/members-only', [MembersOnlyController::class, 'index'])->name('members-only');
+});
 
-// Route for research
-Route::get('/research', [dashboardController::class, 'research'])->name('research')->middleware('notAdmin');
-Route::get('/add-research', [dashboardController::class, 'addResearch'])->name('add-research')->middleware('notAdmin');
-Route::get('/update-research/{id}', [dashboardController::class, 'editResearch'])->name('edit-research')->middleware('notAdmin');
-Route::post('/add-research', [dashboardController::class, 'uploadResearch'])->name('upload-research')->middleware('notAdmin');
-Route::put('/update-research/{id}', [dashboardController::class, 'updateResearch'])->name('update-research')->middleware('notAdmin');
+// Routes for admin users only
+Route::middleware(['auth', 'admin'])->group(function () {
+    // Book routes
+    Route::get('/book', [DashboardController::class, 'book'])->name('book');
+    Route::get('/add-book', [DashboardController::class, 'addBook'])->name('add-book');
+    Route::get('/update-book/{id}', [DashboardController::class, 'editBook'])->name('edit-book');
+    Route::post('/add-book', [DashboardController::class, 'uploadBook'])->name('upload-book');
+    Route::put('/update-book/{id}', [DashboardController::class, 'updateBook'])->name('update-book');
 
-// Route for video
-Route::get('/video', [dashboardController::class, 'video'])->name('video')->middleware('notAdmin');
-Route::get('/add-video', [dashboardController::class, 'addVideo'])->name('add-video')->middleware('notAdmin');
-Route::get('/update-video/{id}', [dashboardController::class, 'editVideo'])->name('edit-video')->middleware('notAdmin');
-Route::post('/add-video', [dashboardController::class, 'uploadVideo'])->name('upload-video')->middleware('notAdmin');
-Route::put('/update-video/{id}', [dashboardController::class, 'updateVideo'])->name('update-video')->middleware('notAdmin');
+    // Research routes
+    Route::get('/research', [DashboardController::class, 'research'])->name('research');
+    Route::get('/add-research', [DashboardController::class, 'addResearch'])->name('add-research');
+    Route::get('/update-research/{id}', [DashboardController::class, 'editResearch'])->name('edit-research');
+    Route::post('/add-research', [DashboardController::class, 'uploadResearch'])->name('upload-research');
+    Route::put('/update-research/{id}', [DashboardController::class, 'updateResearch'])->name('update-research');
 
-// Route for article
-Route::get('/article', [dashboardController::class, 'article'])->name('article')->middleware('notAdmin');
-Route::get('/add-article', [dashboardController::class, 'addArticle'])->name('add-article')->middleware('notAdmin');
-Route::get('/update-article/{id}', [dashboardController::class, 'editArticle'])->name('edit-article')->middleware('notAdmin');
-Route::post('/add-article', [dashboardController::class, 'uploadArticle'])->name('upload-article')->middleware('notAdmin');
-Route::put('/update-article/{id}', [dashboardController::class, 'updateArticle'])->name('update-article')->middleware('notAdmin');
+    // Video routes
+    Route::get('/video', [DashboardController::class, 'video'])->name('video');
+    Route::get('/add-video', [DashboardController::class, 'addVideo'])->name('add-video');
+    Route::get('/update-video/{id}', [DashboardController::class, 'editVideo'])->name('edit-video');
+    Route::post('/add-video', [DashboardController::class, 'uploadVideo'])->name('upload-video');
+    Route::put('/update-video/{id}', [DashboardController::class, 'updateVideo'])->name('update-video');
+
+    // Article routes
+    Route::get('/article', [DashboardController::class, 'article'])->name('article');
+    Route::get('/add-article', [DashboardController::class, 'addArticle'])->name('add-article');
+    Route::get('/update-article/{id}', [DashboardController::class, 'editArticle'])->name('edit-article');
+    Route::post('/add-article', [DashboardController::class, 'uploadArticle'])->name('upload-article');
+    Route::put('/update-article/{id}', [DashboardController::class, 'updateArticle'])->name('update-article');
+});
