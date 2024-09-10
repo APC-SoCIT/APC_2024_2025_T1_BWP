@@ -10,7 +10,7 @@ use App\Models\Video;
 use App\Models\Article;
 use Illuminate\Support\Facades\Storage;
 
-class dashboardController extends Controller
+class DashboardController extends Controller
 {
     // Dashboard view
     public function dashboard()
@@ -44,7 +44,7 @@ class dashboardController extends Controller
             'description' => 'required|string',
             'rating' => 'required|integer|between:1,5',
             'publish_date' => 'required|date',
-            'file' => 'required|file|mimes:pdf,doc,docx,epub|max:2048', // Corrected validation rule
+            'file' => 'required|file|mimes:pdf,doc,docx,epub|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -61,7 +61,7 @@ class dashboardController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/files/books/', $filename);
+            $path = $file->storeAs('public/files/books', $filename); // Corrected path
             $book->file = $path;
         }
 
@@ -69,7 +69,6 @@ class dashboardController extends Controller
 
         return redirect()->route('book')->with('success', 'Book added successfully!');
     }
-
 
     public function updateBook(Request $request, $id)
     {
@@ -81,7 +80,7 @@ class dashboardController extends Controller
             'description' => 'required|string',
             'rating' => 'required|integer|between:1,5',
             'publish_date' => 'required|date',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,epub|max:2048', // Corrected validation rule
+            'file' => 'nullable|file|mimes:pdf,doc,docx,epub|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -94,7 +93,7 @@ class dashboardController extends Controller
         $book->rating = $request->input('rating');
         $book->publish_date = $request->input('publish_date');
 
-        if ($request->hasFile('file')) { // Consistent with the 'file' field
+        if ($request->hasFile('file')) {
             // Delete old file if exists
             if ($book->file && Storage::exists($book->file)) {
                 Storage::delete($book->file);
@@ -102,7 +101,7 @@ class dashboardController extends Controller
 
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/files/books/', $filename);
+            $path = $file->storeAs('public/files/books', $filename); // Corrected path
             $book->file = $path;
         }
 
@@ -110,8 +109,6 @@ class dashboardController extends Controller
 
         return redirect()->route('book')->with('success', 'Book updated successfully!');
     }
-
-
 
     // Research views and actions
     public function research()
@@ -150,7 +147,7 @@ class dashboardController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/files/researches', $filename);
+            $path = $file->storeAs('public/files/researches', $filename); // Corrected path
             $research->file_path = $path;
         }
 
@@ -183,7 +180,7 @@ class dashboardController extends Controller
 
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/files/researches', $filename);
+            $path = $file->storeAs('public/files/researches', $filename); // Corrected path
             $research->file_path = $path;
         }
 
@@ -229,7 +226,7 @@ class dashboardController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/videos', $filename);
+            $path = $file->storeAs('public/videos', $filename); // Corrected path
             $video->file_path = $path;
         }
 
@@ -262,7 +259,7 @@ class dashboardController extends Controller
 
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/videos', $filename);
+            $path = $file->storeAs('public/videos', $filename); // Corrected path
             $video->file_path = $path;
         }
 
@@ -293,8 +290,9 @@ class dashboardController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            'author' => 'required|string|max:255',
+            'content' => 'required|string',
+            'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -303,12 +301,13 @@ class dashboardController extends Controller
 
         $article = new Article();
         $article->title = $request->input('title');
-        $article->description = $request->input('description');
+        $article->author = $request->input('author');
+        $article->content = $request->input('content');
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/files/articles', $filename);
+            $path = $file->storeAs('public/files/articles', $filename); // Corrected path
             $article->file_path = $path;
         }
 
@@ -323,7 +322,8 @@ class dashboardController extends Controller
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'author' => 'required|string|max:255',
+            'content' => 'required|string',
             'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
@@ -332,7 +332,8 @@ class dashboardController extends Controller
         }
 
         $article->title = $request->input('title');
-        $article->description = $request->input('description');
+        $article->author = $request->input('author');
+        $article->content = $request->input('content');
 
         if ($request->hasFile('file')) {
             if (Storage::exists($article->file_path)) {
@@ -341,7 +342,7 @@ class dashboardController extends Controller
 
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/files/articles', $filename);
+            $path = $file->storeAs('public/files/articles', $filename); // Corrected path
             $article->file_path = $path;
         }
 

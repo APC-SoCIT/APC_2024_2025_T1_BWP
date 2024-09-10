@@ -67,4 +67,13 @@ class Kernel extends HttpKernel
         'notAdmin'=>\App\Http\Middleware\NotAdmin::class,
         'admin' =>\App\Http\Middleware\Admin::class,
     ];
+
+    protected $routeMiddleware = [
+        // other middleware
+        'member' => \App\Http\Middleware\Member::class,
+        'admin' => \App\Http\Middleware\Admin::class,
+    ];
+
+
+
 }
