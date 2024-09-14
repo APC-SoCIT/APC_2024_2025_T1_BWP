@@ -1,0 +1,60 @@
+/* Default styles */
+#add-video-form {
+    width: 80%;
+}
+
+#title,
+#description,
+#video,
+#cover_photo{
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: 100%; /* Set width to 100% for all inputs */
+}
+
+/* Dark mode styles */
+html[data-bs-theme="dark"] #title,
+html[data-bs-theme="dark"] #description,
+html[data-bs-theme="dark"] #video,
+html[data-bs-theme="dark"] #cover_photo{
+    background-color: #fff;
+    color: #000;
+}
+
+#add-article-form {
+    width: 80%;
+}
+
+#video-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+/* Media queries for responsiveness */
+@media screen and (max-width: 768px) {
+    #add-video-form {
+        width: 100%; /* Adjust width for smaller screens */
+    }
+}
