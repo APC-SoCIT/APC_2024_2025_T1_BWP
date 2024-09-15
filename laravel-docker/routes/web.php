@@ -5,6 +5,10 @@ use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MembersOnlyController;
+use Illuminate\Support\Facades\URL;
+
+$url = config('app.url');
+URL::forceRootUrl($url);
 
 // Home routes
 Route::get('/', function() {
