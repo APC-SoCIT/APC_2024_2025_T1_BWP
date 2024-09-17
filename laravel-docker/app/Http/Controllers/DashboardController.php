@@ -44,7 +44,7 @@ class DashboardController extends Controller
             'description' => 'required|string',
             'rating' => 'required|integer|between:1,5',
             'publish_date' => 'required|date',
-            'file' => 'required|file|mimes:pdf,doc,docx,epub|max:2048',
+            'file' => 'required|file|mimes:pdf,doc,docx,epub|max:102400',
         ]);
 
         if ($validator->fails()) {
@@ -61,7 +61,7 @@ class DashboardController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/files/books', $filename); // Corrected path
+            $path = $file->storeAs('files/books', $filename, 'public'); // Corrected path
             $book->file = $path;
         }
 
@@ -80,7 +80,7 @@ class DashboardController extends Controller
             'description' => 'required|string',
             'rating' => 'required|integer|between:1,5',
             'publish_date' => 'required|date',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,epub|max:2048',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,epub|max:102400',
         ]);
 
         if ($validator->fails()) {
@@ -101,7 +101,7 @@ class DashboardController extends Controller
 
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/files/books', $filename); // Corrected path
+            $path = $file->storeAs('files/books', $filename, 'public'); // Corrected path
             $book->file = $path;
         }
 
