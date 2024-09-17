@@ -55,4 +55,12 @@ class User extends Authenticatable
     {
         return $value; // Add any specific logic here if needed
     }
+
+    /**
+     * Get the books for the user.
+     */
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
 }

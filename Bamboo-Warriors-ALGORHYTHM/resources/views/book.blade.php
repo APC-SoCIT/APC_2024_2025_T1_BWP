@@ -100,7 +100,21 @@
         </aside>
         <div class="main">
             <nav class="navbar navbar-expand px-3 border-bottom">
-                <!-- Navbar Content Here -->
+                <button class="btn" id="sidebar-toggle" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse navbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a href="#" data-bs-toggle="dropdown" class="flex-fill pe-md-0" id="user-link">
+                                <h6 class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></h6>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
@@ -117,10 +131,12 @@
                                     <tr>
                                         <th scope="col">Title</th>
                                         <th scope="col">Author</th>
+                                        <th scope="col">ISBN</th>
                                         <th scope="col">Rating</th>
                                         <th scope="col">Description</th>
                                         <th scope="col">Published Date</th>
                                         <th scope="col">File</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -128,6 +144,7 @@
                                         <tr>
                                             <td>{{ $book->title }}</td>
                                             <td>{{ $book->author }}</td>
+                                            <td>{{ $book->isbn }}</td>
                                             <td>{{ $book->rating }}</td>
                                             <td>{{ $book->description }}</td>
                                             <td>{{ $book->publish_date }}</td>
@@ -137,6 +154,13 @@
                                                 @else
                                                     No file available
                                                 @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('delete-book', $book->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this book?')">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

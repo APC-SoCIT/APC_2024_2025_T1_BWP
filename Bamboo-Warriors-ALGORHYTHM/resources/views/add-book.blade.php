@@ -157,6 +157,10 @@
                                     <input type="date" class="form-control" id="publish_date" name="publish_date" required>
                                 </div>
                                 <div class="mb-3">
+                                    <label for="isbn" class="form-label">ISBN</label>
+                                    <input type="text" class="form-control" id="isbn" name="isbn" required>
+                                </div>
+                                <div class="mb-3">
                                     <label for="file" class="form-label">File</label>
                                     <input type="file" class="form-control" id="file" name="file" accept=".pdf,.doc,.docx,.epub" required>
                                 </div>
