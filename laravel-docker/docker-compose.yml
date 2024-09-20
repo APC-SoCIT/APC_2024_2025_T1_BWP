@@ -55,6 +55,7 @@ services:
             PMA_HOST: db
             PMA_PORT: 3306
             PMA_ARBITRARY: 1
+            UPLOAD_LIMIT: 1048576K
         volumes:
             - .docker/phpmyadmin/sessions:/sessions
 

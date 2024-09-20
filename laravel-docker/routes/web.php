@@ -42,6 +42,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/update-book/{id}', [DashboardController::class, 'editBook'])->name('edit-book');
     Route::post('/add-book', [DashboardController::class, 'uploadBook'])->name('upload-book');
     Route::put('/update-book/{id}', [DashboardController::class, 'updateBook'])->name('update-book');
+    Route::delete('/book/{id}', [DashboardController::class, 'deleteBook'])->name('delete-book');
 
     // Research routes
     Route::get('/research', [DashboardController::class, 'research'])->name('research');

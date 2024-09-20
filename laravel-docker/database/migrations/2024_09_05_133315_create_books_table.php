@@ -20,8 +20,10 @@ class CreateBooksTable extends Migration
             $table->text('description'); // Description of the book
             $table->integer('rating')->unsigned(); // Rating (1-5)
             $table->date('publish_date'); // Date of publication
-            $table->string('file')->nullable(); // Path to uploaded file
+            $table->string('isbn'); // ISBN of the book (required)
+            $table->string('file')->nullable(); // Path to uploaded file (optional)
             $table->enum('visibility', ['public', 'members_only'])->default('public'); // Visibility field
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Foreign key to users table
             $table->timestamps(); // Created and updated timestamps
         });
     }

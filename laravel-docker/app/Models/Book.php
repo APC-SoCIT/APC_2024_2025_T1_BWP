@@ -15,8 +15,17 @@ class Book extends Model
         'description',
         'rating',
         'publish_date',
+        'isbn',
         'file',
+        'visibility',
+        'user_id' // Add user_id to fillable attributes
     ];
 
-   
+    /**
+     * Get the user that owns the book.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
