@@ -134,43 +134,60 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="{{ route('upload-book') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('upload-book') }}" method="POST" enctype="multipart/form-data" id="add-book-form">
                                 @csrf
-                                <div class="mb-3">
+                                <!-- Book Title -->
+                                <div class="form-group">
                                     <label for="title" class="form-label">Title</label>
                                     <input type="text" class="form-control" id="title" name="title" required>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="author" class="form-label">Author</label>
-                                    <input type="text" class="form-control" id="author" name="author" required>
+
+                                <!-- Author and Publish Date -->
+                                <div class="form-group-inline">
+                                    <div class="form-group">
+                                        <label for="author" class="form-label">Author</label>
+                                        <input type="text" class="form-control" id="author" name="author" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="publish_date" class="form-label">Publish Date</label>
+                                        <input type="date" class="form-control" id="publish_date" name="publish_date" required>
+                                    </div>
                                 </div>
-                                <div class="mb-3">
+
+                                <!-- ISBN and Rating -->
+                                <div class="form-group-inline">
+                                    <div class="form-group">
+                                        <label for="isbn" class="form-label">ISBN</label>
+                                        <input type="text" class="form-control" id="isbn" name="isbn" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rating" class="form-label">Rating</label>
+                                        <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" step="1" required oninput="validateRating(this)">
+                                    </div>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="form-group">
                                     <label for="description" class="form-label">Description</label>
                                     <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="rating" class="form-label">Rating</label>
-                                    <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="publish_date" class="form-label">Publish Date</label>
-                                    <input type="date" class="form-control" id="publish_date" name="publish_date" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="isbn" class="form-label">ISBN</label>
-                                    <input type="text" class="form-control" id="isbn" name="isbn" required>
-                                </div>
-                                <div class="mb-3">
+
+                                <!-- File Upload -->
+                                <div class="form-group">
                                     <label for="file" class="form-label">File</label>
                                     <input type="file" class="form-control" id="file" name="file" accept=".pdf,.doc,.docx,.epub" required>
                                 </div>
-                                <div class="mb-3">
+
+                                <!-- Access Type -->
+                                <div class="form-group">
                                     <label for="access_type" class="form-label">Access Type</label>
                                     <select class="form-select" id="access_type" name="access_type" required>
                                         <option value="public">Public</option>
                                         <option value="members_only">Members Only</option>
                                     </select>
                                 </div>
+
+                                <!-- Submit Button -->
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </form>
                         </div>
@@ -215,5 +232,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <script src="{{ asset('js/status.js') }}"></script>
+    <script>
+        function validateRating(input) {
+            const value = input.value;
+            if (value > 5) {
+                input.value = 5;
+            }
+            if (value < 1) {
+                input.value = 1;
+            }
+            // Additional check to ensure single digit
+            if (value.length > 1) {
+                input.value = value.slice(0, 1);
+            }
+        }
+    </script>
 </body>
 @endsection
