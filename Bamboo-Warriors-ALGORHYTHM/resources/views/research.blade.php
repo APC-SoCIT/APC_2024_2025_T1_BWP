@@ -1,7 +1,6 @@
 @extends('layouts.dashboard-layout')
 
 @section('content')
-<body>
     <div class="wrapper">
         <aside id="sidebar" class="js-sidebar">
             <!-- Content For Sidebar -->
@@ -110,7 +109,7 @@
                                 <h6 class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></h6>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{route('logout')}}" class="dropdown-item">Logout</a>
+                                <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -118,15 +117,52 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
-                    <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title">
                                 Research Table
-                            <h6><p class="text-muted">List of all your uploaded researches.</p></h6>
+                                <h6><p class="text-muted">List of all your uploaded research papers.</p></h6>
                             </h5>
                         </div>
                         <div class="card-body container-fluid">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Authors</th>
+                                        <th>DOI</th>
+                                        <th>Keywords</th>
+                                        <th>File</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($researches as $research)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $research->title }}</td>
+                                            <td>{{ $research->author }}</td>
+                                            <td>{{ $research->doi }}</td>
+                                            <td>{{ $research->keywords }}</td>
+                                            <td>
+                                                <a href="{{ Storage::url($research->file_path) }}"  class = "btn btn-primary" target="_blank">View File</a>
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('delete-research', $research->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this research paper?')">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center">No research papers found.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -167,7 +203,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/dashboard.js')}}"></script>
-    <script src="{{ asset('js/status.js')}}"></script>
-</body>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="{{ asset('js/status.js') }}"></script>
 @endsection

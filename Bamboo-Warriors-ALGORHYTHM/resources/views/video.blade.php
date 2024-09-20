@@ -4,7 +4,6 @@
 <body>
     <div class="wrapper">
         <aside id="sidebar" class="js-sidebar">
-            <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
                     <a href="#">Online Bamboo Catalog</a>
@@ -17,7 +16,6 @@
                         </a>
                     </li>
                     @auth
-                        <!-- Admin and Member Menu -->
                         @if(auth()->user()->account_type === 'admin' || auth()->user()->account_type === 'member')
                             <li class="sidebar-item">
                                 <a href="{{ route('members-only') }}" class="sidebar-link">
@@ -28,11 +26,9 @@
                         @endif
 
                         @if(auth()->user()->account_type === 'admin')
-                            <!-- Admin Menu -->
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#books" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                                    Books
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#books" data-bs-toggle="collapse" aria-expanded="false">
+                                    <i class="fa-solid fa-file-lines pe-2"></i> Books
                                 </a>
                                 <ul id="books" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                     <li class="sidebar-item">
@@ -44,9 +40,8 @@
                                 </ul>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#research" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                                    Research Papers
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#research" data-bs-toggle="collapse" aria-expanded="false">
+                                    <i class="fa-solid fa-file-lines pe-2"></i> Research Papers
                                 </a>
                                 <ul id="research" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                     <li class="sidebar-item">
@@ -58,9 +53,8 @@
                                 </ul>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#videos" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                                    Videos
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#videos" data-bs-toggle="collapse" aria-expanded="false">
+                                    <i class="fa-solid fa-file-lines pe-2"></i> Videos
                                 </a>
                                 <ul id="videos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                     <li class="sidebar-item">
@@ -72,9 +66,8 @@
                                 </ul>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#articles" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                                    Articles
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#articles" data-bs-toggle="collapse" aria-expanded="false">
+                                    <i class="fa-solid fa-file-lines pe-2"></i> Articles
                                 </a>
                                 <ul id="articles" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                     <li class="sidebar-item">
@@ -87,11 +80,9 @@
                             </li>
                         @endif
                     @else
-                        <!-- Guest Menu -->
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#guestModal">
-                                <i class="fa-solid fa-lock pe-2"></i>
-                                Members Only
+                                <i class="fa-solid fa-lock pe-2"></i> Members Only
                             </a>
                         </li>
                     @endauth
@@ -110,7 +101,7 @@
                                 <h6 class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></h6>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{route('logout')}}" class="dropdown-item">Logout</a>
+                                <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -118,15 +109,54 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
-                    <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title">
                                 Video Table
-                            <h6><p class="text-muted">List of all your uploaded videos.</p></h6>
+                                <h6><p class="text-muted">List of all your uploaded videos.</p></h6>
                             </h5>
                         </div>
                         <div class="card-body container-fluid">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Creator</th>
+                                        <th scope="col">Publication Date</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">File</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($videos as $video)
+                                        <tr>
+                                            <td>{{ $video->title }}</td>
+                                            <td>{{ $video->creator }}</td>
+                                            <td>{{ $video->publication_date }}</td>
+                                            <td>{{ $video->description }}</td>
+                                            <td>
+                                                @if($video->file_path)  <!-- Ensure this references the correct field -->
+                                                    <a href="{{ Storage::url($video->file_path) }}" class="btn btn-primary" target="_blank">Open File</a>
+                                                @else
+                                                    <span class="text-muted">No file available</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('delete-video', $video->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this video?')">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">No videos available.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -167,7 +197,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/dashboard.js')}}"></script>
-    <script src="{{ asset('js/status.js')}}"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="{{ asset('js/status.js') }}"></script>
 </body>
 @endsection
