@@ -143,7 +143,7 @@
                                         <span class="badge bg-warning text-dark">Members Only</span>
                                     @endif
                                     <div class="mt-auto">
-                                        <a href="{{ Storage::url($research->file_path) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
+                                    <a href="{{ Storage::url($research->file_path) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
                                     </div>
                                 </div>
                             </div>

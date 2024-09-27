@@ -16,6 +16,39 @@
                             Dashboard
                         </a>
                     </li>
+
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#catalogueDropdown" aria-expanded="false">
+                            <i class="fa-solid fa-book pe-2"></i>
+                            Catalogue
+                        </a>
+                        <ul id="catalogueDropdown" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="{{ route('catalogue.books') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-book-open pe-2"></i>
+                                    Books
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('video') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-video pe-2"></i>
+                                    Videos
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('catalogue.research') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-file-alt pe-2"></i>
+                                    Research Papers
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ route('article') }}" class="sidebar-link">
+                                    <i class="fa-solid fa-newspaper pe-2"></i>
+                                    Articles
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     @auth
                         <!-- Admin and Member Menu -->
                         @if(auth()->user()->account_type === 'admin' || auth()->user()->account_type === 'member')

@@ -128,29 +128,29 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
-                    <h4 class="mb-3">Research Papers Catalogue</h4>
+                    <h4 class="mb-3">Books Catalogue</h4>
                     <div class="row">
-                        @forelse ($researchPapers as $research)
+                        @forelse ($books as $book)
                         <div class="col-md-4 mb-4">
                             <div class="card border-0 shadow-sm h-100">
                                 <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">{{ $research->title }}</h5>
-                                    <h6 class="card-subtitle mb-3 text-muted">Author: {{ $research->author }}</h6>
-                                    <p class="card-text"><strong>Abstract:</strong> {{ Str::limit($research->abstract, 100) }}</p>
-                                    <p class="card-text"><strong>Keywords:</strong> {{ $research->keywords }}</p>
-                                    <p class="card-text"><small class="text-muted">Published Date: {{ $research->publish_date }}</small></p>
-                                    @if ($research->is_members_only)
+                                    <h5 class="card-title">{{ $book->title }}</h5>
+                                    <h6 class="card-subtitle mb-3 text-muted">Author: {{ $book->author }}</h6>
+                                    <p class="card-text"><strong>ISBN:</strong> {{ $book->isbn }}</p>
+                                    <p class="card-text"><strong>Description:</strong> {{ Str::limit($book->description, 100) }}</p>
+                                    <p class="card-text"><small class="text-muted">Published Date: {{ $book->publish_date }}</small></p>
+                                    @if ($book->is_members_only)
                                         <span class="badge bg-warning text-dark">Members Only</span>
                                     @endif
                                     <div class="mt-auto">
-                                        <a href="{{ Storage::url($research->file_path) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
+                                        <a href="{{ Storage::url($book->file) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         @empty
                         <div class="col-12">
-                            <div class="alert alert-warning text-center">No research papers available.</div>
+                            <div class="alert alert-warning text-center">No books available.</div>
                         </div>
                         @endforelse
                     </div>
