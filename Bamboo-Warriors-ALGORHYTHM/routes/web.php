@@ -6,6 +6,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MembersOnlyController;
 
+
+Route::get('/catalogue/books', [DashboardController::class, 'catalogueBooks'])->name('catalogue.books');
+Route::get('/catalogue/research', [DashboardController::class, 'catalogueResearch'])->name('catalogue.research');
+
+
 // Home routes
 Route::get('/', function() {
     return auth()->check() ? redirect()->route('dashboard') : view('dashboard');

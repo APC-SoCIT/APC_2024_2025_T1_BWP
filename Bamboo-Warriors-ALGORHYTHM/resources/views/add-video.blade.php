@@ -5,7 +5,7 @@
 
 <div class="wrapper">
     <aside id="sidebar" class="js-sidebar">
-        <!-- Sidebar Content -->
+        <!-- Content For Sidebar -->
         <div class="h-100">
             <div class="sidebar-logo">
                 <a href="#">Online Bamboo Catalog</a>
@@ -16,6 +16,39 @@
                         <i class="fa-solid fa-list pe-2"></i>
                         Dashboard
                     </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#catalogueDropdown" aria-expanded="false">
+                        <i class="fa-solid fa-book pe-2"></i>
+                        Catalogue
+                    </a>
+                    <ul id="catalogueDropdown" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="{{ route('catalogue.books') }}" class="sidebar-link">
+                                <i class="fa-solid fa-book-open pe-2"></i>
+                                Books
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('video') }}" class="sidebar-link">
+                                <i class="fa-solid fa-video pe-2"></i>
+                                Videos
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('catalogue.research') }}" class="sidebar-link">
+                                <i class="fa-solid fa-file-alt pe-2"></i>
+                                Research Papers
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ route('article') }}" class="sidebar-link">
+                                <i class="fa-solid fa-newspaper pe-2"></i>
+                                Articles
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @auth
                     <!-- Admin and Member Menu -->
@@ -31,8 +64,9 @@
                     @if(auth()->user()->account_type === 'admin')
                         <!-- Admin Menu -->
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-target="#books" data-bs-toggle="collapse" aria-expanded="false">
-                                <i class="fa-solid fa-file-lines pe-2"></i> Books
+                            <a href="#" class="sidebar-link collapsed" data-bs-target="#books" data-bs-toggle="collapse"
+                                aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                Books
                             </a>
                             <ul id="books" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                 <li class="sidebar-item">
@@ -44,8 +78,9 @@
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-target="#research" data-bs-toggle="collapse" aria-expanded="false">
-                                <i class="fa-solid fa-file-lines pe-2"></i> Research Papers
+                            <a href="#" class="sidebar-link collapsed" data-bs-target="#research" data-bs-toggle="collapse"
+                                aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                Research Papers
                             </a>
                             <ul id="research" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                 <li class="sidebar-item">
@@ -57,8 +92,9 @@
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-target="#videos" data-bs-toggle="collapse" aria-expanded="false">
-                                <i class="fa-solid fa-file-lines pe-2"></i> Videos
+                            <a href="#" class="sidebar-link collapsed" data-bs-target="#videos" data-bs-toggle="collapse"
+                                aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                Videos
                             </a>
                             <ul id="videos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                 <li class="sidebar-item">
@@ -70,8 +106,9 @@
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link collapsed" data-bs-target="#articles" data-bs-toggle="collapse" aria-expanded="false">
-                                <i class="fa-solid fa-file-lines pe-2"></i> Articles
+                            <a href="#" class="sidebar-link collapsed" data-bs-target="#articles" data-bs-toggle="collapse"
+                                aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                Articles
                             </a>
                             <ul id="articles" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                 <li class="sidebar-item">
@@ -87,7 +124,8 @@
                     <!-- Guest Menu -->
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#guestModal">
-                            <i class="fa-solid fa-lock pe-2"></i> Members Only
+                            <i class="fa-solid fa-lock pe-2"></i>
+                            Members Only
                         </a>
                     </li>
                 @endauth

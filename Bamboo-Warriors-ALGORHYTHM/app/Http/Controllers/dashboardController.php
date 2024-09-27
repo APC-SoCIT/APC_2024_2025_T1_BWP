@@ -18,6 +18,21 @@ class DashboardController extends Controller
         return view('dashboard');
     }
 
+    // Catalogue: Books
+    public function catalogueBooks()
+    {
+        // Check if the user is authenticated
+        if (auth()->check()) {
+            // If authenticated, fetch all books, including members_only
+            $books = Book::all();
+        } else {
+            // If not authenticated, fetch only public books
+            $books = Book::where('visibility', 'public')->get();
+        }
+
+        return view('catalogue.books', ['books' => $books]);
+    }
+
     // Book views and actions
     public function book()
     {
@@ -40,6 +55,7 @@ class DashboardController extends Controller
             'publish_date' => 'required|date',
             'isbn' => 'required|string|max:13|unique:books,isbn',
             'file' => 'required|file|mimes:pdf,doc,docx,epub|max:2048',
+            'visibility' => 'required|in:public,members_only',
         ]);
 
         if ($validator->fails()) {
@@ -54,6 +70,7 @@ class DashboardController extends Controller
         $book->publish_date = $request->input('publish_date');
         $book->isbn = $request->input('isbn');
         $book->user_id = auth()->id();
+        $book->visibility = $request->input('visibility');
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
@@ -82,6 +99,21 @@ class DashboardController extends Controller
         $book->delete();
 
         return redirect()->route('book')->with('success', 'Book deleted successfully!');
+    }
+
+    // Catalogue: Research Papers
+    public function catalogueResearch()
+    {
+        // Check if the user is authenticated
+        if (auth()->check()) {
+            // If authenticated, fetch all research papers, including members_only
+            $researchPapers = Research::all();
+        } else {
+            // If not authenticated, fetch only public research papers
+            $researchPapers = Research::where('visibility', 'public')->get();
+        }
+
+        return view('catalogue.research', ['researchPapers' => $researchPapers]);
     }
 
     // Research views and actions
@@ -182,7 +214,7 @@ class DashboardController extends Controller
                 'publication_date' => $request->publication_date,
                 'description' => $request->description,
                 'file_path' => $filePath,
-                'user_id' => auth()->id(), // Add user_id here if necessary
+                'user_id' => auth()->id(),
             ]);
 
             return redirect()->route('video')->with('success', 'Video uploaded successfully!');
@@ -229,7 +261,7 @@ class DashboardController extends Controller
             'abstract' => 'required|string',
             'keywords' => 'required|string',
             'article_file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-            'visibility' => 'required|in:public,members_only', // Added visibility validation
+            'visibility' => 'required|in:public,members_only',
         ]);
 
         if ($validator->fails()) {
@@ -243,13 +275,13 @@ class DashboardController extends Controller
         $article->abstract = $request->input('abstract');
         $article->keywords = $request->input('keywords');
         $article->user_id = auth()->id();
-        $article->visibility = $request->input('visibility'); // Set visibility
+        $article->visibility = $request->input('visibility');
 
         if ($request->hasFile('article_file')) {
             $file = $request->file('article_file');
             $filename = $file->hashName();
             $path = $file->storeAs('public/files/articles', $filename);
-            $article->file_path = $path;
+            $article->article_file = $path;
         }
 
         $article->save();
@@ -265,8 +297,8 @@ class DashboardController extends Controller
             return redirect()->route('article')->with('error', 'Article not found or access denied.');
         }
 
-        if ($article->file_path && Storage::exists($article->file_path)) {
-            Storage::delete($article->file_path);
+        if ($article->article_file && Storage::exists($article->article_file)) {
+            Storage::delete($article->article_file);
         }
 
         $article->delete();
@@ -274,3 +306,4 @@ class DashboardController extends Controller
         return redirect()->route('article')->with('success', 'Article deleted successfully!');
     }
 }
+
