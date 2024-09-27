@@ -17,7 +17,6 @@
                         </a>
                     </li>
                     @auth
-                        <!-- Admin and Member Menu -->
                         @if(auth()->user()->account_type === 'admin' || auth()->user()->account_type === 'member')
                             <li class="sidebar-item">
                                 <a href="{{ route('members-only') }}" class="sidebar-link">
@@ -26,9 +25,7 @@
                                 </a>
                             </li>
                         @endif
-
                         @if(auth()->user()->account_type === 'admin')
-                            <!-- Admin Menu -->
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link collapsed" data-bs-target="#books" data-bs-toggle="collapse"
                                     aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
@@ -87,7 +84,6 @@
                             </li>
                         @endif
                     @else
-                        <!-- Guest Menu -->
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#guestModal">
                                 <i class="fa-solid fa-lock pe-2"></i>
@@ -110,7 +106,7 @@
                                 <h6 class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></h6>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{route('logout')}}" class="dropdown-item">Logout</a>
+                                <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -118,15 +114,54 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
-                    <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title">
                                 Article Table
-                            <h6><p class="text-muted">List of all your uploaded articles.</p></h6>
+                                <h6><p class="text-muted">List of all your uploaded articles.</p></h6>
                             </h5>
                         </div>
                         <div class="card-body container-fluid">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Author</th>
+                                        <th scope="col">Publication Date</th>
+                                        <th scope="col">Abstract</th>
+                                        <th scope="col">File</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($articles as $article)
+                                        <tr>
+                                            <td>{{ $article->title }}</td>
+                                            <td>{{ $article->author }}</td>
+                                            <td>{{ $article->publication_date}}</td>
+                                            <td>{{ $article->abstract }}</td>
+                                            <td>
+                                                @if($article->file_path) <!-- Changed from $article->file to $article->file_path -->
+                                                    <a href="{{ Storage::url($article->file_path) }}" class="btn btn-primary" target="_blank">Open File</a>
+                                                @else
+                                                    No file available
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('delete-article', $article->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this article?')">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">No articles available.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -167,7 +202,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/dashboard.js')}}"></script>
-    <script src="{{ asset('js/status.js')}}"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="{{ asset('js/status.js') }}"></script>
 </body>
 @endsection

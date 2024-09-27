@@ -140,7 +140,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($books as $book)
+                                    @forelse ($books as $book)
                                         <tr>
                                             <td>{{ $book->title }}</td>
                                             <td>{{ $book->author }}</td>
@@ -163,7 +163,11 @@
                                                 </form>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="8" class="text-center">No books available.</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

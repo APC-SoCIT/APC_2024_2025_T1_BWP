@@ -1,11 +1,11 @@
 @extends('layouts.dashboard-layout')
 
 @section('content')
-<link href="{{asset('css/add-research.css')}}" rel="stylesheet">
+<link href="{{ asset('css/add-research.css') }}" rel="stylesheet">
 <body>
     <div class="wrapper">
         <aside id="sidebar" class="js-sidebar">
-            <!-- Content For Sidebar -->
+            <!-- Sidebar Content -->
             <div class="h-100">
                 <div class="sidebar-logo">
                     <a href="#">Online Bamboo Catalog</a>
@@ -18,7 +18,6 @@
                         </a>
                     </li>
                     @auth
-                        <!-- Admin and Member Menu -->
                         @if(auth()->user()->account_type === 'admin' || auth()->user()->account_type === 'member')
                             <li class="sidebar-item">
                                 <a href="{{ route('members-only') }}" class="sidebar-link">
@@ -31,8 +30,8 @@
                         @if(auth()->user()->account_type === 'admin')
                             <!-- Admin Menu -->
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#books" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#books" data-bs-toggle="collapse" aria-expanded="false">
+                                    <i class="fa-solid fa-file-lines pe-2"></i>
                                     Books
                                 </a>
                                 <ul id="books" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -45,8 +44,8 @@
                                 </ul>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#research" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#research" data-bs-toggle="collapse" aria-expanded="false">
+                                    <i class="fa-solid fa-file-lines pe-2"></i>
                                     Research Papers
                                 </a>
                                 <ul id="research" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -59,8 +58,8 @@
                                 </ul>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#videos" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#videos" data-bs-toggle="collapse" aria-expanded="false">
+                                    <i class="fa-solid fa-file-lines pe-2"></i>
                                     Videos
                                 </a>
                                 <ul id="videos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -73,8 +72,8 @@
                                 </ul>
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#articles" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
+                                <a href="#" class="sidebar-link collapsed" data-bs-target="#articles" data-bs-toggle="collapse" aria-expanded="false">
+                                    <i class="fa-solid fa-file-lines pe-2"></i>
                                     Articles
                                 </a>
                                 <ul id="articles" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -88,7 +87,6 @@
                             </li>
                         @endif
                     @else
-                        <!-- Guest Menu -->
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#guestModal">
                                 <i class="fa-solid fa-lock pe-2"></i>
@@ -111,7 +109,7 @@
                                 <h6 class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></h6>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{route('logout')}}" class="dropdown-item">Logout</a>
+                                <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     </ul>
@@ -119,40 +117,66 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
-                    <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
-                            <h5 class="card-title">
-                                Add Research
-                                <h6><p class="text-muted">Please fill in all input on the forms.</p></h6>
-                            </h5>
+                            <h5 class="card-title">Add Research Paper</h5>
+                            <p class="text-muted">Please fill in all fields in the form.</p>
                         </div>
                         <div class="card-body container-fluid" id="research-card-body">
-                            <form id="add-research-form">
-                                <div class="mb-3">
+                            <form action="{{ route('upload-research') }}" method="POST" enctype="multipart/form-data" id="add-research-form">
+                                @csrf
+                                <!-- Title -->
+                                <div class="form-group">
                                     <label for="title" class="form-label">Title</label>
                                     <input type="text" class="form-control" id="title" name="title" required>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="author" class="form-label">Author</label>
+
+                                <!-- Authors -->
+                                <div class="form-group">
+                                    <label for="author" class="form-label">Authors</label>
                                     <input type="text" class="form-control" id="author" name="author" required>
                                 </div>
-                                <div class="mb-3">
+
+                                <!-- Publish Date -->
+                                <div class="form-group">
+                                    <label for="publish_date" class="form-label">Publish Date</label>
+                                    <input type="date" class="form-control" id="publish_date" name="publish_date" required>
+                                </div>
+
+                                <!-- DOI -->
+                                <div class="form-group">
+                                    <label for="doi" class="form-label">DOI</label>
+                                    <input type="text" class="form-control" id="doi" name="doi" required>
+                                </div>
+
+                                <!-- Abstract -->
+                                <div class="form-group">
                                     <label for="abstract" class="form-label">Abstract</label>
                                     <textarea class="form-control" id="abstract" name="abstract" rows="3" required></textarea>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="introduction" class="form-label">Introduction</label>
-                                    <textarea class="form-control" id="introduction" name="introduction" rows="3" required></textarea>
+
+                                <!-- Keywords -->
+                                <div class="form-group">
+                                    <label for="keywords" class="form-label">Keywords</label>
+                                    <input type="text" class="form-control" id="keywords" name="keywords" required>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="results" class="form-label">Results</label>
-                                    <textarea class="form-control" id="results" name="results" rows="3" required></textarea>
+
+                                <!-- File Upload -->
+                                <div class="form-group">
+                                    <label for="file" class="form-label">File</label>
+                                    <input type="file" class="form-control" id="file" name="file" accept=".pdf,.doc,.docx" required>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="conclusion" class="form-label">Conclusion</label>
-                                    <textarea class="form-control" id="conclusion" name="conclusion" rows="3" required></textarea>
+
+                                <!-- Visibility -->
+                                <div class="form-group">
+                                    <label for="visibility" class="form-label">Visibility</label>
+                                    <select class="form-control" id="visibility" name="visibility" required>
+                                        <option value="public">Public</option>
+                                        <option value="members_only">Members Only</option>
+                                    </select>
                                 </div>
+
+                                <!-- Submit Button -->
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </form>
                         </div>
@@ -167,26 +191,14 @@
                 <div class="container-fluid">
                     <div class="row text-muted">
                         <div class="col-6 text-start">
-                            <p class="mb-0">
-                                <a href="#" class="text-muted">
-                                    <strong>Bamboo Online Catalog</strong>
-                                </a>
-                            </p>
+                            <p class="mb-0"><strong>Bamboo Online Catalog</strong></p>
                         </div>
                         <div class="col-6 text-end">
                             <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Contact</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">About Us</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Terms</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">researching</a>
-                                </li>
+                                <li class="list-inline-item"><a href="#" class="text-muted">Contact</a></li>
+                                <li class="list-inline-item"><a href="#" class="text-muted">About Us</a></li>
+                                <li class="list-inline-item"><a href="#" class="text-muted">Terms</a></li>
+                                <li class="list-inline-item"><a href="#" class="text-muted">Researching</a></li>
                             </ul>
                         </div>
                     </div>
@@ -195,7 +207,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/dashboard.js')}}"></script>
-    <script src="{{ asset('js/status.js')}}"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="{{ asset('js/status.js') }}"></script>
 </body>
 @endsection

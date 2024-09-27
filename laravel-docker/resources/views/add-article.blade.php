@@ -1,7 +1,7 @@
 @extends('layouts.dashboard-layout')
 
 @section('content')
-<link href="{{asset('css/add-article.css')}}" rel="stylesheet">
+<link href="{{ asset('css/add-article.css') }}" rel="stylesheet">
 <body>
     <div class="wrapper">
         <aside id="sidebar" class="js-sidebar">
@@ -18,7 +18,6 @@
                         </a>
                     </li>
                     @auth
-                        <!-- Admin and Member Menu -->
                         @if(auth()->user()->account_type === 'admin' || auth()->user()->account_type === 'member')
                             <li class="sidebar-item">
                                 <a href="{{ route('members-only') }}" class="sidebar-link">
@@ -27,9 +26,7 @@
                                 </a>
                             </li>
                         @endif
-
                         @if(auth()->user()->account_type === 'admin')
-                            <!-- Admin Menu -->
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link collapsed" data-bs-target="#books" data-bs-toggle="collapse"
                                     aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
@@ -88,7 +85,6 @@
                             </li>
                         @endif
                     @else
-                        <!-- Guest Menu -->
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#guestModal">
                                 <i class="fa-solid fa-lock pe-2"></i>
@@ -111,14 +107,14 @@
                                 <h6 class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></h6>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a href="{{route('logout')}}" class="dropdown-item">Logout</a>
+                                <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                             </div>
                         </li>
                     </ul>
                 </div>
             </nav>
             <main class="content px-3 py-2">
-            <div class="container-fluid">
+                <div class="container-fluid">
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title">
@@ -127,22 +123,66 @@
                             </h5>
                         </div>
                         <div class="card-body container-fluid" id="article-card-body">
-                            <form id="add-article-form">
+                            @if(session('success'))
+                                <div class="alert alert-success">{{ session('success') }}</div>
+                            @endif
+                            @if(session('error'))
+                                <div class="alert alert-danger">{{ session('error') }}</div>
+                            @endif
+                            <form id="add-article" enctype="multipart/form-data" method="POST" action="{{ route('upload-article') }}">
+                                @csrf
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Title</label>
                                     <input type="text" class="form-control" id="title" name="title" required>
+                                    @if($errors->has('title'))
+                                        <div class="text-danger">{{ $errors->first('title') }}</div>
+                                    @endif
                                 </div>
                                 <div class="mb-3">
                                     <label for="author" class="form-label">Author</label>
                                     <input type="text" class="form-control" id="author" name="author" required>
+                                    @if($errors->has('author'))
+                                        <div class="text-danger">{{ $errors->first('author') }}</div>
+                                    @endif
                                 </div>
                                 <div class="mb-3">
-                                    <label for="content" class="form-label">Content</label>
-                                    <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                                    <label for="publication_date" class="form-label">Publication Date</label>
+                                    <input type="date" class="form-control" id="publication_date" name="publication_date" required>
+                                    @if($errors->has('publication_date'))
+                                        <div class="text-danger">{{ $errors->first('publication_date') }}</div>
+                                    @endif
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cover_photo" class="form-label">Cover Photo</label>
-                                    <input type="file" class="form-control" id="cover_photo" name="cover_photo" accept="image/*" required>
+                                    <label for="abstract" class="form-label">Abstract</label>
+                                    <textarea class="form-control" id="abstract" name="abstract" rows="3" required></textarea>
+                                    @if($errors->has('abstract'))
+                                        <div class="text-danger">{{ $errors->first('abstract') }}</div>
+                                    @endif
+                                </div>
+                                <div class="mb-3">
+                                    <label for="keywords" class="form-label">Keywords</label>
+                                    <input type="text" class="form-control" id="keywords" name="keywords" required>
+                                    @if($errors->has('keywords'))
+                                        <div class="text-danger">{{ $errors->first('keywords') }}</div>
+                                    @endif
+                                </div>
+                                <div class="mb-3">
+                                    <label for="file" class="form-label">Article File</label>
+                                    <input type="file" class="form-control" id="file" name="article_file" accept=".pdf,.doc,.docx" required>
+                                    @if($errors->has('article_file'))
+                                        <div class="text-danger">{{ $errors->first('article_file') }}</div>
+                                    @endif
+                                </div>
+                                <div class="mb-3">
+                                    <label for="visibility" class="form-label">Visibility</label>
+                                    <select class="form-select" id="visibility" name="visibility" required>
+                                        <option value="" disabled selected>Select visibility</option>
+                                        <option value="public">Public</option>
+                                        <option value="members_only">Members Only</option>
+                                    </select>
+                                    @if($errors->has('visibility'))
+                                        <div class="text-danger">{{ $errors->first('visibility') }}</div>
+                                    @endif
                                 </div>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </form>
@@ -186,7 +226,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/dashboard.js')}}"></script>
-    <script src="{{ asset('js/status.js')}}"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="{{ asset('js/status.js') }}"></script>
 </body>
 @endsection

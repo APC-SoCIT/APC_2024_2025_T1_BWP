@@ -1,81 +1,129 @@
-/* Default styles */
+/* General form styles */
 #add-book-form {
-    width: 80%;
+    width: 100%;
+    max-width: 600px; /* Adjusted max-width to match the image */
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#title,
-#author,
-#description,
-#cover_photo,
-#rating,
-#publish_date {
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    width: 100%; /* Set width to 100% for all inputs */
-}
-
-/* Dark mode styles */
-html[data-bs-theme="dark"] #title,
-html[data-bs-theme="dark"] #author,
-html[data-bs-theme="dark"] #description,
-html[data-bs-theme="dark"] #cover_photo,
-html[data-bs-theme="dark"] #rating,
-html[data-bs-theme="dark"] #publish_date {
-    background-color: #fff;
-    color: #000;
-}
-
-#add-book-form {
-    width: 80%;
-}
-
-#book-card-body {
+/* Form grid layout */
+.form-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
+    margin-bottom: 1rem; /* Reduced spacing between fields */
 }
 
-/* Additional styles for rating and publish date */
-#rating-container {
+.form-group-inline {
     display: flex;
-    gap: 1rem; /* Adjust the gap as needed */
-    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping of inline fields */
+    gap: 1rem;
 }
 
-#rating,
-#publish_date {
-    width: 100%; /* Set width to 100% for rating and publish date inputs */
-    margin-bottom: 0; /* Remove bottom margin to avoid extra spacing */
+.form-group-inline > div {
+    flex: 1;
+    min-width: 0; /* Ensure fields do not overflow */
 }
 
 .form-label {
-    font-weight: bold;
+    font-weight: 600;
+    color: #495057;
+    font-size: 1rem; /* Adjusted to match the image */
+    margin-bottom: 0.25rem;
 }
 
+/* Input fields */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea,
+select,
+#file {
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    width: 100%;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Description textarea */
+textarea {
+    resize: vertical; /* Allow vertical resizing only */
+    height: 100px; /* Adjusted height for a more compact appearance */
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+#file:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* File input */
+#file {
+    padding: 0.5rem;
+    border: 1px dashed #ced4da;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#file:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Button styles */
 .btn-success {
     background-color: #28a745;
     border-color: #28a745;
     color: #fff;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem; /* Added margin for spacing */
 }
 
 .btn-success:hover {
     background-color: #218838;
     border-color: #1e7e34;
 }
-#inside-rating-container{
-    width: 100%;
+
+/* Dark mode */
+html[data-bs-theme="dark"] #add-book-form {
+    background-color: #343a40;
+    color: #f8f9fa;
 }
+
+html[data-bs-theme="dark"] .form-label {
+    color: #f8f9fa;
+}
+
+html[data-bs-theme="dark"] input,
+html[data-bs-theme="dark"] textarea,
+html[data-bs-theme="dark"] select,
+html[data-bs-theme="dark"] #file {
+    background-color: #464c52;
+    color: #f8f9fa;
+    border-color: #6c757d;
+}
+
 /* Media queries for responsiveness */
 @media screen and (max-width: 768px) {
     #add-book-form {
-        width: 100%; /* Adjust width for smaller screens */
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .form-group-inline {
+        flex-direction: column;
     }
 }
-
