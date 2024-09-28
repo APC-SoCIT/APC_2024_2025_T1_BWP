@@ -42,7 +42,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{ route('article') }}" class="sidebar-link">
+                                <a href="{{ route('catalogue.articles') }}" class="sidebar-link">
                                     <i class="fa-solid fa-newspaper pe-2"></i>
                                     Articles
                                 </a>

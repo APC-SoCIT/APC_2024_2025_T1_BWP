@@ -12,6 +12,8 @@ $url = config('app.url');
 URL::forceRootUrl($url);
 Route::get('/catalogue/books', [DashboardController::class, 'catalogueBooks'])->name('catalogue.books');
 Route::get('/catalogue/research', [DashboardController::class, 'catalogueResearch'])->name('catalogue.research');
+Route::get('/catalogue/videos', [DashboardController::class, 'catalogueVideos'])->name('catalogue.videos');
+Route::get('/catalogue/articles', [DashboardController::class, 'catalogueArticles'])->name('catalogue.articles');
 // Home routes
 Route::get('/', function() {
     return auth()->check() ? redirect()->route('dashboard') : view('dashboard');

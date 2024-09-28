@@ -184,6 +184,22 @@ class DashboardController extends Controller
         return redirect()->route('research')->with('success', 'Research deleted successfully!');
     }
 
+    // Catalogue: Videos
+    public function catalogueVideos()
+    {
+        $publicVideoIDs = [1, 2, 3, 4, 5]; // Example IDs
+        // Check if the user is authenticated
+        if (auth()->check()) {
+            // If authenticated, fetch all videos, including members_only
+            $videos = Video::all();
+        } else {
+            // If not authenticated, fetch only public videos
+            $videos = Video::whereIn('id', $publicVideoIDs)->get();
+        }
+
+        return view('catalogue.videos', ['videos' => $videos]);
+    }
+
     // Video views and actions
     public function video()
     {
@@ -207,7 +223,7 @@ class DashboardController extends Controller
         ]);
 
         if ($request->hasFile('file_path')) {
-            $filePath = $request->file('file_path')->store('videos', 'public');
+            $filePath = $request->file('file_path')->store('files/videos', 'public');
             Video::create([
                 'title' => $request->title,
                 'creator' => $request->creator,
@@ -240,6 +256,20 @@ class DashboardController extends Controller
         return redirect()->route('video')->with('success', 'Video deleted successfully!');
     }
 
+    // Catalogue: Articles
+public function catalogueArticles()
+{
+    // Check if the user is authenticated
+    if (auth()->check()) {
+        // If authenticated, fetch all articles, including members_only
+        $articles = Article::all();
+    } else {
+        // If not authenticated, fetch only public articles
+        $articles = Article::where('visibility', 'public')->get();
+    }
+
+    return view('catalogue.articles', ['articles' => $articles]);
+}
     // Article views and actions
     public function article()
     {
