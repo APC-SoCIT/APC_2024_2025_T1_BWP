@@ -187,14 +187,13 @@ class DashboardController extends Controller
     // Catalogue: Videos
     public function catalogueVideos()
     {
-        $publicVideoIDs = [1, 2, 3, 4, 5]; // Example IDs
         // Check if the user is authenticated
         if (auth()->check()) {
             // If authenticated, fetch all videos, including members_only
             $videos = Video::all();
         } else {
             // If not authenticated, fetch only public videos
-            $videos = Video::whereIn('id', $publicVideoIDs)->get();
+            $videos = Video::where('visibility', 'public')->get();
         }
 
         return view('catalogue.videos', ['videos' => $videos]);
@@ -214,24 +213,30 @@ class DashboardController extends Controller
 
     public function uploadVideo(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(),[
             'title' => 'required|string|max:255',
             'creator' => 'required|string|max:255',
             'publication_date' => 'required|date',
             'description' => 'required|string',
             'file_path' => 'required|file|mimes:mp4,mov,avi,wmv|max:1048576',
+            'visibility' => 'required|in:public,members_only',
         ]);
+        if ($validator->fails()) {
+            return redirect()->route('add-video')->withErrors($validator)->withInput();
+        }
+                $video = new Video();
+                $video->title = $request->title;
+                $video->creator = $request->creator;
+                $video->publication_date = $request->publication_date;
+                $video->description = $request->description;
+                $video->visibility = $request->input('visibility');
+                $video->user_id = auth()->id();
 
         if ($request->hasFile('file_path')) {
             $filePath = $request->file('file_path')->store('files/videos', 'public');
-            Video::create([
-                'title' => $request->title,
-                'creator' => $request->creator,
-                'publication_date' => $request->publication_date,
-                'description' => $request->description,
-                'file_path' => $filePath,
-                'user_id' => auth()->id(),
-            ]);
+            $video->file_path = $filePath;
+        
+        $video->save();
 
             return redirect()->route('video')->with('success', 'Video uploaded successfully!');
         }
@@ -311,7 +316,7 @@ public function catalogueArticles()
             $file = $request->file('article_file');
             $filename = $file->hashName();
             $path = $file->storeAs('files/articles', $filename, 'public');
-            $article->article_file = $path;
+            $article->file_path = $path;
         }
 
         $article->save();
@@ -327,8 +332,8 @@ public function catalogueArticles()
             return redirect()->route('article')->with('error', 'Article not found or access denied.');
         }
 
-        if ($article->article_file && Storage::exists($article->article_file)) {
-            Storage::delete($article->article_file);
+        if ($article->file_path && Storage::exists($article->file_path)) {
+            Storage::delete($article->file_path);
         }
 
         $article->delete();

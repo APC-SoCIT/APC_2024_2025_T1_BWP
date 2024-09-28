@@ -31,7 +31,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ route('video') }}" class="sidebar-link">
+                            <a href="{{ route('catalogue.videos') }}" class="sidebar-link">
                                 <i class="fa-solid fa-video pe-2"></i>
                                 Videos
                             </a>
@@ -43,7 +43,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="{{ route('article') }}" class="sidebar-link">
+                            <a href="{{ route('catalogue.articles') }}" class="sidebar-link">
                                 <i class="fa-solid fa-newspaper pe-2"></i>
                                 Articles
                             </a>
@@ -200,6 +200,13 @@
                                 <label for="file_path" class="form-label">Video File</label>
                                 <input type="file" class="form-control" id="file_path" name="file_path" accept="video/*" required>
                             </div>
+                            <div class="mb-3">
+                                    <label for="visibility" class="form-label">Visibility</label>
+                                    <select class="form-control" id="visibility" name="visibility" required>
+                                        <option value="public">Public</option>
+                                        <option value="members_only">Members Only</option>
+                                    </select>
+                                </div>
                             <button type="submit" class="btn btn-success">Submit</button>
                         </form>
                     </div>

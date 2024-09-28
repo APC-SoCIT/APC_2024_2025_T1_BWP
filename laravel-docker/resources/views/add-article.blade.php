@@ -31,7 +31,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{ route('video') }}" class="sidebar-link">
+                                <a href="{{ route('catalogue.videos') }}" class="sidebar-link">
                                     <i class="fa-solid fa-video pe-2"></i>
                                     Videos
                                 </a>
@@ -43,7 +43,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{ route('article') }}" class="sidebar-link">
+                                <a href="{{ route('catalogue.articles') }}" class="sidebar-link">
                                     <i class="fa-solid fa-newspaper pe-2"></i>
                                     Articles
                                 </a>
