@@ -4,7 +4,6 @@
 <body>
     <div class="wrapper">
         <aside id="sidebar" class="js-sidebar">
-            <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
                     <a href="#">Online Bamboo Catalog</a>
@@ -29,7 +28,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{ route('video') }}" class="sidebar-link">
+                                <a href="{{ route('catalogue.videos') }}" class="sidebar-link">
                                     <i class="fa-solid fa-video pe-2"></i>
                                     Videos
                                 </a>
@@ -41,7 +40,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{ route('article') }}" class="sidebar-link">
+                                <a href="{{ route('catalogue.articles') }}" class="sidebar-link">
                                     <i class="fa-solid fa-newspaper pe-2"></i>
                                     Articles
                                 </a>
@@ -49,44 +48,42 @@
                         </ul>
                     </li>
                     @auth
-                        @if(auth()->user()->account_type === 'admin' || auth()->user()->account_type === 'member')
-                            <li class="sidebar-item">
-                                <a href="{{ route('members-only') }}" class="sidebar-link">
-                                    <i class="fa-solid fa-lock pe-2"></i>
-                                    Members Only
-                                </a>
-                            </li>
-                        @endif
-
+                        <li class="sidebar-item">
+                            <a href="{{ route('members-only') }}" class="sidebar-link">
+                                <i class="fa-solid fa-lock pe-2"></i>
+                                Members Only
+                            </a>
+                        </li>
                         @if(auth()->user()->account_type === 'admin')
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#adminDropdown" aria-expanded="false">
                                     <i class="fa-solid fa-cog pe-2"></i>
-                                    Admin Panel
+                                    Admin Tools
                                 </a>
                                 <ul id="adminDropdown" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                     <li class="sidebar-item">
-                                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#manageContentDropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-edit pe-2"></i>
-                                            Manage Content
-                                        </a>
-                                        <ul id="manageContentDropdown" class="sidebar-dropdown list-unstyled collapse">
-                                            <li class="sidebar-item">
-                                                <a href="{{ route('book') }}" class="sidebar-link">Your Book List</a>
-                                            </li>
-                                            <li class="sidebar-item">
-                                                <a href="{{ route('add-book') }}" class="sidebar-link">Add Book</a>
-                                            </li>
-                                            <li class="sidebar-item">
-                                                <a href="{{ route('add-video') }}" class="sidebar-link">Add Video</a>
-                                            </li>
-                                            <li class="sidebar-item">
-                                                <a href="{{ route('add-research') }}" class="sidebar-link">Add Research Paper</a>
-                                            </li>
-                                            <li class="sidebar-item">
-                                                <a href="{{ route('add-article') }}" class="sidebar-link">Add Article</a>
-                                            </li>
-                                        </ul>
+                                        <a href="{{ route('book') }}" class="sidebar-link">Your Book List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-book') }}" class="sidebar-link">Add Book</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('research') }}" class="sidebar-link">Your Research Paper List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-research') }}" class="sidebar-link">Add Research Paper</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('video') }}" class="sidebar-link">Your Video List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-video') }}" class="sidebar-link">Add Video</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('article') }}" class="sidebar-link">Your Article List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-article') }}" class="sidebar-link">Add Article</a>
                                     </li>
                                 </ul>
                             </li>
@@ -100,8 +97,15 @@
                         </li>
                     @endauth
                 </ul>
+                <div class="ai-chatbox p-3">
+                    <h6 class="text-muted">AI Chatbox</h6>
+                    <div class="chatbox">
+                        <input type="text" class="form-control" placeholder="Ask me anything...">
+                    </div>
+                </div>
             </div>
         </aside>
+
         <div class="main">
             <nav class="navbar navbar-expand px-3 border-bottom">
                 <button class="btn" id="sidebar-toggle" type="button">
@@ -128,22 +132,24 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
-                    <h4 class="mb-3">Research Papers Catalogue</h4>
+                    <h4 class="mb-4">Research Papers Catalogue</h4>
                     <div class="row">
-                        @forelse ($researchPapers as $research)
+                        @forelse ($researchPapers as $researchPaper)
                         <div class="col-md-4 mb-4">
-                            <div class="card border-0 shadow-sm h-100">
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">{{ $research->title }}</h5>
-                                    <h6 class="card-subtitle mb-3 text-muted">Author: {{ $research->author }}</h6>
-                                    <p class="card-text"><strong>Abstract:</strong> {{ Str::limit($research->abstract, 100) }}</p>
-                                    <p class="card-text"><strong>Keywords:</strong> {{ $research->keywords }}</p>
-                                    <p class="card-text"><small class="text-muted">Published Date: {{ $research->publish_date }}</small></p>
-                                    @if ($research->is_members_only)
+                            <div class="card border-0 shadow h-100">
+                                <div class="card-header text-center">
+                                    <h5 class="card-title">{{ $researchPaper->title }}</h5>
+                                    @if ($researchPaper->is_members_only)
                                         <span class="badge bg-warning text-dark">Members Only</span>
                                     @endif
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h6 class="card-subtitle mb-3 text-muted">Author: {{ $researchPaper->author }}</h6>
+                                    <p class="card-text"><strong>Keywords:</strong> {{ $researchPaper->keywords }}</p>
+                                    <p class="card-text"><strong>Abstract:</strong> {{ Str::limit($researchPaper->abstract, 100) }}</p>
+                                    <p class="card-text"><small class="text-muted">Published Date: {{ $researchPaper->publication_date }}</small></p>
                                     <div class="mt-auto">
-                                        <a href="{{ Storage::url($research->file_path) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
+                                        <a href="{{ Storage::url($researchPaper->file) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
                                     </div>
                                 </div>
                             </div>
@@ -200,11 +206,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="guestModalLabel">Members Only Section</h5>
+                    <h5 class="modal-title" id="guestModalLabel">Members Only</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>You need to be logged in to access this section.</p>
+                    <p>This content is exclusive to registered members. Please login to access this section.</p>
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('login') }}" class="btn btn-primary">Login</a>

@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://orange-doodle-5965wj9x4rwcvg7r-80.app.github.dev'),
 
     'asset_url' => env('ASSET_URL'),
 

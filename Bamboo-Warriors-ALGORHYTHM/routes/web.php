@@ -5,12 +5,15 @@ use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MembersOnlyController;
+// to fix the issue redirecting to the localhost URL
+use Illuminate\Support\Facades\URL;
 
-
+$url = config('app.url');
+URL::forceRootUrl($url);
 Route::get('/catalogue/books', [DashboardController::class, 'catalogueBooks'])->name('catalogue.books');
 Route::get('/catalogue/research', [DashboardController::class, 'catalogueResearch'])->name('catalogue.research');
-
-
+Route::get('/catalogue/videos', [DashboardController::class, 'catalogueVideos'])->name('catalogue.videos');
+Route::get('/catalogue/articles', [DashboardController::class, 'catalogueArticles'])->name('catalogue.articles');
 // Home routes
 Route::get('/', function() {
     return auth()->check() ? redirect()->route('dashboard') : view('dashboard');

@@ -54,7 +54,7 @@ class DashboardController extends Controller
             'rating' => 'required|integer|between:1,5|max:5',
             'publish_date' => 'required|date',
             'isbn' => 'required|string|max:13|unique:books,isbn',
-            'file' => 'required|file|mimes:pdf,doc,docx,epub|max:2048',
+            'file' => 'required|file|mimes:pdf,doc,docx,epub|max:1048576',
             'visibility' => 'required|in:public,members_only',
         ]);
 
@@ -75,7 +75,7 @@ class DashboardController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/files/books', $filename);
+            $path = $file->storeAs('files/books', $filename, 'public');
             $book->file = $path;
         }
 
@@ -137,7 +137,7 @@ class DashboardController extends Controller
             'doi' => 'required|string|max:255',
             'abstract' => 'required|string',
             'keywords' => 'required|string',
-            'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            'file' => 'required|file|mimes:pdf,doc,docx|max:1048576',
             'visibility' => 'required|in:public,members_only',
         ]);
 
@@ -158,7 +158,7 @@ class DashboardController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/files/researches', $filename);
+            $path = $file->storeAs('files/researches', $filename, 'public');
             $research->file_path = $path;
         }
 
@@ -184,6 +184,21 @@ class DashboardController extends Controller
         return redirect()->route('research')->with('success', 'Research deleted successfully!');
     }
 
+    // Catalogue: Videos
+    public function catalogueVideos()
+    {
+        // Check if the user is authenticated
+        if (auth()->check()) {
+            // If authenticated, fetch all videos, including members_only
+            $videos = Video::all();
+        } else {
+            // If not authenticated, fetch only public videos
+            $videos = Video::where('visibility', 'public')->get();
+        }
+
+        return view('catalogue.videos', ['videos' => $videos]);
+    }
+
     // Video views and actions
     public function video()
     {
@@ -198,24 +213,30 @@ class DashboardController extends Controller
 
     public function uploadVideo(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(),[
             'title' => 'required|string|max:255',
             'creator' => 'required|string|max:255',
             'publication_date' => 'required|date',
             'description' => 'required|string',
-            'file_path' => 'required|file|mimes:mp4,mov,avi,wmv|max:20480',
+            'file_path' => 'required|file|mimes:mp4,mov,avi,wmv|max:1048576',
+            'visibility' => 'required|in:public,members_only',
         ]);
+        if ($validator->fails()) {
+            return redirect()->route('add-video')->withErrors($validator)->withInput();
+        }
+                $video = new Video();
+                $video->title = $request->title;
+                $video->creator = $request->creator;
+                $video->publication_date = $request->publication_date;
+                $video->description = $request->description;
+                $video->visibility = $request->input('visibility');
+                $video->user_id = auth()->id();
 
         if ($request->hasFile('file_path')) {
-            $filePath = $request->file('file_path')->store('videos', 'public');
-            Video::create([
-                'title' => $request->title,
-                'creator' => $request->creator,
-                'publication_date' => $request->publication_date,
-                'description' => $request->description,
-                'file_path' => $filePath,
-                'user_id' => auth()->id(),
-            ]);
+            $filePath = $request->file('file_path')->store('files/videos', 'public');
+            $video->file_path = $filePath;
+        
+        $video->save();
 
             return redirect()->route('video')->with('success', 'Video uploaded successfully!');
         }
@@ -240,6 +261,20 @@ class DashboardController extends Controller
         return redirect()->route('video')->with('success', 'Video deleted successfully!');
     }
 
+    // Catalogue: Articles
+public function catalogueArticles()
+{
+    // Check if the user is authenticated
+    if (auth()->check()) {
+        // If authenticated, fetch all articles, including members_only
+        $articles = Article::all();
+    } else {
+        // If not authenticated, fetch only public articles
+        $articles = Article::where('visibility', 'public')->get();
+    }
+
+    return view('catalogue.articles', ['articles' => $articles]);
+}
     // Article views and actions
     public function article()
     {
@@ -260,7 +295,7 @@ class DashboardController extends Controller
             'publication_date' => 'required|date',
             'abstract' => 'required|string',
             'keywords' => 'required|string',
-            'article_file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'article_file' => 'nullable|file|mimes:pdf,doc,docx|max:1048576',
             'visibility' => 'required|in:public,members_only',
         ]);
 
@@ -280,8 +315,8 @@ class DashboardController extends Controller
         if ($request->hasFile('article_file')) {
             $file = $request->file('article_file');
             $filename = $file->hashName();
-            $path = $file->storeAs('public/files/articles', $filename);
-            $article->article_file = $path;
+            $path = $file->storeAs('files/articles', $filename, 'public');
+            $article->file_path = $path;
         }
 
         $article->save();
@@ -297,8 +332,8 @@ class DashboardController extends Controller
             return redirect()->route('article')->with('error', 'Article not found or access denied.');
         }
 
-        if ($article->article_file && Storage::exists($article->article_file)) {
-            Storage::delete($article->article_file);
+        if ($article->file_path && Storage::exists($article->file_path)) {
+            Storage::delete($article->file_path);
         }
 
         $article->delete();
@@ -306,4 +341,3 @@ class DashboardController extends Controller
         return redirect()->route('article')->with('success', 'Article deleted successfully!');
     }
 }
-

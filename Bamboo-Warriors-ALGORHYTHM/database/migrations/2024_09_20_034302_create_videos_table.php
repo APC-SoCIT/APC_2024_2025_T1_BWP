@@ -20,6 +20,7 @@ class CreateVideosTable extends Migration
             $table->date('publication_date'); // Added publication date field
             $table->text('description');
             $table->string('file_path');
+            $table->enum('visibility', ['public', 'members_only']); // Added visibility field
             $table->unsignedBigInteger('user_id'); // To track which user uploaded the video
             $table->timestamps();
 
