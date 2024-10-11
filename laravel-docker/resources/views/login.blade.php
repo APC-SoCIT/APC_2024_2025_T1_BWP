@@ -33,7 +33,7 @@
 
         <!-- New buttons for guest and registration -->
         <div class="button-group">
-            <a href="{{ route('home') }}" class="btn btn-secondary">Continue as Guest</a>
+            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Continue as Guest</a>
             <a href="{{ route('registration') }}" class="btn btn-primary">Create Account</a>
         </div>
 

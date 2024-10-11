@@ -150,7 +150,7 @@
             <main class="content px-3 py-2">
                 <div class="container-fluid">
                     <div class="mb-3">
-                        <h4>Dashboard</h4>
+                        <h4>User Profile</h4>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6 d-flex">
@@ -160,95 +160,30 @@
                                         <div class="p-3 m-1">
                                             @auth
                                                 <h4>Welcome Back, {{ ucfirst(auth()->user()->username) }}</h4>
+                                                <div class="mb-3">
+                                                    <label for="username" class="form-label">Username</label>
+                                                    <input type="text" id="username" class="form-control" value="{{ auth()->user()->username }}" disabled>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="password" class="form-label">Password</label>
+                                                    <input type="text" id="password" class="form-control" value="********" disabled>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <a href="{{ route('user.profile.edit') }}" class="btn btn-secondary">Edit Profile</a>
+                                                    <a href="{{ route('logout') }}" class="btn btn-danger">Logout</a>
+                                                </div>
                                             @else
-                                                <h4>Welcome to the Dashboard</h4>
+                                                <h4 class="text-danger">You are not logged in.</h4>
+                                                <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
                                             @endauth
-                                            <p class="mb-0">Online Bamboo Catalog Dashboard</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Table Element -->
-                    <div class="card border-0">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                Basic Table
-                                <h6><p class="text-muted">Latest Bamboo News</p></h6>
-                            </h5>
-                        </div>
-                        <div class="card-body container-fluid">
-                            <div class="text-container card-subtitle pic-container">
-                                <img id="dashboard-pic" src="https://m.media-amazon.com/images/I/71G09zCjaUL._AC_UF1000,1000_QL80_.jpg">
-                            </div>
-                            <div class="text-container card-subtitle p-5 card-description">
-                                <h5>Basic Title</h5>
-                                <h6 class="card-subtitle p-3 container-fluid">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </main>
-
-                        <!-- Latest Recommendations for Public Content -->
-            <div class="container mt-5">
-                <h5 class="mb-4 latest-recommendations-title">Latest Recommendations</h5>
-                <div class="row g-4 text-center">
-                    <!-- Latest Book -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder book-placeholder">📚</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestBook->title ?? 'No latest book available' }}</h6>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Latest Video -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder video-placeholder">🎥</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestVideo->title ?? 'No latest video available' }}</h6>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Latest Research -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder research-placeholder">📄</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestResearch->title ?? 'No latest research available' }}</h6>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Latest Article -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder article-placeholder">📰</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestArticle->title ?? 'No latest article available' }}</h6>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <a href="#" class="theme-toggle">
-                <i class="fa-regular fa-moon"></i>
-                <i class="fa-regular fa-sun"></i>
-            </a>
 
             <footer class="footer">
                 <div class="container-fluid">
@@ -282,29 +217,6 @@
         </div>
     </div>
 
-
-    <script src="{{ asset('js/dashboard.js') }}"></script>
-
-    <!-- Modal for guests -->
-    <div class="modal fade" id="guestModal" tabindex="-1" aria-labelledby="guestModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="guestModalLabel">Members Only Section</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>This section is exclusive to registered members. Please log in or create an account to access.</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="{{ asset('js/dashboard.js') }}"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 @endsection

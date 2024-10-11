@@ -17,16 +17,25 @@ class Admin
     public function handle(Request $request, Closure $next): Response
     {
         // Log the current user and their account type for debugging
-        Log::info('Middleware check for user: ' . auth()->user()->name . ' with type: ' . auth()->user()->account_type);
+        if (auth()->check()) {
+            Log::info('Middleware check for user: ' . auth()->user()->name . ' with type: ' . auth()->user()->account_type);
+        } else {
+            Log::info('No user is authenticated.');
+        }
 
+        // Check if the user is authenticated and is an admin
         if (auth()->check() && auth()->user()->account_type === 'admin') {
             return $next($request);
         }
 
         // Log access denied for non-admin users
-        Log::info('Access denied for user: ' . auth()->user()->name);
+        if (auth()->check()) {
+            Log::info('Access denied for user: ' . auth()->user()->name);
+        } else {
+            Log::info('Access denied for unauthenticated user.');
+        }
 
-        // Redirect non-admin users to a "Members Only Content" page or a different route
-        return redirect()->route('members-only');
+        // Redirect non-admin users to the dashboard
+        return redirect()->route('dashboard');
     }
 }

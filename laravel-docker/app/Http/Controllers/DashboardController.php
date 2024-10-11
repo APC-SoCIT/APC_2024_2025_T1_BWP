@@ -14,9 +14,15 @@ class DashboardController extends Controller
 {
     // Dashboard view
     public function dashboard()
-    {
-        return view('dashboard');
-    }
+{
+    // Fetch the latest public entries from each table
+    $latestBook = Book::where('visibility', 'public')->latest()->first();
+    $latestVideo = Video::where('visibility', 'public')->latest()->first();
+    $latestResearch = Research::where('visibility', 'public')->latest()->first();
+    $latestArticle = Article::where('visibility', 'public')->latest()->first();
+
+    return view('dashboard', compact('latestBook', 'latestVideo', 'latestResearch', 'latestArticle'));
+}
 
     // Catalogue: Books
     public function catalogueBooks()
@@ -55,7 +61,6 @@ class DashboardController extends Controller
             'publish_date' => 'required|date',
             'isbn' => 'required|string|max:13|unique:books,isbn',
             'file' => 'required|file|mimes:pdf,doc,docx,epub|max:1048576',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1048576', // Add validation for cover image
             'visibility' => 'required|in:public,members_only',
         ]);
 
@@ -78,13 +83,6 @@ class DashboardController extends Controller
             $filename = $file->hashName();
             $path = $file->storeAs('files/books', $filename, 'public');
             $book->file = $path;
-        }
-
-        if ($request->hasFile('cover_image')) {
-            $coverImage = $request->file('cover_image');
-            $coverImageName = $coverImage->hashName();
-            $coverImagePath = $coverImage->storeAs('images/covers', $coverImageName, 'public');
-            $book->cover_image = $coverImagePath;
         }
 
         $book->save();
@@ -243,7 +241,7 @@ class DashboardController extends Controller
         if ($request->hasFile('file_path')) {
             $filePath = $request->file('file_path')->store('files/videos', 'public');
             $video->file_path = $filePath;
-        
+
         $video->save();
 
             return redirect()->route('video')->with('success', 'Video uploaded successfully!');
@@ -348,4 +346,8 @@ public function catalogueArticles()
 
         return redirect()->route('article')->with('success', 'Article deleted successfully!');
     }
+
+
+
+
 }
