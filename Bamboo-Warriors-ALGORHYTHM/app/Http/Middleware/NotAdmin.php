@@ -15,10 +15,13 @@ class NotAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->check()) {
-            return redirect()->route('login');
-        } else {
+        // Allow guests to access public resources
+        if (!auth()->check()) {
             return $next($request);
         }
+
+        // Optionally, you can add logic for authenticated users here if needed
+
+        return $next($request);
     }
 }

@@ -9,10 +9,10 @@ body {
 }
 
 h1,
-h2, 
-h3, 
+h2,
+h3,
 h4,
-h5, 
+h5,
 h6 {
     color: #4a4c70;
 }
@@ -32,7 +32,7 @@ a:focus {
 
 .btn.btn-custom {
     padding: 12px 20px;
-    text-align: center; 
+    text-align: center;
    font-size: 16px;
     font-weight: 500;
     color: #777777;
@@ -59,7 +59,7 @@ a:focus {
 }
 
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
-[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {
     font-size: inherit;
     margin-left: 0;
 }
@@ -294,17 +294,17 @@ a:focus {
         border-bottom: 1px solid rgba(255, 255, 255, .3);
         z-index: 9;
     }
-    
+
     .navbar.nav-sticky {
         padding: 10px 60px;
         background: #20212B !important;
         border-bottom: none;
     }
-    
+
     .page .navbar {
         background: #20212B !important;
     }
-    
+
     .navbar a.nav-link {
         padding: 8px 15px;
         font-size: 16px;
@@ -312,16 +312,16 @@ a:focus {
     }
 }
 
-@media (max-width: 991.98px) {   
+@media (max-width: 991.98px) {
     .navbar {
         padding: 15px;
         background: #20212B !important;
     }
-    
+
     .navbar a.nav-link {
         padding: 5px;
     }
-    
+
     .navbar .dropdown-menu {
         box-shadow: none;
     }
@@ -484,11 +484,11 @@ a:focus {
     .carousel .carousel-text h1 {
         font-size: 35px;
     }
-    
+
     .carousel .carousel-text p {
         font-size: 16px;
     }
-    
+
     .carousel .carousel-text .btn {
         padding: 12px 30px;
         font-size: 15px;
@@ -500,7 +500,7 @@ a:focus {
     .carousel .carousel-text h1 {
         font-size: 30px;
     }
-    
+
     .carousel .carousel-text .btn {
         padding: 10px 25px;
         font-size: 15px;
@@ -512,7 +512,7 @@ a:focus {
     .carousel .carousel-text h1 {
         font-size: 25px;
     }
-    
+
     .carousel .carousel-text .btn {
         padding: 8px 20px;
         font-size: 14px;
@@ -585,11 +585,11 @@ a:focus {
     .page-header {
         padding: 60px 0;
     }
-    
+
     .page-header h2 {
         font-size: 45px;
     }
-    
+
     .page-header a {
         font-size: 20px;
     }
@@ -599,11 +599,11 @@ a:focus {
     .page-header {
         padding: 45px 0;
     }
-    
+
     .page-header h2 {
         font-size: 35px;
     }
-    
+
     .page-header a {
         font-size: 18px;
     }
@@ -1385,29 +1385,29 @@ a:focus {
     .event .event-content {
         flex-direction: column;
     }
-    
+
     .event .event-meta {
         flex-direction: row;
     }
-    
+
     .event .event-meta p {
         font-size: 14px;
         padding-right: 7px;
     }
-    
+
     .event .event-meta p:last-child {
         border-bottom: 1px solid rgba(0, 0, 0, .15);
     }
-    
+
     .event .event-meta i {
         width: 18px;
     }
-    
+
     .event .event-text {
         margin: 0;
         padding: 0;
     }
-    
+
     .event .event-text::before,
     .event .event-text::after {
         display: none;
@@ -1956,11 +1956,11 @@ a:focus {
 }
 
 .sidebar .category-widget ul li {
-    margin: 0 0 12px 22px; 
+    margin: 0 0 12px 22px;
 }
 
 .sidebar .category-widget ul li:last-child {
-    margin-bottom: 0; 
+    margin-bottom: 0;
 }
 
 .sidebar .category-widget ul li a {
@@ -2028,19 +2028,16 @@ a:focus {
     margin-top: 45px;
     padding-top: 90px;
     background: #20212B;
+    color: #ffffff;
 }
 
 .footer .footer-contact,
 .footer .footer-link,
 .footer .footer-newsletter {
-    position: relative;
     margin-bottom: 45px;
-    color: #ffffff;
 }
 
-.footer .footer-contact h2,
-.footer .footer-link h2,
-.footer .footer-newsletter h2 {
+.footer h2 {
     margin-bottom: 30px;
     font-size: 22px;
     font-weight: 700;
@@ -2051,11 +2048,10 @@ a:focus {
     display: block;
     margin-bottom: 10px;
     color: #ffffff;
-    transition: .3s;
+    transition: all 0.3s;
 }
 
 .footer .footer-link a::before {
-    position: relative;
     content: "\f105";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
@@ -2072,22 +2068,18 @@ a:focus {
 }
 
 .footer .footer-social {
-    position: relative;
     margin-top: 20px;
 }
 
 .footer .footer-social a {
+    display: inline-block;
     width: 40px;
     height: 40px;
     padding: 6px 0;
-}
-
-.footer .footer-social a {
     margin-top: 5px;
 }
 
 .footer .footer-newsletter form {
-    position: relative;
     width: 100%;
 }
 
@@ -2096,9 +2088,11 @@ a:focus {
     height: 60px;
     border: none;
     border-radius: 0;
+    width: 100%;
 }
 
 .footer .footer-newsletter label {
+    display: block;
     margin-top: 5px;
     color: #777777;
     font-size: 14px;
@@ -2111,13 +2105,8 @@ a:focus {
 }
 
 .footer .copyright {
-    padding: 0 30px;
-}
-
-.footer .copyright .row {
-    padding-top: 25px;
-    padding-bottom: 25px;
-    border-top: 1px solid rgba(256, 256, 256, .1);
+    padding: 25px 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer .copyright p {
@@ -2125,12 +2114,9 @@ a:focus {
     color: #999999;
 }
 
-.footer .copyright .col-md-6:last-child p {
-    text-align: right;
-}
-
 .footer .copyright p a {
     color: #ffffff;
+    transition: color 0.3s;
 }
 
 .footer .copyright p a:hover {
@@ -2138,9 +2124,9 @@ a:focus {
 }
 
 @media (max-width: 767.98px) {
-    .footer .copyright p,
-    .footer .copyright .col-md-6:last-child p {
-        margin: 5px 0;
+    .footer .copyright p {
         text-align: center;
+        margin: 5px 0;
     }
 }
+

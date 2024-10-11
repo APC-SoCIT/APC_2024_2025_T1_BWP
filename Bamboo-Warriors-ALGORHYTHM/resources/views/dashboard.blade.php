@@ -121,19 +121,29 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             @auth
-                                <a href="#" data-bs-toggle="dropdown" class="flex-fill pe-md-0" id="user-link">
-                                    <h6 class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></h6>
+                                <a href="#" class="nav-link dropdown-toggle d-flex align-items-center pe-md-0" id="user-link" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user-circle pe-2"></i>
+                                    <span class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></span>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="user-link">
+                                    <a href="{{ route('user.profile') }}" class="dropdown-item">
+                                        <i class="fa-solid fa-user pe-2"></i>
+                                        User Profile
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="{{ route('logout') }}" class="dropdown-item text-danger">
+                                        <i class="fa-solid fa-right-from-bracket pe-2"></i>
+                                        Logout
+                                    </a>
                                 </div>
                             @else
-                                <a href="{{ route('login') }}" class="flex-fill pe-md-0">
+                                <a href="{{ route('login') }}" class="nav-link">
                                     <h6 class="text-muted"><b>Login</b></h6>
                                 </a>
                             @endauth
                         </li>
                     </ul>
+
                 </div>
             </nav>
 
@@ -184,6 +194,57 @@
                 </div>
             </main>
 
+                        <!-- Latest Recommendations for Public Content -->
+            <div class="container mt-5">
+                <h5 class="mb-4 latest-recommendations-title">Latest Recommendations</h5>
+                <div class="row g-4 text-center">
+                    <!-- Latest Book -->
+                    <div class="col-md-3 d-flex justify-content-center">
+                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                            <div class="placeholder book-placeholder">📚</div>
+                            <div class="card-body">
+                                <h6 class="card-title recommendation-title">{{ $latestBook->title ?? 'No latest book available' }}</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest Video -->
+                    <div class="col-md-3 d-flex justify-content-center">
+                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                            <div class="placeholder video-placeholder">🎥</div>
+                            <div class="card-body">
+                                <h6 class="card-title recommendation-title">{{ $latestVideo->title ?? 'No latest video available' }}</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest Research -->
+                    <div class="col-md-3 d-flex justify-content-center">
+                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                            <div class="placeholder research-placeholder">📄</div>
+                            <div class="card-body">
+                                <h6 class="card-title recommendation-title">{{ $latestResearch->title ?? 'No latest research available' }}</h6>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest Article -->
+                    <div class="col-md-3 d-flex justify-content-center">
+                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                            <div class="placeholder article-placeholder">📰</div>
+                            <div class="card-body">
+                                <h6 class="card-title recommendation-title">{{ $latestArticle->title ?? 'No latest article available' }}</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <a href="#" class="theme-toggle">
                 <i class="fa-regular fa-moon"></i>
                 <i class="fa-regular fa-sun"></i>
@@ -221,7 +282,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="{{ asset('js/dashboard.js') }}"></script>
 
     <!-- Modal for guests -->

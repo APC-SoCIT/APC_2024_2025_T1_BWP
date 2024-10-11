@@ -14,9 +14,15 @@ class DashboardController extends Controller
 {
     // Dashboard view
     public function dashboard()
-    {
-        return view('dashboard');
-    }
+{
+    // Fetch the latest public entries from each table
+    $latestBook = Book::where('visibility', 'public')->latest()->first();
+    $latestVideo = Video::where('visibility', 'public')->latest()->first();
+    $latestResearch = Research::where('visibility', 'public')->latest()->first();
+    $latestArticle = Article::where('visibility', 'public')->latest()->first();
+
+    return view('dashboard', compact('latestBook', 'latestVideo', 'latestResearch', 'latestArticle'));
+}
 
     // Catalogue: Books
     public function catalogueBooks()
@@ -235,7 +241,7 @@ class DashboardController extends Controller
         if ($request->hasFile('file_path')) {
             $filePath = $request->file('file_path')->store('files/videos', 'public');
             $video->file_path = $filePath;
-        
+
         $video->save();
 
             return redirect()->route('video')->with('success', 'Video uploaded successfully!');
@@ -340,4 +346,8 @@ public function catalogueArticles()
 
         return redirect()->route('article')->with('success', 'Article deleted successfully!');
     }
+
+
+
+
 }

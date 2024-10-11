@@ -2,16 +2,21 @@
 
 namespace App\Models;
 
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
-    protected $table = "users";
+    use HasApiTokens;
+    use HasFactory;
+    use HasProfilePhoto;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -19,9 +24,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'username',
+        'name',
+        'email',
         'password',
-        'account_type'
     ];
 
     /**
@@ -46,21 +51,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * Accessor for the account type attribute.
+     * The accessors to append to the model's array form.
      *
-     * @param  string  $value
-     * @return string
+     * @var array<int, string>
      */
-    public function getAccountTypeAttribute($value)
-    {
-        return $value; // Add any specific logic here if needed
-    }
-
-    /**
-     * Get the books for the user.
-     */
-    public function books()
-    {
-        return $this->hasMany(Book::class);
-    }
+    protected $appends = [
+        'profile_photo_url',
+    ];
 }
