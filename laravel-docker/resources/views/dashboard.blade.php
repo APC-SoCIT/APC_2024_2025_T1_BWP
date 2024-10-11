@@ -4,7 +4,6 @@
 <body>
     <div class="wrapper">
         <aside id="sidebar" class="js-sidebar">
-            <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
                     <a href="#">Online Bamboo Catalog</a>
@@ -49,67 +48,40 @@
                             </li>
                         </ul>
                     </li>
+
                     @auth
-                        <!-- Admin and Member Menu -->
-                        @if(auth()->user()->account_type === 'admin' || auth()->user()->account_type === 'member')
-                            <li class="sidebar-item">
-                                <a href="{{ route('members-only') }}" class="sidebar-link">
-                                    <i class="fa-solid fa-lock pe-2"></i>
-                                    Members Only
-                                </a>
-                            </li>
-                        @endif
+                        <li class="sidebar-item">
+                            <a href="{{ route('members-only') }}" class="sidebar-link">
+                                <i class="fa-solid fa-lock pe-2"></i>
+                                Members Only
+                            </a>
+                        </li>
 
                         @if(auth()->user()->account_type === 'admin')
-                            <!-- Admin Menu -->
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#books" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                                    Books
+                                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#adminDropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-cog pe-2"></i>
+                                    Admin Tools
                                 </a>
-                                <ul id="books" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                <ul id="adminDropdown" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                     <li class="sidebar-item">
                                         <a href="{{ route('book') }}" class="sidebar-link">Your Book List</a>
                                     </li>
                                     <li class="sidebar-item">
                                         <a href="{{ route('add-book') }}" class="sidebar-link">Add Book</a>
                                     </li>
-                                </ul>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#research" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                                    Research Papers
-                                </a>
-                                <ul id="research" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                     <li class="sidebar-item">
                                         <a href="{{ route('research') }}" class="sidebar-link">Your Research Paper List</a>
                                     </li>
                                     <li class="sidebar-item">
                                         <a href="{{ route('add-research') }}" class="sidebar-link">Add Research Paper</a>
                                     </li>
-                                </ul>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#videos" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                                    Videos
-                                </a>
-                                <ul id="videos" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                     <li class="sidebar-item">
                                         <a href="{{ route('video') }}" class="sidebar-link">Your Video List</a>
                                     </li>
                                     <li class="sidebar-item">
                                         <a href="{{ route('add-video') }}" class="sidebar-link">Add Video</a>
                                     </li>
-                                </ul>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#articles" data-bs-toggle="collapse"
-                                    aria-expanded="false"><i class="fa-solid fa-file-lines pe-2"></i>
-                                    Articles
-                                </a>
-                                <ul id="articles" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                     <li class="sidebar-item">
                                         <a href="{{ route('article') }}" class="sidebar-link">Your Article List</a>
                                     </li>
@@ -120,7 +92,6 @@
                             </li>
                         @endif
                     @else
-                        <!-- Guest Menu -->
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#guestModal">
                                 <i class="fa-solid fa-lock pe-2"></i>
@@ -129,8 +100,18 @@
                         </li>
                     @endauth
                 </ul>
+
+                <!-- AI Chatbox Placeholder -->
+                <div class="ai-chatbox p-3">
+                    <h6 class="text-muted">AI Chatbox</h6>
+                    <div class="chatbox">
+                        <!-- Your chatbox implementation here -->
+                        <input type="text" class="form-control" placeholder="Ask me anything...">
+                    </div>
+                </div>
             </div>
         </aside>
+
         <div class="main">
             <nav class="navbar navbar-expand px-3 border-bottom">
                 <button class="btn" id="sidebar-toggle" type="button">
@@ -155,6 +136,7 @@
                     </ul>
                 </div>
             </nav>
+
             <main class="content px-3 py-2">
                 <div class="container-fluid">
                     <div class="mb-3">
@@ -178,6 +160,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
@@ -191,7 +174,7 @@
                                 <img id="dashboard-pic" src="https://m.media-amazon.com/images/I/71G09zCjaUL._AC_UF1000,1000_QL80_.jpg">
                             </div>
                             <div class="text-container card-subtitle p-5 card-description">
-                                <p><h5>Basic Title</h5></p>
+                                <h5>Basic Title</h5>
                                 <h6 class="card-subtitle p-3 container-fluid">
                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
                                 </h6>
@@ -200,10 +183,12 @@
                     </div>
                 </div>
             </main>
+
             <a href="#" class="theme-toggle">
                 <i class="fa-regular fa-moon"></i>
                 <i class="fa-regular fa-sun"></i>
             </a>
+
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row text-muted">
@@ -235,6 +220,7 @@
             </footer>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
 
@@ -247,7 +233,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>You need to be logged in to access this section.</p>
+                    <p>This section is exclusive to registered members. Please log in or create an account to access.</p>
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('login') }}" class="btn btn-primary">Login</a>

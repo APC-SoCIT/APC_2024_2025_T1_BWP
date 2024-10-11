@@ -55,6 +55,7 @@ class DashboardController extends Controller
             'publish_date' => 'required|date',
             'isbn' => 'required|string|max:13|unique:books,isbn',
             'file' => 'required|file|mimes:pdf,doc,docx,epub|max:1048576',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1048576', // Add validation for cover image
             'visibility' => 'required|in:public,members_only',
         ]);
 
@@ -77,6 +78,13 @@ class DashboardController extends Controller
             $filename = $file->hashName();
             $path = $file->storeAs('files/books', $filename, 'public');
             $book->file = $path;
+        }
+
+        if ($request->hasFile('cover_image')) {
+            $coverImage = $request->file('cover_image');
+            $coverImageName = $coverImage->hashName();
+            $coverImagePath = $coverImage->storeAs('images/covers', $coverImageName, 'public');
+            $book->cover_image = $coverImagePath;
         }
 
         $book->save();

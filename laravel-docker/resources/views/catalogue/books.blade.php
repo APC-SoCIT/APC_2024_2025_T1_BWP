@@ -4,7 +4,6 @@
 <body>
     <div class="wrapper">
         <aside id="sidebar" class="js-sidebar">
-            <!-- Content For Sidebar -->
             <div class="h-100">
                 <div class="sidebar-logo">
                     <a href="#">Online Bamboo Catalog</a>
@@ -49,44 +48,42 @@
                         </ul>
                     </li>
                     @auth
-                        @if(auth()->user()->account_type === 'admin' || auth()->user()->account_type === 'member')
-                            <li class="sidebar-item">
-                                <a href="{{ route('members-only') }}" class="sidebar-link">
-                                    <i class="fa-solid fa-lock pe-2"></i>
-                                    Members Only
-                                </a>
-                            </li>
-                        @endif
-
+                        <li class="sidebar-item">
+                            <a href="{{ route('members-only') }}" class="sidebar-link">
+                                <i class="fa-solid fa-lock pe-2"></i>
+                                Members Only
+                            </a>
+                        </li>
                         @if(auth()->user()->account_type === 'admin')
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#adminDropdown" aria-expanded="false">
                                     <i class="fa-solid fa-cog pe-2"></i>
-                                    Admin Panel
+                                    Admin Tools
                                 </a>
                                 <ul id="adminDropdown" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                                     <li class="sidebar-item">
-                                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#manageContentDropdown" aria-expanded="false">
-                                            <i class="fa-solid fa-edit pe-2"></i>
-                                            Manage Content
-                                        </a>
-                                        <ul id="manageContentDropdown" class="sidebar-dropdown list-unstyled collapse">
-                                            <li class="sidebar-item">
-                                                <a href="{{ route('book') }}" class="sidebar-link">Your Book List</a>
-                                            </li>
-                                            <li class="sidebar-item">
-                                                <a href="{{ route('add-book') }}" class="sidebar-link">Add Book</a>
-                                            </li>
-                                            <li class="sidebar-item">
-                                                <a href="{{ route('add-video') }}" class="sidebar-link">Add Video</a>
-                                            </li>
-                                            <li class="sidebar-item">
-                                                <a href="{{ route('add-research') }}" class="sidebar-link">Add Research Paper</a>
-                                            </li>
-                                            <li class="sidebar-item">
-                                                <a href="{{ route('add-article') }}" class="sidebar-link">Add Article</a>
-                                            </li>
-                                        </ul>
+                                        <a href="{{ route('book') }}" class="sidebar-link">Your Book List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-book') }}" class="sidebar-link">Add Book</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('research') }}" class="sidebar-link">Your Research Paper List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-research') }}" class="sidebar-link">Add Research Paper</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('video') }}" class="sidebar-link">Your Video List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-video') }}" class="sidebar-link">Add Video</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('article') }}" class="sidebar-link">Your Article List</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('add-article') }}" class="sidebar-link">Add Article</a>
                                     </li>
                                 </ul>
                             </li>
@@ -100,8 +97,15 @@
                         </li>
                     @endauth
                 </ul>
+                <div class="ai-chatbox p-3">
+                    <h6 class="text-muted">AI Chatbox</h6>
+                    <div class="chatbox">
+                        <input type="text" class="form-control" placeholder="Ask me anything...">
+                    </div>
+                </div>
             </div>
         </aside>
+
         <div class="main">
             <nav class="navbar navbar-expand px-3 border-bottom">
                 <button class="btn" id="sidebar-toggle" type="button">
@@ -128,20 +132,28 @@
             </nav>
             <main class="content px-3 py-2">
                 <div class="container-fluid">
-                    <h4 class="mb-3">Books Catalogue</h4>
+                    <h4 class="mb-4">Books Catalogue</h4>
                     <div class="row">
                         @forelse ($books as $book)
                         <div class="col-md-4 mb-4">
-                            <div class="card border-0 shadow-sm h-100">
-                                <div class="card-body d-flex flex-column">
+                            <div class="card border-0 shadow h-100">
+                                <div class="card-header text-center">
                                     <h5 class="card-title">{{ $book->title }}</h5>
+                                    @if ($book->is_members_only)
+                                        <span class="badge bg-warning text-dark">Members Only</span>
+                                    @endif
+<<<<<<< HEAD
+=======
+                                    @if ($book->cover_image)
+                                        <img src="{{ Storage::url($book->cover_image) }}" class="img-fluid" alt="{{ $book->title }}">
+                                    @endif
+>>>>>>> f594fd2 (Added AI placeholder)
+                                </div>
+                                <div class="card-body d-flex flex-column">
                                     <h6 class="card-subtitle mb-3 text-muted">Author: {{ $book->author }}</h6>
                                     <p class="card-text"><strong>ISBN:</strong> {{ $book->isbn }}</p>
                                     <p class="card-text"><strong>Description:</strong> {{ Str::limit($book->description, 100) }}</p>
                                     <p class="card-text"><small class="text-muted">Published Date: {{ $book->publish_date }}</small></p>
-                                    @if ($book->is_members_only)
-                                        <span class="badge bg-warning text-dark">Members Only</span>
-                                    @endif
                                     <div class="mt-auto">
                                         <a href="{{ Storage::url($book->file) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
                                     </div>
@@ -204,11 +216,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>You need to be logged in to access this section.</p>
+                    <p>This section is restricted to members only. Please log in or sign up to gain access.</p>
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="{{ route('register') }}" class="btn btn-secondary">Sign Up</a>
                 </div>
             </div>
         </div>
