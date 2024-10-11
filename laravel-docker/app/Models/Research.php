@@ -23,7 +23,8 @@ class Research extends Model
         'keywords',
         'file_path',
         'user_id',
-        'visibility'
+        'visibility',
+        'cover_image',
     ];
 
     /**

@@ -158,6 +158,9 @@
                                     @if ($article->is_members_only)
                                         <span class="badge bg-warning text-dark">Members Only</span>
                                     @endif
+                                    @if($article->cover_image)
+                                        <img src="{{ Storage::url($article->cover_image) }}" class="card-img-top" alt="Cover Image">
+                                    @endif
                                 </div>
                                 <div class="card-body d-flex flex-column">
                                     <h6 class="card-subtitle mb-3 text-muted">Author: {{ $article->author }}</h6>
@@ -165,7 +168,7 @@
                                     <p class="card-text"><strong>Abstract:</strong> {{ Str::limit($article->abstract, 100) }}</p>
                                     <p class="card-text"><small class="text-muted">Published Date: {{ $article->publication_date }}</small></p>
                                     <div class="mt-auto">
-                                        <a href="{{ Storage::url($article->file) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
+                                        <a href="{{ Storage::url($article->file_path) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
                                     </div>
                                 </div>
                             </div>

@@ -22,6 +22,7 @@ class Article extends Model
         'file_path',
         'user_id',
         'visibility', // Added visibility field
+        'cover_image',
     ];
 
     public function user()
