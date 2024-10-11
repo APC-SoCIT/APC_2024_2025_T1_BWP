@@ -159,6 +159,11 @@
                                         <span class="badge bg-warning text-dark">Members Only</span>
                                     @endif
                                 </div>
+                                <div class="card-img-top">
+                                    @if ($book->cover_image)
+                                    <img src="{{ Storage::url($book->cover_image) }}" class="card-img-top" alt="Cover Image">
+                                    @endif
+                                </div>
                                 <div class="card-body d-flex flex-column">
                                     <h6 class="card-subtitle mb-3 text-muted">Author: {{ $book->author }}</h6>
                                     <p class="card-text"><strong>ISBN:</strong> {{ $book->isbn }}</p>
