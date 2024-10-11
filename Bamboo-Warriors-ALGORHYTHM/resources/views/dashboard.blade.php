@@ -100,15 +100,6 @@
                         </li>
                     @endauth
                 </ul>
-
-                <!-- AI Chatbox Placeholder -->
-                <div class="ai-chatbox p-3">
-                    <h6 class="text-muted">AI Chatbox</h6>
-                    <div class="chatbox">
-                        <!-- Your chatbox implementation here -->
-                        <input type="text" class="form-control" placeholder="Ask me anything...">
-                    </div>
-                </div>
             </div>
         </aside>
 
@@ -143,7 +134,6 @@
                             @endauth
                         </li>
                     </ul>
-
                 </div>
             </nav>
 
@@ -192,119 +182,120 @@
                         </div>
                     </div>
                 </div>
-            </main>
+                    <!-- Latest Recommendations for Public Content -->
+                <div class="container mt-5">
+                    <h5 class="mb-4 latest-recommendations-title">Latest Recommendations</h5>
+                    <div class="row g-4 text-center">
+                        <!-- Latest Book -->
+                        <div class="col-md-3 d-flex justify-content-center">
+                            <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                                <div class="placeholder book-placeholder">📚</div>
+                                <div class="card-body">
+                                    <h6 class="card-title recommendation-title">{{ $latestBook->title ?? 'No latest book available' }}</h6>
 
-                        <!-- Latest Recommendations for Public Content -->
-            <div class="container mt-5">
-                <h5 class="mb-4 latest-recommendations-title">Latest Recommendations</h5>
-                <div class="row g-4 text-center">
-                    <!-- Latest Book -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder book-placeholder">📚</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestBook->title ?? 'No latest book available' }}</h6>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- Latest Video -->
+                        <div class="col-md-3 d-flex justify-content-center">
+                            <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                                <div class="placeholder video-placeholder">🎥</div>
+                                <div class="card-body">
+                                    <h6 class="card-title recommendation-title">{{ $latestVideo->title ?? 'No latest video available' }}</h6>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Latest Research -->
+                        <div class="col-md-3 d-flex justify-content-center">
+                            <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                                <div class="placeholder research-placeholder">📄</div>
+                                <div class="card-body">
+                                    <h6 class="card-title recommendation-title">{{ $latestResearch->title ?? 'No latest research available' }}</h6>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Latest Article -->
+                        <div class="col-md-3 d-flex justify-content-center">
+                            <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                                <div class="placeholder article-placeholder">📰</div>
+                                <div class="card-body">
+                                    <h6 class="card-title recommendation-title">{{ $latestArticle->title ?? 'No latest article available' }}</h6>
+
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Latest Video -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder video-placeholder">🎥</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestVideo->title ?? 'No latest video available' }}</h6>
 
+                <a href="#" class="theme-toggle">
+                    <i class="fa-regular fa-moon"></i>
+                    <i class="fa-regular fa-sun"></i>
+                </a>
+                <script src="{{ asset('js/dashboard.js') }}"></script>
+
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row text-muted">
+                            <div class="col-6 text-start">
+                                <p class="mb-0">
+                                    <a href="#" class="text-muted">
+                                        <strong>Bamboo Online Catalog</strong>
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="col-6 text-end">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="#" class="text-muted">Contact</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="text-muted">About Us</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="text-muted">Terms</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="text-muted">Booking</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Latest Research -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder research-placeholder">📄</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestResearch->title ?? 'No latest research available' }}</h6>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Latest Article -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder article-placeholder">📰</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestArticle->title ?? 'No latest article available' }}</h6>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <a href="#" class="theme-toggle">
-                <i class="fa-regular fa-moon"></i>
-                <i class="fa-regular fa-sun"></i>
-            </a>
-
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row text-muted">
-                        <div class="col-6 text-start">
-                            <p class="mb-0">
-                                <a href="#" class="text-muted">
-                                    <strong>Bamboo Online Catalog</strong>
-                                </a>
-                            </p>
-                        </div>
-                        <div class="col-6 text-end">
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Contact</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">About Us</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Terms</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Booking</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
-
-
-    <script src="{{ asset('js/dashboard.js') }}"></script>
-
-    <!-- Modal for guests -->
-    <div class="modal fade" id="guestModal" tabindex="-1" aria-labelledby="guestModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="guestModalLabel">Members Only Section</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>This section is exclusive to registered members. Please log in or create an account to access.</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
+                </footer>
             </div>
         </div>
-    </div>
+    </main>
+            <!-- AI Chat Floating Icon -->
+            <div id="chat-icon" class="floating-chat-icon">
+                <i class="fa-solid fa-comments"></i>
+            </div>
 
-    <script src="{{ asset('js/dashboard.js') }}"></script>
-    
+            <!-- AI Chatbox (initially hidden) -->
+            <div id="chatbox" class="chatbox">
+                <div class="chatbox-header">
+                    <span>AI Chat</span>
+                    <button id="close-chatbox" class="btn-close">×</button>
+                </div>
+                <div class="chatbox-body">
+                    <input type="text" class="form-control" placeholder="Ask me anything...">
+                </div>
+            </div>
+    <!-- JavaScript to open/close chatbox -->
+    <script>
+        document.getElementById('chat-icon').addEventListener('click', function() {
+            document.getElementById('chatbox').style.display = 'block';
+        });
+
+        document.getElementById('close-chatbox').addEventListener('click', function() {
+            document.getElementById('chatbox').style.display = 'none';
+        });
+
+    </script>
 </body>
 @endsection
