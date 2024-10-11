@@ -1,7 +1,7 @@
 @extends('layouts.dashboard-layout')
 
 @section('content')
-<body>
+<div class="container-fluid">
     <div class="wrapper">
         <aside id="sidebar" class="js-sidebar">
             <div class="h-100">
@@ -146,165 +146,45 @@
 
                 </div>
             </nav>
+            
+    <h4>Edit Profile</h4>
 
-            <main class="content px-3 py-2">
-                <div class="container-fluid">
-                    <div class="mb-3">
-                        <h4>Dashboard</h4>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-md-6 d-flex">
-                            <div class="card flex-fill border-0">
-                                <div class="d-flex align-items-start">
-                                    <div class="col-12">
-                                        <div class="p-3 m-1">
-                                            @auth
-                                                <h4>Welcome Back, {{ ucfirst(auth()->user()->username) }}</h4>
-                                            @else
-                                                <h4>Welcome to the Dashboard</h4>
-                                            @endauth
-                                            <p class="mb-0">Online Bamboo Catalog Dashboard</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Table Element -->
-                    <div class="card border-0">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                Basic Table
-                                <h6><p class="text-muted">Latest Bamboo News</p></h6>
-                            </h5>
-                        </div>
-                        <div class="card-body container-fluid">
-                            <div class="text-container card-subtitle pic-container">
-                                <img id="dashboard-pic" src="https://m.media-amazon.com/images/I/71G09zCjaUL._AC_UF1000,1000_QL80_.jpg">
-                            </div>
-                            <div class="text-container card-subtitle p-5 card-description">
-                                <h5>Basic Title</h5>
-                                <h6 class="card-subtitle p-3 container-fluid">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-
-                        <!-- Latest Recommendations for Public Content -->
-            <div class="container mt-5">
-                <h5 class="mb-4 latest-recommendations-title">Latest Recommendations</h5>
-                <div class="row g-4 text-center">
-                    <!-- Latest Book -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder book-placeholder">📚</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestBook->title ?? 'No latest book available' }}</h6>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Latest Video -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder video-placeholder">🎥</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestVideo->title ?? 'No latest video available' }}</h6>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Latest Research -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder research-placeholder">📄</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestResearch->title ?? 'No latest research available' }}</h6>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Latest Article -->
-                    <div class="col-md-3 d-flex justify-content-center">
-                        <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                            <div class="placeholder article-placeholder">📰</div>
-                            <div class="card-body">
-                                <h6 class="card-title recommendation-title">{{ $latestArticle->title ?? 'No latest article available' }}</h6>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <a href="#" class="theme-toggle">
-                <i class="fa-regular fa-moon"></i>
-                <i class="fa-regular fa-sun"></i>
-            </a>
-
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row text-muted">
-                        <div class="col-6 text-start">
-                            <p class="mb-0">
-                                <a href="#" class="text-muted">
-                                    <strong>Bamboo Online Catalog</strong>
-                                </a>
-                            </p>
-                        </div>
-                        <div class="col-6 text-end">
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Contact</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">About Us</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Terms</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Booking</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
-    </div>
+    @endif
 
+    <form action="{{ route('user.profile.update') }}" method="POST" class="mt-4">
+        @csrf
+        @method('PUT')
 
-    <script src="{{ asset('js/dashboard.js') }}"></script>
-
-    <!-- Modal for guests -->
-    <div class="modal fade" id="guestModal" tabindex="-1" aria-labelledby="guestModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="guestModalLabel">Members Only Section</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>This section is exclusive to registered members. Please log in or create an account to access.</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username', auth()->user()->username) }}" required>
+            @error('username')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-    </div>
 
-    <script src="{{ asset('js/dashboard.js') }}"></script>
-    
-</body>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">New Password</label>
+            <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Leave blank if you don't want to change">
+            @error('password')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="password_confirmation" class="form-label">Confirm New Password</label>
+            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Leave blank if you don't want to change">
+            @error('password_confirmation')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+</div>
 @endsection
