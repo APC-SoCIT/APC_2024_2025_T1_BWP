@@ -123,19 +123,29 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             @auth
-                                <a href="#" data-bs-toggle="dropdown" class="flex-fill pe-md-0" id="user-link">
-                                    <h6 class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></h6>
+                                <a href="#" class="nav-link dropdown-toggle d-flex align-items-center pe-md-0" id="user-link" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user-circle pe-2"></i>
+                                    <span class="text-muted"><b>{{ ucfirst(auth()->user()->username) }}</b></span>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="user-link">
+                                    <a href="{{ route('user.profile') }}" class="dropdown-item">
+                                        <i class="fa-solid fa-user pe-2"></i>
+                                        User Profile
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="{{ route('logout') }}" class="dropdown-item text-danger">
+                                        <i class="fa-solid fa-right-from-bracket pe-2"></i>
+                                        Logout
+                                    </a>
                                 </div>
                             @else
-                                <a href="{{ route('login') }}" class="flex-fill pe-md-0">
+                                <a href="{{ route('login') }}" class="nav-link">
                                     <h6 class="text-muted"><b>Login</b></h6>
                                 </a>
                             @endauth
                         </li>
                     </ul>
+
                 </div>
             </nav>
 
@@ -234,8 +244,5 @@
         </footer>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('js/dashboard.js') }}"></script>
-<script src="{{ asset('js/status.js') }}"></script>
 @endsection

@@ -105,6 +105,7 @@
                 <div class="ai-chatbox p-3">
                     <h6 class="text-muted">AI Chatbox</h6>
                     <div class="chatbox">
+                        <!-- Your chatbox implementation here -->
                         <input type="text" class="form-control" placeholder="Ask me anything...">
                     </div>
                 </div>
@@ -142,6 +143,7 @@
                             @endauth
                         </li>
                     </ul>
+
                 </div>
             </nav>
 
