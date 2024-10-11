@@ -198,6 +198,11 @@
                                     <label for="file" class="form-label">File</label>
                                     <input type="file" class="form-control" id="file" name="file" accept=".pdf,.doc,.docx,.epub" required>
                                 </div>
+                                <!-- Cover Image -->
+                                <div class="form-group">
+                                    <label for="file" class="form-label">Cover Image</label>
+                                    <input type="file" class="form-control" id="file" name="file" accept=".jpg,.png,.gif,.webp" required>
+                                </div>
 
                                 <!-- Visibility -->
                                 <div class="form-group">

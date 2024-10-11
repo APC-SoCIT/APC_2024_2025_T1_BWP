@@ -142,6 +142,12 @@
                                     @if ($book->is_members_only)
                                         <span class="badge bg-warning text-dark">Members Only</span>
                                     @endif
+<<<<<<< HEAD
+=======
+                                    @if ($book->cover_image)
+                                        <img src="{{ Storage::url($book->cover_image) }}" class="img-fluid" alt="{{ $book->title }}">
+                                    @endif
+>>>>>>> f594fd2 (Added AI placeholder)
                                 </div>
                                 <div class="card-body d-flex flex-column">
                                     <h6 class="card-subtitle mb-3 text-muted">Author: {{ $book->author }}</h6>

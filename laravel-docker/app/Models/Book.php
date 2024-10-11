@@ -18,6 +18,7 @@ class Book extends Model
         'isbn',
         'file',
         'visibility',
+        'cover_image',
         'user_id' // Add user_id to fillable attributes
     ];
 
