@@ -20,7 +20,7 @@ Route::get('/catalogue/articles', [DashboardController::class, 'catalogueArticle
 
 // Home Routes
 Route::get('/', function() {
-    return auth()->check() ? redirect()->route('dashboard') : view('dashboard');
+    return redirect()->route('dashboard');
 })->name('home');
 
 Route::get('donate-form', [HomeController::class, 'index'])->name('donate.index');

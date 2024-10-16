@@ -3,7 +3,7 @@
 @section('content')
 <body>
     <div class="wrapper">
-        <aside id="sidebar" class="js-sidebar">
+    <aside id="sidebar" class="js-sidebar">
             <div class="h-100">
                 <div class="sidebar-logo">
                     <a href="#">Online Bamboo Catalog</a>
@@ -99,7 +99,7 @@
                             </a>
                         </li>
                     @endauth
-                </ul>
+                </ul>                
             </div>
         </aside>
 
@@ -305,5 +305,24 @@
         });
 
     </script>
+
+    <!-- Modal for guests -->
+    <div class="modal fade" id="guestModal" tabindex="-1" aria-labelledby="guestModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="guestModalLabel">Members Only Section</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This section is restricted to members only. Please log in or sign up to gain access.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-secondary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 @endsection
