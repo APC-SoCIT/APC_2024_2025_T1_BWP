@@ -179,7 +179,7 @@
                         </div>
                         <div class="card-body container-fluid">
                             <div class="text-container card-subtitle pic-container">
-                                <img id="members-only-pic" src="https://via.placeholder.com/150">
+                                <img id="members-only-pic" src="https://www.indisutras.com/wp-content/uploads/2020/07/Bamboo.jpg" style="width: 150px; height: 150px; object-fit: cover;">
                             </div>
                             <div class="text-container card-subtitle p-5 card-description">
                                 <p><h5>Exclusive Content</h5></p>
