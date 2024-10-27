@@ -20,7 +20,7 @@ Route::get('/catalogue/articles', [DashboardController::class, 'catalogueArticle
 
 // Home Routes
 Route::get('/', function() {
-    return auth()->check() ? redirect()->route('dashboard') : view('dashboard');
+    return redirect()->route('dashboard');
 })->name('home');
 
 Route::get('donate-form', [HomeController::class, 'index'])->name('donate.index');
@@ -76,5 +76,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/profile/edit', [UserController::class, 'edit'])->name('user.profile.edit');
     Route::put('/user/profile', [UserController::class, 'update'])->name('user.profile.update');
 });
-
 

@@ -13,30 +13,46 @@ body {
     height: 100vh;
 }
 
-#registration {
-    background-color: rgba(33, 33, 33, 0.9); /* Slightly transparent background for better contrast */
+#shadow {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#centered-container {
+    background-color: rgba(33, 33, 33, 0.9);
+    position: relative;
     width: 90%;
     max-width: 400px;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Softer shadow effect */
-    text-align: center; /* Center text alignment */
-    margin: auto; /* Center the form horizontally */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    text-align: center;
+}
+
+#logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 20px;
 }
 
 .form-label {
     color: #ffffff;
     margin-bottom: 5px;
-    font-size: 1.1rem; /* Slightly larger font for better readability */
+    font-size: 1.1rem;
 }
 
 .form-control {
-    background-color: #333333; /* Darker input background */
+    background-color: #333333;
     color: #ffffff;
-    border: 1px solid #555555; /* Subtle border for inputs */
-    border-radius: 5px; /* Rounded corners for inputs */
-    padding: 10px; /* Padding inside inputs */
-    margin-bottom: 15px; /* Space between inputs */
+    border: 1px solid #555555;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
 }
 
 .btn {
@@ -51,31 +67,67 @@ body {
 }
 
 .btn-success {
-    background-color: #4CAF50; /* Green background */
+    background-color: #4CAF50;
     color: #ffffff;
 }
 
 .btn-success:hover {
-    background-color: #45a049; /* Darker green on hover */
-    transform: scale(1.05); /* Slight scaling effect */
+    background-color: #45a049;
+    transform: scale(1.05);
 }
 
-/* Styling for the login link */
-.login-link {
-    color: #4CAF50; /* Green color for the link */
-    text-decoration: none; /* Remove underline */
-    font-weight: bold; /* Bold font for better visibility */
+.btn-secondary {
+    background-color: #757575;
+    color: #ffffff;
 }
 
-.login-link:hover {
-    text-decoration: underline; /* Underline on hover */
+.btn-secondary:hover {
+    background-color: #616161;
+    transform: scale(1.05);
 }
 
-/* Ensures proper spacing between elements */
-.mb-3 {
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button-group a {
+    display: inline-block;
+    width: calc(50% - 10px);
+    padding: 10px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.account-type-options {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
     margin-bottom: 20px;
 }
 
-.mt-3 {
-    margin-top: 20px;
+.account-type-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #777;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.account-type-option:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.account-type-option input {
+    margin-right: 8px;
+    accent-color: #4CAF50;
 }

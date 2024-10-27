@@ -207,6 +207,11 @@
                                         <div class="text-danger">{{ $errors->first('article_file') }}</div>
                                     @endif
                                 </div>
+                                <!-- Cover Image -->
+                                <div class="form-group">
+                                    <label for="file" class="form-label">Cover Image</label>
+                                    <input type="file" class="form-control" id="cover_image" name="cover_image" accept=".jpeg,.png,.jpg,.gif,.svg" required>
+                                </div>
                                 <div class="mb-3">
                                     <label for="visibility" class="form-label">Visibility</label>
                                     <select class="form-select" id="visibility" name="visibility" required>

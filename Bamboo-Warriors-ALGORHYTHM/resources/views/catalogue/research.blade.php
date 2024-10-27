@@ -158,14 +158,17 @@
                                     @if ($researchPaper->is_members_only)
                                         <span class="badge bg-warning text-dark">Members Only</span>
                                     @endif
+                                    @if ($researchPaper->cover_image)
+                                        <img src="{{ Storage::url($researchPaper->cover_image) }}" class="card-img-top" alt="Cover Image">
+                                    @endif
                                 </div>
                                 <div class="card-body d-flex flex-column">
                                     <h6 class="card-subtitle mb-3 text-muted">Author: {{ $researchPaper->author }}</h6>
                                     <p class="card-text"><strong>Keywords:</strong> {{ $researchPaper->keywords }}</p>
                                     <p class="card-text"><strong>Abstract:</strong> {{ Str::limit($researchPaper->abstract, 100) }}</p>
-                                    <p class="card-text"><small class="text-muted">Published Date: {{ $researchPaper->publication_date }}</small></p>
+                                    <p class="card-text"><small class="text-muted">Published Date: {{ $researchPaper->publish_date }}</small></p>
                                     <div class="mt-auto">
-                                        <a href="{{ Storage::url($researchPaper->file) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
+                                        <a href="{{ Storage::url($researchPaper->file_path) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
                                     </div>
                                 </div>
                             </div>

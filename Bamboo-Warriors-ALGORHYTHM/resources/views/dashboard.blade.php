@@ -3,7 +3,7 @@
 @section('content')
 <body>
     <div class="wrapper">
-        <aside id="sidebar" class="js-sidebar">
+    <aside id="sidebar" class="js-sidebar">
             <div class="h-100">
                 <div class="sidebar-logo">
                     <a href="#">Online Bamboo Catalog</a>
@@ -99,7 +99,7 @@
                             </a>
                         </li>
                     @endauth
-                </ul>
+                </ul>                
             </div>
         </aside>
 
@@ -189,7 +189,9 @@
                         <!-- Latest Book -->
                         <div class="col-md-3 d-flex justify-content-center">
                             <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                                <div class="placeholder book-placeholder">📚</div>
+                                <div class="placeholder book-placeholder">
+                                <img src="{{ Storage::url($latestBook->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                </div>
                                 <div class="card-body">
                                     <h6 class="card-title recommendation-title">{{ $latestBook->title ?? 'No latest book available' }}</h6>
 
@@ -200,7 +202,9 @@
                         <!-- Latest Video -->
                         <div class="col-md-3 d-flex justify-content-center">
                             <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                                <div class="placeholder video-placeholder">🎥</div>
+                                <div class="placeholder video-placeholder">
+                                <img src="{{ Storage::url($latestVideo->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                </div>
                                 <div class="card-body">
                                     <h6 class="card-title recommendation-title">{{ $latestVideo->title ?? 'No latest video available' }}</h6>
 
@@ -211,7 +215,9 @@
                         <!-- Latest Research -->
                         <div class="col-md-3 d-flex justify-content-center">
                             <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                                <div class="placeholder research-placeholder">📄</div>
+                                <div class="placeholder research-placeholder">
+                                <img src="{{ Storage::url($latestResearch->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                </div>
                                 <div class="card-body">
                                     <h6 class="card-title recommendation-title">{{ $latestResearch->title ?? 'No latest research available' }}</h6>
 
@@ -222,7 +228,9 @@
                         <!-- Latest Article -->
                         <div class="col-md-3 d-flex justify-content-center">
                             <div class="card border-0 shadow-sm rounded text-center recommendation-card">
-                                <div class="placeholder article-placeholder">📰</div>
+                                <div class="placeholder article-placeholder">
+                                <img src="{{ Storage::url($latestArticle->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                </div>
                                 <div class="card-body">
                                     <h6 class="card-title recommendation-title">{{ $latestArticle->title ?? 'No latest article available' }}</h6>
 
@@ -297,5 +305,24 @@
         });
 
     </script>
+
+    <!-- Modal for guests -->
+    <div class="modal fade" id="guestModal" tabindex="-1" aria-labelledby="guestModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="guestModalLabel">Members Only Section</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This section is restricted to members only. Please log in or sign up to gain access.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-secondary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 @endsection

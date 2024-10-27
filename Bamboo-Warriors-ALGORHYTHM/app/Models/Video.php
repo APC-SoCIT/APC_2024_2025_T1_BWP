@@ -19,6 +19,7 @@ class Video extends Model
         'description',
         'file_path',
         'user_id',
+        'cover_image',
     ];
 
     public function user()

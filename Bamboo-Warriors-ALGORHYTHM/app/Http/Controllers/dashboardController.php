@@ -62,6 +62,7 @@ class DashboardController extends Controller
             'isbn' => 'required|string|max:13|unique:books,isbn',
             'file' => 'required|file|mimes:pdf,doc,docx,epub|max:1048576',
             'visibility' => 'required|in:public,members_only',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1048576', // Add validation for cover image
         ]);
 
         if ($validator->fails()) {
@@ -83,6 +84,13 @@ class DashboardController extends Controller
             $filename = $file->hashName();
             $path = $file->storeAs('files/books', $filename, 'public');
             $book->file = $path;
+        }
+        
+        if ($request->hasFile('cover_image')) {
+            $coverImage = $request->file('cover_image');
+            $coverImageName = $coverImage->hashName();
+            $coverImagePath = $coverImage->storeAs('files/covers', $coverImageName, 'public');
+            $book->cover_image = $coverImagePath;
         }
 
         $book->save();
@@ -145,6 +153,7 @@ class DashboardController extends Controller
             'keywords' => 'required|string',
             'file' => 'required|file|mimes:pdf,doc,docx|max:1048576',
             'visibility' => 'required|in:public,members_only',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1048576', // Add validation for cover image
         ]);
 
         if ($validator->fails()) {
@@ -166,6 +175,12 @@ class DashboardController extends Controller
             $filename = $file->hashName();
             $path = $file->storeAs('files/researches', $filename, 'public');
             $research->file_path = $path;
+        }
+        if ($request->hasFile('cover_image')) {
+            $coverImage = $request->file('cover_image');
+            $coverImageName = $coverImage->hashName();
+            $coverImagePath = $coverImage->storeAs('files/covers', $coverImageName, 'public');
+            $research->cover_image = $coverImagePath;
         }
 
         $research->save();
@@ -226,6 +241,7 @@ class DashboardController extends Controller
             'description' => 'required|string',
             'file_path' => 'required|file|mimes:mp4,mov,avi,wmv|max:1048576',
             'visibility' => 'required|in:public,members_only',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1048576', // Add validation for cover image
         ]);
         if ($validator->fails()) {
             return redirect()->route('add-video')->withErrors($validator)->withInput();
@@ -241,11 +257,16 @@ class DashboardController extends Controller
         if ($request->hasFile('file_path')) {
             $filePath = $request->file('file_path')->store('files/videos', 'public');
             $video->file_path = $filePath;
-
-        $video->save();
-
-            return redirect()->route('video')->with('success', 'Video uploaded successfully!');
         }
+        if ($request->hasFile('cover_image')) {
+            $coverImage = $request->file('cover_image');
+            $coverImageName = $coverImage->hashName();
+            $coverImagePath = $coverImage->storeAs('files/covers', $coverImageName, 'public');
+            $video->cover_image = $coverImagePath;
+        }
+        $video->save();
+            return redirect()->route('video')->with('success', 'Video uploaded successfully!');
+        
 
         return back()->withErrors(['file_path' => 'File upload failed.']);
     }
@@ -303,6 +324,7 @@ public function catalogueArticles()
             'keywords' => 'required|string',
             'article_file' => 'nullable|file|mimes:pdf,doc,docx|max:1048576',
             'visibility' => 'required|in:public,members_only',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:1048576', // Add validation for cover image
         ]);
 
         if ($validator->fails()) {
@@ -323,6 +345,12 @@ public function catalogueArticles()
             $filename = $file->hashName();
             $path = $file->storeAs('files/articles', $filename, 'public');
             $article->file_path = $path;
+        }
+        if ($request->hasFile('cover_image')) {
+            $coverImage = $request->file('cover_image');
+            $coverImageName = $coverImage->hashName();
+            $coverImagePath = $coverImage->storeAs('files/covers', $coverImageName, 'public');
+            $article->cover_image = $coverImagePath;
         }
 
         $article->save();

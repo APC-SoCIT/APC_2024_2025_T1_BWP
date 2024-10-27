@@ -158,13 +158,16 @@
                                     @if ($video->is_members_only)
                                         <span class="badge bg-warning text-dark">Members Only</span>
                                     @endif
+                                    @if ($video->cover_image)
+                                        <img src="{{ Storage::url($video->cover_image) }}" class="card-img-top" alt="Cover Image">
+                                    @endif
                                 </div>
                                 <div class="card-body d-flex flex-column">
                                     <h6 class="card-subtitle mb-3 text-muted">Creator: {{ $video->creator }}</h6>
                                     <p class="card-text"><strong>Description:</strong> {{ Str::limit($video->description, 100) }}</p>
                                     <p class="card-text"><small class="text-muted">Published Date: {{ $video->publication_date }}</small></p>
                                     <div class="mt-auto">
-                                        <a href="{{ Storage::url($video->file) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open Video</a>
+                                        <a href="{{ Storage::url($video->file_path) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open Video</a>
                                     </div>
                                 </div>
                             </div>
