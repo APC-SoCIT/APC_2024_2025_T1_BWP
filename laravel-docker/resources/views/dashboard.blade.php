@@ -190,7 +190,11 @@
                         <div class="col-md-3 d-flex justify-content-center">
                             <div class="card border-0 shadow-sm rounded text-center recommendation-card">
                                 <div class="placeholder book-placeholder">
-                                <img src="{{ Storage::url($latestBook->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                    @if($latestBook)
+                                        <img src="{{ Storage::url($latestBook->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                    @else
+                                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                    @endif
                                 </div>
                                 <div class="card-body">
                                     <h6 class="card-title recommendation-title">{{ $latestBook->title ?? 'No latest book available' }}</h6>
@@ -203,7 +207,11 @@
                         <div class="col-md-3 d-flex justify-content-center">
                             <div class="card border-0 shadow-sm rounded text-center recommendation-card">
                                 <div class="placeholder video-placeholder">
-                                <img src="{{ Storage::url($latestVideo->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                    @if($latestVideo)
+                                        <img src="{{ Storage::url($latestVideo->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                    @else
+                                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                    @endif
                                 </div>
                                 <div class="card-body">
                                     <h6 class="card-title recommendation-title">{{ $latestVideo->title ?? 'No latest video available' }}</h6>
@@ -216,7 +224,11 @@
                         <div class="col-md-3 d-flex justify-content-center">
                             <div class="card border-0 shadow-sm rounded text-center recommendation-card">
                                 <div class="placeholder research-placeholder">
-                                <img src="{{ Storage::url($latestResearch->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                            @if($latestResearch)
+                                <<img src="{{ Storage::url($latestResearch->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                            @else
+                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                            @endif
                                 </div>
                                 <div class="card-body">
                                     <h6 class="card-title recommendation-title">{{ $latestResearch->title ?? 'No latest research available' }}</h6>
@@ -229,8 +241,12 @@
                         <div class="col-md-3 d-flex justify-content-center">
                             <div class="card border-0 shadow-sm rounded text-center recommendation-card">
                                 <div class="placeholder article-placeholder">
+                            @if($latestArticle)
                                 <img src="{{ Storage::url($latestArticle->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
-                                </div>
+                            @else
+                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Cover Image" style="width: 100%; height: 200px; object-fit: cover;">    
+                            @endif
+                            </div>
                                 <div class="card-body">
                                     <h6 class="card-title recommendation-title">{{ $latestArticle->title ?? 'No latest article available' }}</h6>
 

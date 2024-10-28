@@ -76,4 +76,3 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/profile/edit', [UserController::class, 'edit'])->name('user.profile.edit');
     Route::put('/user/profile', [UserController::class, 'update'])->name('user.profile.update');
 });
-
