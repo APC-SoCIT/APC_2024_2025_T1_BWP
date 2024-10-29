@@ -1,60 +1,104 @@
-/* Default styles */
+/* General form styles */
 #add-article-form {
-    width: 80%;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#title,
-#author,
-#content,
-#cover_photo{
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    width: 100%; /* Set width to 100% for all inputs */
-}
-
-/* Dark mode styles */
-html[data-bs-theme="dark"] #title,
-html[data-bs-theme="dark"] #author,
-html[data-bs-theme="dark"] #content,
-html[data-bs-theme="dark"] #cover_photo{
-    background-color: #fff;
-    color: #000;
-}
-
-#add-article-form {
-    width: 80%;
-}
-
-#article-card-body {
+/* Form grid layout */
+.form-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
+    margin-bottom: 1rem; /* Reduced spacing between fields */
 }
 
 .form-label {
-    font-weight: bold;
+    font-weight: 600;
+    color: #495057;
+    font-size: 1rem; /* Adjusted to match the image */
+    margin-bottom: 0.25rem;
 }
 
+/* Input fields */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea,
+select,
+input[type="file"] {
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    width: 100%;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Description textarea */
+textarea {
+    resize: vertical; /* Allow vertical resizing only */
+}
+
+/* Dark mode */
+html[data-bs-theme="dark"] #add-article-form {
+    background-color: #343a40;
+    color: #f8f9fa;
+}
+
+html[data-bs-theme="dark"] .form-label {
+    color: #f8f9fa;
+}
+
+html[data-bs-theme="dark"] input,
+html[data-bs-theme="dark"] textarea,
+html[data-bs-theme="dark"] select,
+html[data-bs-theme="dark"] input[type="file"] {
+    background-color: #464c52;
+    color: #f8f9fa;
+    border-color: #6c757d;
+}
+
+/* File input */
+input[type="file"] {
+    border: 1px dashed #ced4da;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+input[type="file"]:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Button styles */
 .btn-success {
     background-color: #28a745;
     border-color: #28a745;
     color: #fff;
-    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem; /* Added margin for spacing */
 }
 
 .btn-success:hover {
     background-color: #218838;
     border-color: #1e7e34;
 }
-/* Media queries for responsiveness */
-@media screen and (max-width: 768px) {
+
+/* Responsive styles */
+@media (max-width: 768px) {
     #add-article-form {
-        width: 100%; /* Adjust width for smaller screens */
+        width: 100%;
+        padding: 1rem;
     }
 }

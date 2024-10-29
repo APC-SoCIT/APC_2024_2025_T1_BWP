@@ -151,78 +151,74 @@
                 <div class="container-fluid">
                     <div class="card border-0">
                         <div class="card-header">
-                            <h5 class="card-title">
-                                Add Article
-                                <h6><p class="text-muted">Please fill in all input on the forms.</p></h6>
-                            </h5>
+                            <h5 class="card-title">Add Article</h5>
+                            <p class="text-muted">Please fill in all fields in the form.</p>
                         </div>
                         <div class="card-body container-fluid" id="article-card-body">
-                            @if(session('success'))
-                                <div class="alert alert-success">{{ session('success') }}</div>
+                        @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             @endif
-                            @if(session('error'))
-                                <div class="alert alert-danger">{{ session('error') }}</div>
-                            @endif
-                            <form id="add-article" enctype="multipart/form-data" method="POST" action="{{ route('upload-article') }}">
+                            <form action="{{ route('upload-article') }}" method="POST" enctype="multipart/form-data" id="add-article-form">
                                 @csrf
-                                <div class="mb-3">
+                                <!-- Title -->
+                                <div class="form-group">
                                     <label for="title" class="form-label">Title</label>
                                     <input type="text" class="form-control" id="title" name="title" required>
-                                    @if($errors->has('title'))
-                                        <div class="text-danger">{{ $errors->first('title') }}</div>
-                                    @endif
                                 </div>
-                                <div class="mb-3">
+
+                                <!-- Author -->
+                                <div class="form-group">
                                     <label for="author" class="form-label">Author</label>
                                     <input type="text" class="form-control" id="author" name="author" required>
-                                    @if($errors->has('author'))
-                                        <div class="text-danger">{{ $errors->first('author') }}</div>
-                                    @endif
                                 </div>
-                                <div class="mb-3">
-                                    <label for="publication_date" class="form-label">Publication Date</label>
+
+                                <!-- Publish Date -->
+                                <div class="form-group">
+                                    <label for="publication_date" class="form-label">Publish Date</label>
                                     <input type="date" class="form-control" id="publication_date" name="publication_date" required>
-                                    @if($errors->has('publication_date'))
-                                        <div class="text-danger">{{ $errors->first('publication_date') }}</div>
-                                    @endif
                                 </div>
-                                <div class="mb-3">
+
+                                <!-- Abstract -->
+                                <div class="form-group">
                                     <label for="abstract" class="form-label">Abstract</label>
                                     <textarea class="form-control" id="abstract" name="abstract" rows="3" required></textarea>
-                                    @if($errors->has('abstract'))
-                                        <div class="text-danger">{{ $errors->first('abstract') }}</div>
-                                    @endif
                                 </div>
-                                <div class="mb-3">
+
+                                <!-- Keywords -->
+                                <div class="form-group">
                                     <label for="keywords" class="form-label">Keywords</label>
                                     <input type="text" class="form-control" id="keywords" name="keywords" required>
-                                    @if($errors->has('keywords'))
-                                        <div class="text-danger">{{ $errors->first('keywords') }}</div>
-                                    @endif
                                 </div>
-                                <div class="mb-3">
-                                    <label for="file" class="form-label">Article File</label>
-                                    <input type="file" class="form-control" id="file" name="article_file" accept=".pdf,.doc,.docx" required>
-                                    @if($errors->has('article_file'))
-                                        <div class="text-danger">{{ $errors->first('article_file') }}</div>
-                                    @endif
+
+                                <!-- File Upload -->
+                                <div class="form-group">
+                                    <label for="article_file" class="form-label">File</label>
+                                    <input type="file" class="form-control" id="article_file" name="article_file" accept=".pdf,.doc,.docx" required>
                                 </div>
+
                                 <!-- Cover Image -->
                                 <div class="form-group">
-                                    <label for="file" class="form-label">Cover Image</label>
+                                    <label for="file" class="form-label">Thumbnail</label>
                                     <input type="file" class="form-control" id="cover_image" name="cover_image" accept=".jpeg,.png,.jpg,.gif,.svg" required>
                                 </div>
-                                <div class="mb-3">
+
+                                <!-- Visibility -->
+                                <div class="form-group">
                                     <label for="visibility" class="form-label">Visibility</label>
-                                    <select class="form-select" id="visibility" name="visibility" required>
+                                    <select class="form-control" id="visibility" name="visibility" required>
                                         <option value="" disabled selected>Select visibility</option>
                                         <option value="public">Public</option>
                                         <option value="members_only">Members Only</option>
                                     </select>
-                                    @if($errors->has('visibility'))
-                                        <div class="text-danger">{{ $errors->first('visibility') }}</div>
-                                    @endif
                                 </div>
+
+                                <!-- Submit Button -->
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </form>
                         </div>
@@ -237,26 +233,14 @@
                 <div class="container-fluid">
                     <div class="row text-muted">
                         <div class="col-6 text-start">
-                            <p class="mb-0">
-                                <a href="#" class="text-muted">
-                                    <strong>Bamboo Online Catalog</strong>
-                                </a>
-                            </p>
+                            <p class="mb-0"><strong>Bamboo Online Catalog</strong></p>
                         </div>
                         <div class="col-6 text-end">
                             <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Contact</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">About Us</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Terms</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Booking</a>
-                                </li>
+                                <li class="list-inline-item"><a href="#" class="text-muted">Contact</a></li>
+                                <li class="list-inline-item"><a href="#" class="text-muted">About Us</a></li>
+                                <li class="list-inline-item"><a href="#" class="text-muted">Terms</a></li>
+                                <li class="list-inline-item"><a href="#" class="text-muted">Booking</a></li>
                             </ul>
                         </div>
                     </div>
@@ -264,6 +248,8 @@
             </footer>
         </div>
     </div>
-    <script src="{{ asset('js/dashboard.js') }}"></script>
 </body>
 @endsection
+@push('script')
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+@endpush

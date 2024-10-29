@@ -218,6 +218,7 @@
                                 <div class="form-group">
                                     <label for="visibility" class="form-label">Visibility</label>
                                     <select class="form-control" id="visibility" name="visibility" required>
+                                        <option value="" disabled selected>Select visibility</option>
                                         <option value="public">Public</option>
                                         <option value="members_only">Members Only</option>
                                     </select>
@@ -265,7 +266,10 @@
             </footer>
         </div>
     </div>
-    <script src="{{ asset('js/dashboard.js') }}"></script>
+</body>
+@endsection
+@push ('scripts')
+<script src="{{ asset('js/dashboard.js') }}"></script>
     <script>
         function validateRating(input) {
             const value = input.value;
@@ -281,5 +285,3 @@
             }
         }
     </script>
-</body>
-@endsection

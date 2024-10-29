@@ -155,6 +155,15 @@
                             <p class="text-muted">Please fill in all fields in the form.</p>
                         </div>
                         <div class="card-body container-fluid" id="research-card-body">
+                        @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <form action="{{ route('upload-research') }}" method="POST" enctype="multipart/form-data" id="add-research-form">
                                 @csrf
                                 <!-- Title -->
@@ -209,6 +218,7 @@
                                 <div class="form-group">
                                     <label for="visibility" class="form-label">Visibility</label>
                                     <select class="form-control" id="visibility" name="visibility" required>
+                                        <option value="" disabled selected>Select visibility</option>
                                         <option value="public">Public</option>
                                         <option value="members_only">Members Only</option>
                                     </select>
@@ -244,6 +254,8 @@
             </footer>
         </div>
     </div>
-    <script src="{{ asset('js/dashboard.js') }}"></script>
 </body>
 @endsection
+@push('script')
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+@endpush
