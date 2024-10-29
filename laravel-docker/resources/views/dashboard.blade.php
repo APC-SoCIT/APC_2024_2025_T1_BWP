@@ -225,7 +225,7 @@
                             <div class="card border-0 shadow-sm rounded text-center recommendation-card">
                                 <div class="placeholder research-placeholder">
                             @if($latestResearch)
-                                <<img src="{{ Storage::url($latestResearch->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                <img src="{{ Storage::url($latestResearch->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
                             @else
                                 <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
                             @endif
