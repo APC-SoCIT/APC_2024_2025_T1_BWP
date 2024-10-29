@@ -158,8 +158,10 @@
                                     @if ($video->is_members_only)
                                         <span class="badge bg-warning text-dark">Members Only</span>
                                     @endif
+                                </div>
+                                <div class="card-img-top" style="display: flex; justify-content: center; margin-top: 10px;">
                                     @if ($video->cover_image)
-                                        <img src="{{ Storage::url($video->cover_image) }}" class="card-img-top" alt="Cover Image">
+                                        <img src="{{ Storage::url($video->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 90%; height: 200px; object-fit: cover;">
                                     @endif
                                 </div>
                                 <div class="card-body d-flex flex-column">

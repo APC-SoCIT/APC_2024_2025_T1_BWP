@@ -159,9 +159,9 @@
                                         <span class="badge bg-warning text-dark">Members Only</span>
                                     @endif
                                 </div>
-                                <div class="card-img-top">
+                                <div class="card-img-top" style="display: flex; justify-content: center; margin-top: 10px;">
                                     @if ($book->cover_image)
-                                    <img src="{{ Storage::url($book->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                    <img src="{{ Storage::url($book->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 90%; height: 200px; object-fit: cover;">
                                     @endif
                                 </div>
                                 <div class="card-body d-flex flex-column">
