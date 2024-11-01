@@ -43,6 +43,10 @@ class AuthManager extends Controller
             'account_type' => $request->account_type // Include account type
         ];
 
+        if(User::where('username', $data['username'])->exists()){
+            return redirect()->route('registration', ['error' => true])->with('error', 'Username already exists');
+        }
+
         User::create($data);
 
         return redirect()->route('login');

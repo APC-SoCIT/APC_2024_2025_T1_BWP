@@ -2,8 +2,7 @@
 
 @section('content')
 <link href="{{ asset('css/add-video.css') }}" rel="stylesheet">
-
-<div class="wrapper">
+<body>
     <div class="wrapper">
         <aside id="sidebar" class="js-sidebar">
             <div class="h-100">
@@ -102,16 +101,6 @@
                         </li>
                     @endauth
                 </ul>
-
-                <!-- AI Chatbox Placeholder -->
-                <div class="ai-chatbox p-3">
-                    <h6 class="text-muted">AI Chatbox</h6>
-                    <div class="chatbox">
-                        <!-- Your chatbox implementation here -->
-                        <input type="text" class="form-control" placeholder="Ask me anything...">
-                    </div>
-                </div>
-            </div>
         </aside>
 
         <div class="main">
@@ -148,106 +137,130 @@
 
                 </div>
             </nav>
-
-        <main class="content px-3 py-2">
-            <div class="container-fluid">
-                <div class="card border-0">
-                    <div class="card-header">
-                        <h5 class="card-title">
-                            Add Video
-                            <h6><p class="text-muted">Please fill in all input on the forms.</p></h6>
-                        </h5>
-                    </div>
-                    <div class="card-body container-fluid" id="video-card-body">
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="card border-0">
+                        <div class="card-header">
+                            <h5 class="card-title">Add Video</h5>
+                            <p class="text-muted">Please fill in all fields in the form.</p>
+                        </div>
+                        <div class="card-body container-fluid" id="video-card-body">
                         @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <form action="{{ route('upload-video') }}" method="POST" enctype="multipart/form-data" id="add-video-form">
+                                @csrf
+                                <!-- Title -->
+                                <div class="form-group">
+                                    <label for="title" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" required>
+                                </div>
 
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
+                                <!-- Creator -->
+                                <div class="form-group">
+                                    <label for="creator" class="form-label">Creator</label>
+                                    <input type="text" class="form-control" id="creator" name="creator" required>
+                                </div>
 
-                        <form id="add-video-form" method="POST" action="{{ route('upload-video') }}" enctype="multipart/form-data">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="title" name="title" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="creator" class="form-label">Creator</label>
-                                <input type="text" class="form-control" id="creator" name="creator" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="publication_date" class="form-label">Publication Date</label>
-                                <input type="date" class="form-control" id="publication_date" name="publication_date" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="file_path" class="form-label">Video File</label>
-                                <input type="file" class="form-control" id="file_path" name="file_path" accept="video/*" required>
-                            </div>
-                        <!-- Cover Image -->
-                        <div class="form-group">
+                                <!-- Publish Date -->
+                                <div class="form-group">
+                                    <label for="publication_date" class="form-label">Publish Date</label>
+                                    <input type="date" class="form-control" id="publication_date" name="publication_date" required>
+                                </div>
+
+                                <!-- Description -->
+                                <div class="form-group">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                                </div>
+
+                                <!-- File Upload -->
+                                <div class="form-group">
+                                    <label for="file_path" class="form-label">File</label>
+                                    <input type="file" class="form-control" id="file_path" name="file_path" accept="video/*" required>
+                                </div>
+
+                                <!-- Thumbnail -->
+                                <div class="form-group">
                                     <label for="file" class="form-label">Thumbnail</label>
                                     <input type="file" class="form-control" id="cover_image" name="cover_image" accept=".jpeg,.png,.jpg,.gif,.svg" required>
                                 </div>
-                            <div class="mb-3">
+
+                                <!-- Visibility -->
+                                <div class="form-group">
                                     <label for="visibility" class="form-label">Visibility</label>
                                     <select class="form-control" id="visibility" name="visibility" required>
+                                        <option value="" disabled selected>Select visibility</option>
                                         <option value="public">Public</option>
                                         <option value="members_only">Members Only</option>
                                     </select>
                                 </div>
-                            <button type="submit" class="btn btn-success">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </main>
 
-        <a href="#" class="theme-toggle">
-            <i class="fa-regular fa-moon"></i>
-            <i class="fa-regular fa-sun"></i>
-        </a>
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row text-muted">
-                    <div class="col-6 text-start">
-                        <p class="mb-0">
-                            <a href="#" class="text-muted"><strong>Bamboo Online Catalog</strong></a>
-                        </p>
-                    </div>
-                    <div class="col-6 text-end">
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a href="#" class="text-muted">Contact</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" class="text-muted">About Us</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" class="text-muted">Terms</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#" class="text-muted">Booking</a>
-                            </li>
-                        </ul>
+                                <!-- Submit Button -->
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </main>
+            <a href="#" class="theme-toggle">
+                <i class="fa-regular fa-moon"></i>
+                <i class="fa-regular fa-sun"></i>
+            </a>
+            <script src="{{ asset('js/dashboard.js') }}"></script>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row text-muted">
+                        <div class="col-6 text-start">
+                            <p class="mb-0"><strong>Bamboo Online Catalog</strong></p>
+                        </div>
+                        <div class="col-6 text-end">
+                            <ul class="list-inline">
+                                <li class="list-inline-item"><a href="#" class="text-muted">Contact</a></li>
+                                <li class="list-inline-item"><a href="#" class="text-muted">About Us</a></li>
+                                <li class="list-inline-item"><a href="#" class="text-muted">Terms</a></li>
+                                <li class="list-inline-item"><a href="#" class="text-muted">Booking</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
-</div>
-<script src="{{ asset('js/dashboard.js') }}"></script>
+    <!-- AI Chat Floating Icon -->
+<div id="chat-icon" class="floating-chat-icon">
+                <i class="fa-solid fa-comments"></i>
+            </div>
+
+            <!-- AI Chatbox (initially hidden) -->
+            <div id="chatbox" class="chatbox">
+                <div class="chatbox-header">
+                    <span>AI Chat</span>
+                    <button id="close-chatbox" class="btn-close">×</button>
+                </div>
+                <div class="chatbox-body">
+                    <input type="text" class="form-control" placeholder="Ask me anything...">
+                </div>
+            </div>
+    <!-- JavaScript to open/close chatbox -->
+    <script>
+        document.getElementById('chat-icon').addEventListener('click', function() {
+            document.getElementById('chatbox').style.display = 'block';
+        });
+
+        document.getElementById('close-chatbox').addEventListener('click', function() {
+            document.getElementById('chatbox').style.display = 'none';
+        });
+
+    </script>
+</body>
 @endsection
+@push('script')
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+@endpush

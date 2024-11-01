@@ -100,16 +100,6 @@
                         </li>
                     @endauth
                 </ul>
-
-                <!-- AI Chatbox Placeholder -->
-                <div class="ai-chatbox p-3">
-                    <h6 class="text-muted">AI Chatbox</h6>
-                    <div class="chatbox">
-                        <!-- Your chatbox implementation here -->
-                        <input type="text" class="form-control" placeholder="Ask me anything...">
-                    </div>
-                </div>
-            </div>
         </aside>
 
         <div class="main">
@@ -158,8 +148,10 @@
                                     @if ($video->is_members_only)
                                         <span class="badge bg-warning text-dark">Members Only</span>
                                     @endif
+                                </div>
+                                <div class="card-img-top" style="display: flex; justify-content: center; margin-top: 10px;">
                                     @if ($video->cover_image)
-                                        <img src="{{ Storage::url($video->cover_image) }}" class="card-img-top" alt="Cover Image">
+                                        <img src="{{ Storage::url($video->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 90%; height: 200px; object-fit: cover;">
                                     @endif
                                 </div>
                                 <div class="card-body d-flex flex-column">
@@ -184,6 +176,7 @@
                 <i class="fa-regular fa-moon"></i>
                 <i class="fa-regular fa-sun"></i>
             </a>
+            <script src="{{ asset('js/dashboard.js') }}"></script>
             <footer class="footer">
                 <div class="container-fluid">
                     <div class="row text-muted">
@@ -215,9 +208,32 @@
             </footer>
         </div>
     </div>
+<!-- AI Chat Floating Icon -->
+<div id="chat-icon" class="floating-chat-icon">
+                <i class="fa-solid fa-comments"></i>
+            </div>
 
-    <script src="{{ asset('js/dashboard.js') }}"></script>
+            <!-- AI Chatbox (initially hidden) -->
+            <div id="chatbox" class="chatbox">
+                <div class="chatbox-header">
+                    <span>AI Chat</span>
+                    <button id="close-chatbox" class="btn-close">×</button>
+                </div>
+                <div class="chatbox-body">
+                    <input type="text" class="form-control" placeholder="Ask me anything...">
+                </div>
+            </div>
+    <!-- JavaScript to open/close chatbox -->
+    <script>
+        document.getElementById('chat-icon').addEventListener('click', function() {
+            document.getElementById('chatbox').style.display = 'block';
+        });
 
+        document.getElementById('close-chatbox').addEventListener('click', function() {
+            document.getElementById('chatbox').style.display = 'none';
+        });
+
+    </script>
     <!-- Modal for guests -->
     <div class="modal fade" id="guestModal" tabindex="-1" aria-labelledby="guestModalLabel" aria-hidden="true">
         <div class="modal-dialog">

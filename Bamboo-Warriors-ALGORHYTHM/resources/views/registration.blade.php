@@ -49,8 +49,14 @@
             <p>Already have an account? <a href="{{ route('login') }}" class="login-link">Login</a></p>
         </div>
     </form>
+    <?php
+    if(session('error')){
+        echo '<script>window.onload = function() { username_duplicate(); }</script>';
+    }
+?>
 </div>
 @endsection
 
 @push('script')
+    <script src="{{ asset('js/register.js') }}"></script>
 @endpush
