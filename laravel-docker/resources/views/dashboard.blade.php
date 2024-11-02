@@ -14,6 +14,10 @@
                             <i class="fa-solid fa-list pe-2"></i>
                             Dashboard
                         </a>
+                        <a href="{{ route('forum.index') }}" class="sidebar-link">
+                            <i class="fa fa-forumbee"></i>
+                            Forum
+                        </a>
                     </li>
 
                     <li class="sidebar-item">
@@ -99,7 +103,7 @@
                             </a>
                         </li>
                     @endauth
-                </ul>                
+                </ul>
             </div>
         </aside>
 
@@ -244,7 +248,7 @@
                             @if($latestArticle)
                                 <img src="{{ Storage::url($latestArticle->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
                             @else
-                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Cover Image" style="width: 100%; height: 200px; object-fit: cover;">    
+                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
                             @endif
                             </div>
                                 <div class="card-body">

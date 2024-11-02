@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MembersOnlyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ForumController;
 use Illuminate\Support\Facades\URL;
 
 // Fix the issue redirecting to the localhost URL
@@ -75,4 +76,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
     Route::get('/user/profile/edit', [UserController::class, 'edit'])->name('user.profile.edit');
     Route::put('/user/profile', [UserController::class, 'update'])->name('user.profile.update');
+});
+
+// Forum Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/forum', [ForumController::class, 'index'])->name('forum.index');
+    Route::get('/forum/create', [ForumController::class, 'create'])->name('forum.create');
+    Route::post('/forum', [ForumController::class, 'store'])->name('forum.store');
+    Route::get('/forum/{id}', [ForumController::class, 'show'])->name('forum.show');
+    Route::post('/forum/{id}/reply', [ForumController::class, 'reply'])->name('forum.reply');
 });

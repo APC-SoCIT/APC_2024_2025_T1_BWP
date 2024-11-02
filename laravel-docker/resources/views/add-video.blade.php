@@ -15,6 +15,10 @@
                             <i class="fa-solid fa-list pe-2"></i>
                             Dashboard
                         </a>
+                        <a href="{{ route('forum.index') }}" class="sidebar-link">
+                            <i class="fa fa-forumbee"></i>
+                            Forum
+                        </a>
                     </li>
 
                     <li class="sidebar-item">
