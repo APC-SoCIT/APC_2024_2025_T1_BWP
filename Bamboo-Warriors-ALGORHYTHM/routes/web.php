@@ -86,4 +86,3 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/forum/{id}', [ForumController::class, 'show'])->name('forum.show');
     Route::post('/forum/{id}/reply', [ForumController::class, 'reply'])->name('forum.reply');
 });
-

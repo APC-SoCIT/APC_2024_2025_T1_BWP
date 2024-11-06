@@ -14,10 +14,17 @@
                             <i class="fa-solid fa-list pe-2"></i>
                             Dashboard
                         </a>
-                        <a href="{{ route('forum.index') }}" class="sidebar-link">
-                            <i class="fa fa-forumbee"></i>
-                            Forum
-                        </a>
+                        @auth
+                            <a href="{{ route('forum.index') }}" class="sidebar-link">
+                                <i class="fa fa-forumbee"></i>
+                                Forum
+                            </a>
+                        @else
+                            <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#loginPromptModal">
+                                <i class="fa fa-forumbee"></i>
+                                Forum
+                            </a>
+                        @endauth
                     </li>
 
                     <li class="sidebar-item">
@@ -339,10 +346,30 @@
                 </div>
                 <div class="modal-footer">
                     <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-                    <a href="{{ route('register') }}" class="btn btn-secondary">Sign Up</a>
+                    <a href="{{ route('registration') }}" class="btn btn-secondary">Sign Up</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Forum Login Prompt Modal for Guests -->
+    <div class="modal fade" id="loginPromptModal" tabindex="-1" aria-labelledby="loginPromptModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginPromptModalLabel">Forum Access</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Please log in to access the Forum.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('login') }}" class="btn btn-primary">Log In</a>
+                    <a href="{{ route('registration') }}" class="btn btn-secondary">Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 @endsection
