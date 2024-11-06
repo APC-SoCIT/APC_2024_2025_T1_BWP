@@ -389,3 +389,161 @@ html[data-bs-theme="dark"] .recommendation-title {
 #close-chatbox:hover {
     color: #ff4d4d;
 }
+
+/* Dashboard Content */
+.dashboard-content {
+    padding: 2rem; /* Add padding around the main content */
+    background-color: var(--bs-light-bg); /* Light background for better contrast */
+}
+
+/* Create Post Button */
+.create-post-container {
+    margin-bottom: 2rem; /* Space below the create post container */
+    text-align: center; /* Center the button */
+}
+
+.create-post-link {
+    display: inline-block; /* Make it an inline block for button styling */
+    padding: 12px 24px; /* Ample padding for button */
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* Button text color */
+    border-radius: 5px; /* Rounded corners for the button */
+    font-weight: 600; /* Bold font for visibility */
+    transition: background-color 0.3s ease, transform 0.2s; /* Transition for hover effects */
+}
+
+.create-post-link:hover {
+    background-color: #0056b3; /* Darker background on hover */
+    transform: translateY(-2px); /* Subtle lift effect on hover */
+}
+
+/* Forum Posts Container */
+.forum-posts {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack posts vertically */
+}
+
+/* Individual Post */
+.forum-post {
+    background-color: #f8f9fa; /* Light card background */
+    border: 1px solid #dee2e6; /* Border color for posts */
+    border-radius: 8px; /* Rounded corners for posts */
+    padding: 20px; /* Inner padding for posts */
+    margin-bottom: 20px; /* Space between posts */
+    transition: box-shadow 0.3s ease; /* Transition for shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+.forum-post:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Post Header */
+.post-header {
+    display: flex; /* Use flexbox for header layout */
+    justify-content: space-between; /* Space between elements */
+    align-items: center; /* Center align items vertically */
+    margin-bottom: 15px; /* Space below header */
+}
+
+.username {
+    font-weight: bold; /* Bold username */
+    color: #343a40; /* Darker text for username */
+    font-size: 1rem; /* Adjust font size for better visibility */
+}
+
+.post-date {
+    color: #6c757d; /* Subtle color for date */
+    font-size: 0.875rem; /* Smaller font size for date */
+}
+
+/* Post Title */
+.post-title {
+    font-size: 1.5rem; /* Font size for post title */
+    margin: 0; /* Remove default margin */
+    color: #007bff; /* Link color for the title */
+}
+
+.post-title a {
+    text-decoration: none; /* Remove underline */
+}
+
+.post-title a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Post Content */
+.post-content {
+    margin: 10px 0; /* Space around post content */
+    color: #495057; /* Dark text color for content */
+    font-size: 0.95rem; /* Slightly smaller font for content */
+}
+
+/* Post Footer */
+.post-footer {
+    margin-top: 15px; /* Space above footer */
+}
+
+.comments-count {
+    color: #007bff; /* Link color for comments count */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make comments count bold */
+}
+
+.comments-count:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .dashboard-content {
+        padding: 1rem; /* Reduce padding on smaller screens */
+    }
+
+    .create-post-link {
+        padding: 10px 20px; /* Smaller padding for buttons */
+        font-size: 0.9rem; /* Slightly smaller font size */
+    }
+
+    .forum-post {
+        padding: 15px; /* Reduce padding for posts */
+    }
+
+    .post-title {
+        font-size: 1.4rem; /* Smaller title font size */
+    }
+
+    .post-date {
+        font-size: 0.8rem; /* Smaller date font size */
+    }
+}
+
+/* Dark Mode Support */
+html[data-bs-theme="dark"] .dashboard-content {
+    background-color: #2e2e30; /* Dark background for dashboard */
+}
+
+html[data-bs-theme="dark"] .forum-post {
+    background-color: #222930; /* Darker card background for posts */
+    border: 1px solid #495057; /* Darker border for posts */
+}
+
+html[data-bs-theme="dark"] .username {
+    color: #f8f9fa; /* Light username for contrast */
+}
+
+html[data-bs-theme="dark"] .post-date {
+    color: #adb5bd; /* Lighter date color */
+}
+
+html[data-bs-theme="dark"] .post-title {
+    color: #0d6efd; /* Bright link color for titles */
+}
+
+html[data-bs-theme="dark"] .post-content {
+    color: #e9ecef; /* Lighter content text color */
+}
+
+html[data-bs-theme="dark"] .comments-count {
+    color: #0d6efd; /* Bright link color for comments count */
+}

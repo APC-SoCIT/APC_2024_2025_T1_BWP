@@ -140,32 +140,53 @@
 
                 </div>
             </nav>
-            <main class="content px-3 py-2">
+
+            <main class="content px-3 py-4">
                 <div class="container-fluid">
-                    <div class="mb-3">
-                    <h1>{{ $post->title }}</h1>
-    <p>Posted by: {{ $post->user->username }}</p>
-    <p>{{ $post->content }}</p>
+                    <!-- Forum Post -->
+                    <div class="post-container p-4 mb-4 border rounded">
+                        <h1 class="post-title">{{ $post->title }}</h1>
+                        <p class="post-meta text-muted">Posted by: <strong>{{ $post->user->username }}</strong></p>
+                        <div class="post-content mb-3">
+                            <p>{{ $post->content }}</p>
+                        </div>
+                    </div>
 
-    <h3>Replies:</h3>
-    @foreach($post->replies as $reply)
-        <div>
-            <p><strong>{{ $reply->user->username }}:</strong> {{ $reply->content }}</p>
-        </div>
-    @endforeach
+                    <!-- Replies Section -->
+                    <div class="replies-container mb-4">
+                        <h3 class="mb-3">Replies:</h3>
+                        @forelse($post->replies as $reply)
+                            <div class="reply p-3 mb-2 border rounded">
+                                <p class="reply-user text-muted">
+                                    <strong>{{ $reply->user->username }}</strong> replied:
+                                </p>
+                                <div class="reply-content">
+                                    <p>{{ $reply->content }}</p>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-muted">No replies yet. Be the first to respond!</p>
+                        @endforelse
+                    </div>
 
-    <h3>Add a Reply:</h3>
-    <form action="{{ route('forum.reply', $post->id) }}" method="POST">
-        @csrf
-        <div>
-            <label for="content">Reply:</label>
-            <textarea name="content" id="content" required></textarea>
-        </div>
-        <button type="submit">Submit Reply</button>
-    </form>
+                    <!-- Add a Reply Form -->
+                    <div class="reply-form p-4 border rounded">
+                        <h3 class="mb-3">Add a Reply:</h3>
+                        <form action="{{ route('forum.reply', $post->id) }}" method="POST">
+                            @csrf
+                            <div class="form-group mb-3">
+                                <label for="content">Reply:</label>
+                                <textarea name="content" id="content" class="form-control" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Reply</button>
+                        </form>
                     </div>
                 </div>
             </main>
+
+
+
+
             <a href="#" class="theme-toggle">
                 <i class="fa-regular fa-moon"></i>
                 <i class="fa-regular fa-sun"></i>

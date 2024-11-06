@@ -152,17 +152,17 @@
         </div>
     @endif
 
-    <form action="{{ route('forum.store') }}" method="POST">
+    <form action="{{ route('forum.store') }}" method="POST" class="mt-4">
         @csrf
-        <div>
+        <div class="mb-3">
             <label for="title">Title:</label>
-            <input type="text" name="title" id="title" required>
+            <input type="text" name="title" id="title" class="form-control" required>
         </div>
-        <div>
+        <div class="mb-3">
             <label for="content">Content:</label>
-            <textarea name="content" id="content" required></textarea>
+            <textarea name="content" id="content" class="form-control" rows="5" required></textarea>
         </div>
-        <button type="submit">Create Post</button>
+        <button type="submit" class="btn btn-primary">Create Post</button>
     </form>
                     </div>
                 </div>
