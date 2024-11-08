@@ -137,7 +137,6 @@
                             @endauth
                         </li>
                     </ul>
-
                 </div>
             </nav>
             <main class="content px-3 py-2">
@@ -148,10 +147,9 @@
                         <div class="col-md-4 mb-4">
                             <div class="card border-0 shadow h-100">
                                 <div class="card-header text-center">
-                                    <h5 class="card-title">{{ $book->title }}</h5>
-                                    @if ($book->is_members_only)
-                                        <span class="badge bg-warning text-dark">Members Only</span>
-                                    @endif
+                                    <h5 class="card-title" style="{{ $book->visibility === 'members_only' ? 'color: yellow;' : '' }}">
+                                        {{ $book->title }}
+                                    </h5>
                                 </div>
                                 <div class="card-img-top" style="display: flex; justify-content: center; margin-top: 10px;">
                                     @if ($book->cover_image)
@@ -163,6 +161,7 @@
                                     <p class="card-text"><strong>ISBN:</strong> {{ $book->isbn }}</p>
                                     <p class="card-text"><strong>Description:</strong> {{ Str::limit($book->description, 100) }}</p>
                                     <p class="card-text"><small class="text-muted">Published Date: {{ $book->publish_date }}</small></p>
+                                    <p>
                                     <div class="mt-auto">
                                         <a href="{{ Storage::url($book->file) }}" class="btn btn-primary btn-block" target="_blank" rel="noopener noreferrer">Open File</a>
                                     </div>

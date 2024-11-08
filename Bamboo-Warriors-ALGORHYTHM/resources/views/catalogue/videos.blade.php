@@ -148,11 +148,8 @@
                         <div class="col-md-4 mb-4">
                             <div class="card border-0 shadow h-100">
                                 <div class="card-header text-center">
-                                    <h5 class="card-title">{{ $video->title }}</h5>
-                                    @if ($video->is_members_only)
-                                        <span class="badge bg-warning text-dark">Members Only</span>
-                                    @endif
-                                </div>
+                                    <h5 class="card-title" style="{{ $video->visibility === 'members_only' ? 'color: yellow;' : '' }}">{{ $video->title }}</h5>
+                                 </div>
                                 <div class="card-img-top" style="display: flex; justify-content: center; margin-top: 10px;">
                                     @if ($video->cover_image)
                                         <img src="{{ Storage::url($video->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 90%; height: 200px; object-fit: cover;">

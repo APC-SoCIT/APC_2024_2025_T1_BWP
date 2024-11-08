@@ -148,10 +148,7 @@
                         <div class="col-md-4 mb-4">
                             <div class="card border-0 shadow h-100">
                                 <div class="card-header text-center">
-                                    <h5 class="card-title">{{ $researchPaper->title }}</h5>
-                                    @if ($researchPaper->is_members_only)
-                                        <span class="badge bg-warning text-dark">Members Only</span>
-                                    @endif
+                                    <h5 class="card-title" style="{{ $researchPaper->visibility === 'members_only' ? 'color: yellow;' : '' }}">{{ $researchPaper->title }}</h5>
                                 </div>
                                 <div class="card-img-top" style="display: flex; justify-content: center; margin-top: 10px;">
                                     @if ($researchPaper->cover_image)

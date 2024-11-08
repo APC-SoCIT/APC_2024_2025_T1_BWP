@@ -85,7 +85,7 @@ class DashboardController extends Controller
             $path = $file->storeAs('files/books', $filename, 'public');
             $book->file = $path;
         }
-        
+
         if ($request->hasFile('cover_image')) {
             $coverImage = $request->file('cover_image');
             $coverImageName = $coverImage->hashName();
@@ -266,7 +266,7 @@ class DashboardController extends Controller
         }
         $video->save();
             return redirect()->route('video')->with('success', 'Video uploaded successfully!');
-        
+
 
         return back()->withErrors(['file_path' => 'File upload failed.']);
     }
