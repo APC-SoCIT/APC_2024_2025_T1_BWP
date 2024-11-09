@@ -282,6 +282,11 @@
                                     <a href="#" class="text-muted">
                                         <strong>Bamboo Online Catalog</strong>
                                     </a>
+                                <p>
+                                    <span class="text-muted">© 2024 Developed by Carl Von A. Nicanor, Aldrin Dave B. Alia,
+                                    Johanne Marlowe E. Sanchez, Gabrielle Ann S. Yogawin, and Henzon Ivan G. Valguna. All rights reserved.
+                                    </span>
+                                </p>
                                 </p>
                             </div>
                             <div class="col-6 text-end">
