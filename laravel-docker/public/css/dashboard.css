@@ -519,9 +519,7 @@ html[data-bs-theme="dark"] .recommendation-title {
 }
 
 /* Dark Mode Support */
-html[data-bs-theme="dark"] .dashboard-content {
-    background-color: #2e2e30; /* Dark background for dashboard */
-}
+
 
 html[data-bs-theme="dark"] .forum-post {
     background-color: #222930; /* Darker card background for posts */
@@ -547,3 +545,4 @@ html[data-bs-theme="dark"] .post-content {
 html[data-bs-theme="dark"] .comments-count {
     color: #0d6efd; /* Bright link color for comments count */
 }
+

@@ -14,10 +14,17 @@
                             <i class="fa-solid fa-list pe-2"></i>
                             Dashboard
                         </a>
-                        <a href="{{ route('forum.index') }}" class="sidebar-link">
-                            <i class="fa fa-forumbee"></i>
-                            Forum
-                        </a>
+                        @auth
+                            <a href="{{ route('forum.index') }}" class="sidebar-link">
+                                <i class="fa fa-forumbee"></i>
+                                Forum
+                            </a>
+                        @else
+                            <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#loginPromptModal">
+                                <i class="fa fa-forumbee"></i>
+                                Forum
+                            </a>
+                        @endauth
                     </li>
 
                     <li class="sidebar-item">
@@ -148,11 +155,8 @@
                         <div class="col-md-4 mb-4">
                             <div class="card border-0 shadow h-100">
                                 <div class="card-header text-center">
-                                    <h5 class="card-title">{{ $video->title }}</h5>
-                                    @if ($video->is_members_only)
-                                        <span class="badge bg-warning text-dark">Members Only</span>
-                                    @endif
-                                </div>
+                                    <h5 class="card-title" style="{{ $video->visibility === 'members_only' ? 'color: yellow;' : '' }}">{{ $video->title }}</h5>
+                                 </div>
                                 <div class="card-img-top" style="display: flex; justify-content: center; margin-top: 10px;">
                                     @if ($video->cover_image)
                                         <img src="{{ Storage::url($video->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 90%; height: 200px; object-fit: cover;">
@@ -240,7 +244,7 @@
     </script>
     <!-- Modal for guests -->
     <div class="modal fade" id="guestModal" tabindex="-1" aria-labelledby="guestModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="guestModalLabel">Members Only Section</h5>
@@ -252,6 +256,25 @@
                 <div class="modal-footer">
                     <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forum Login Prompt Modal for Guests -->
+    <div class="modal fade" id="loginPromptModal" tabindex="-1" aria-labelledby="loginPromptModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginPromptModalLabel">Forum Access</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Please log in to access the Forum.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('login') }}" class="btn btn-primary">Log In</a>
+                    <a href="{{ route('registration') }}" class="btn btn-secondary">Register</a>
                 </div>
             </div>
         </div>

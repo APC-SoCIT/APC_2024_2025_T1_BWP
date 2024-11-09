@@ -3,7 +3,7 @@
 @section('content')
 <body>
     <div class="wrapper">
-        <aside id="sidebar" class="js-sidebar">
+    <aside id="sidebar" class="js-sidebar">
             <div class="h-100">
                 <div class="sidebar-logo">
                     <a href="#">Online Bamboo Catalog</a>
@@ -14,10 +14,17 @@
                             <i class="fa-solid fa-list pe-2"></i>
                             Dashboard
                         </a>
-                        <a href="{{ route('forum.index') }}" class="sidebar-link">
-                            <i class="fa fa-forumbee"></i>
-                            Forum
-                        </a>
+                        @auth
+                            <a href="{{ route('forum.index') }}" class="sidebar-link">
+                                <i class="fa fa-forumbee"></i>
+                                Forum
+                            </a>
+                        @else
+                            <a href="#" class="sidebar-link" data-bs-toggle="modal" data-bs-target="#loginPromptModal">
+                                <i class="fa fa-forumbee"></i>
+                                Forum
+                            </a>
+                        @endauth
                     </li>
 
                     <li class="sidebar-item">
@@ -104,6 +111,7 @@
                         </li>
                     @endauth
                 </ul>
+            </div>
         </aside>
 
         <div class="main">
@@ -137,13 +145,13 @@
                             @endauth
                         </li>
                     </ul>
-
                 </div>
             </nav>
+
             <main class="content px-3 py-2">
                 <div class="container-fluid">
                     <div class="mb-3">
-                        <h4>Members-Only Content</h4>
+                        <h4>Members Only</h4>
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-6 d-flex">
@@ -152,77 +160,154 @@
                                     <div class="col-12">
                                         <div class="p-3 m-1">
                                             @auth
-                                                <h4>Exclusive Content for You, {{ ucfirst(auth()->user()->username) }}</h4>
+                                                <h4>Welcome Back, {{ ucfirst(auth()->user()->username) }}</h4>
                                             @else
-                                                <h4>Welcome to the Members-Only Section</h4>
+                                                <h4>Welcome to the Dashboard</h4>
                                             @endauth
-                                            <p class="mb-0">This section contains exclusive content only available to members. Enjoy your access!</p>
+                                            <p class="mb-0">Online Bamboo Catalog Dashboard</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Content Element -->
+
+                    <!-- Table Element -->
                     <div class="card border-0">
                         <div class="card-header">
                             <h5 class="card-title">
-                                Latest Updates
-                                <h6><p class="text-muted">For our valued members only</p></h6>
+                                Basic Table
+                                <h6><p class="text-muted">Latest Bamboo News</p></h6>
                             </h5>
                         </div>
                         <div class="card-body container-fluid">
                             <div class="text-container card-subtitle pic-container">
-                                <img id="members-only-pic" src="https://www.indisutras.com/wp-content/uploads/2020/07/Bamboo.jpg" style="width: 150px; height: 150px; object-fit: cover;">
+                                <img id="dashboard-pic" src="https://m.media-amazon.com/images/I/71G09zCjaUL._AC_UF1000,1000_QL80_.jpg">
                             </div>
                             <div class="text-container card-subtitle p-5 card-description">
-                                <p><h5>Exclusive Content</h5></p>
+                                <h5>Basic Title</h5>
                                 <h6 class="card-subtitle p-3 container-fluid">
-                                    <p>As a member, you have access to exclusive content that enhances your experience with our platform. Stay tuned for updates and new features!</p>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
                                 </h6>
                             </div>
                         </div>
                     </div>
                 </div>
-            </main>
-            <a href="#" class="theme-toggle">
-                <i class="fa-regular fa-moon"></i>
-                <i class="fa-regular fa-sun"></i>
-            </a>
-            <script src="{{ asset('js/dashboard.js') }}"></script>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row text-muted">
-                        <div class="col-6 text-start">
-                            <p class="mb-0">
-                                <a href="#" class="text-muted">
-                                    <strong>Bamboo Online Catalog</strong>
-                                </a>
-                            </p>
+                    <!-- Latest Recommendations for Public Content -->
+                <div class="container mt-5">
+                    <h5 class="mb-4 latest-recommendations-title">Latest Recommendations</h5>
+                    <div class="row g-4 text-center">
+                        <!-- Latest Book -->
+                        <div class="col-md-3 d-flex justify-content-center">
+                            <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                                <div class="placeholder book-placeholder">
+                                    @if($latestBook)
+                                        <img src="{{ Storage::url($latestBook->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                    @else
+                                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                    @endif
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title recommendation-title">{{ $latestBook->title ?? 'No latest book available' }}</h6>
+
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6 text-end">
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Contact</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">About Us</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Terms</a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <a href="#" class="text-muted">Booking</a>
-                                </li>
-                            </ul>
+
+                        <!-- Latest Video -->
+                        <div class="col-md-3 d-flex justify-content-center">
+                            <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                                <div class="placeholder video-placeholder">
+                                    @if($latestVideo)
+                                        <img src="{{ Storage::url($latestVideo->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                    @else
+                                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                                    @endif
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title recommendation-title">{{ $latestVideo->title ?? 'No latest video available' }}</h6>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Latest Research -->
+                        <div class="col-md-3 d-flex justify-content-center">
+                            <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                                <div class="placeholder research-placeholder">
+                            @if($latestResearch)
+                                <img src="{{ Storage::url($latestResearch->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                            @else
+                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                            @endif
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title recommendation-title">{{ $latestResearch->title ?? 'No latest research available' }}</h6>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Latest Article -->
+                        <div class="col-md-3 d-flex justify-content-center">
+                            <div class="card border-0 shadow-sm rounded text-center recommendation-card">
+                                <div class="placeholder article-placeholder">
+                            @if($latestArticle)
+                                <img src="{{ Storage::url($latestArticle->cover_image) }}" class="card-img-top" alt="Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                            @else
+                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Cover Image" style="width: 100%; height: 200px; object-fit: cover;">
+                            @endif
+                            </div>
+                                <div class="card-body">
+                                    <h6 class="card-title recommendation-title">{{ $latestArticle->title ?? 'No latest article available' }}</h6>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </footer>
+
+
+                <a href="#" class="theme-toggle">
+                    <i class="fa-regular fa-moon"></i>
+                    <i class="fa-regular fa-sun"></i>
+                </a>
+                <script src="{{ asset('js/dashboard.js') }}"></script>
+
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row text-muted">
+                            <div class="col-6 text-start">
+                                <p class="mb-0">
+                                    <a href="#" class="text-muted">
+                                        <strong>Bamboo Online Catalog</strong>
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="col-6 text-end">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="#" class="text-muted">Contact</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="text-muted">About Us</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="text-muted">Terms</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#" class="text-muted">Booking</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
         </div>
-    </div>
-<!-- AI Chat Floating Icon -->
-<div id="chat-icon" class="floating-chat-icon">
+    </main>
+            <!-- AI Chat Floating Icon -->
+            <div id="chat-icon" class="floating-chat-icon">
                 <i class="fa-solid fa-comments"></i>
             </div>
 
@@ -247,8 +332,44 @@
         });
 
     </script>
+
+    <!-- Modal for guests -->
+    <div class="modal fade" id="guestModal" tabindex="-1" aria-labelledby="guestModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="guestModalLabel">Members Only Section</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This section is restricted to members only. Please log in or sign up to gain access.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                    <a href="{{ route('registration') }}" class="btn btn-secondary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forum Login Prompt Modal for Guests -->
+    <div class="modal fade" id="loginPromptModal" tabindex="-1" aria-labelledby="loginPromptModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginPromptModalLabel">Forum Access</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Please log in to access the Forum.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('login') }}" class="btn btn-primary">Log In</a>
+                    <a href="{{ route('registration') }}" class="btn btn-secondary">Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 @endsection
-@push('script')
-    <script src="{{ asset('js/dashboard.js') }}"></script>
-@endpush
